@@ -1,0 +1,88 @@
+/* ==========================================================
+   Sublikat · Boton flotante de WhatsApp.
+   ========================================================== */
+
+@media (max-width: 767px)  {
+  html .od-was {
+   right: 16px; bottom: 16px; 
+  }
+
+  html .od-was__btn {
+   padding: 0 var(--space-4); font-size: 14px; 
+  }
+
+}
+/* ---------- widget flotante de WhatsApp ---------- */ html .od-was {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 40;
+
+}
+
+html .od-was__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        min-height: 48px;
+        padding: 0 var(--space-4);
+        background: var(--whatsapp);
+        color: var(--on-whatsapp);
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 15px;
+        line-height: 1.2;
+        text-decoration: none;
+        cursor: pointer;
+        transition: box-shadow 0.15s ease;
+
+}
+
+html .od-was__btn:hover {
+        box-shadow: var(--e-sh-3);
+
+}
+
+html .od-was__btn:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+html .od-was__btn:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+
+}
+
+html .od-was__icon {
+   width: 22px; height: 22px; flex: none; 
+}
+
+@media (max-width:767px)  {
+  html .od-was__label {
+  display:none
+  }
+
+  html .od-was__btn {
+  width:56px;height:56px;padding:0;justify-content:center;border-radius:999px
+  }
+
+  html .od-was__icon {
+  width:28px;height:28px
+  }
+
+}
+html .od-was {
+  bottom:calc(16px + env(safe-area-inset-bottom,0px))
+}
+
+html .od-was.compact .od-was__label {
+  display:none
+}
+
+html .od-was.compact .od-was__btn {
+  padding:0 14px
+}

@@ -1,0 +1,233 @@
+{
+  "version": 1,
+  "categorias": [
+    {
+      "id": "regalos",
+      "nombre": "Regalos personalizados",
+      "productos": [
+        "tazas",
+        "tazas-magicas",
+        "botellas",
+        "mousepads",
+        "bolsas",
+        "relojes",
+        "chapas-mascotas"
+      ]
+    },
+    {
+      "id": "cuadros",
+      "nombre": "Cuadros y fotografías",
+      "productos": [
+        "cuadros-piedra",
+        "cuadros-fotos",
+        "cuadros-aluminio"
+      ]
+    },
+    {
+      "id": "textiles",
+      "nombre": "Estampados textiles",
+      "productos": [
+        "estampado-1-color",
+        "estampado-2-colores",
+        "estampado-3-colores",
+        "estampado-imagenes"
+      ]
+    },
+    {
+      "id": "papeleria",
+      "nombre": "Papelería corporativa",
+      "productos": [
+        "tarjetas-presentacion",
+        "tarjetas-pvc"
+      ]
+    },
+    {
+      "id": "identificacion",
+      "nombre": "Identificación corporativa",
+      "productos": [
+        "lanyards",
+        "credenciales",
+        "credenciales-pvc"
+      ]
+    }
+  ],
+  "productos": [
+    {
+      "id": "tazas",
+      "nombre": "Tazas",
+      "nota": null,
+      "icono": "producto-tazas.svg",
+      "selectValor": "tazas",
+      "selectTexto": "Tazas",
+      "dataProducto": "Tazas"
+    },
+    {
+      "id": "tazas-magicas",
+      "nombre": "Tazas mágicas",
+      "nota": null,
+      "icono": "producto-tazas-magicas.svg",
+      "selectValor": "tazas-magicas",
+      "selectTexto": "Tazas mágicas",
+      "dataProducto": "Tazas mágicas"
+    },
+    {
+      "id": "botellas",
+      "nombre": "Botellas",
+      "nota": null,
+      "icono": "producto-botellas.svg",
+      "selectValor": "botellas",
+      "selectTexto": "Botellas",
+      "dataProducto": "Botellas"
+    },
+    {
+      "id": "mousepads",
+      "nombre": "Mousepads",
+      "nota": null,
+      "icono": "producto-mousepads.svg",
+      "selectValor": "mousepads",
+      "selectTexto": "Mousepads",
+      "dataProducto": "Mousepads"
+    },
+    {
+      "id": "bolsas",
+      "nombre": "Bolsas",
+      "nota": null,
+      "icono": "producto-bolsas.svg",
+      "selectValor": "bolsas",
+      "selectTexto": "Bolsas",
+      "dataProducto": "Bolsas"
+    },
+    {
+      "id": "relojes",
+      "nombre": "Relojes",
+      "nota": null,
+      "icono": "producto-relojes.svg",
+      "selectValor": "relojes",
+      "selectTexto": "Relojes",
+      "dataProducto": "Relojes"
+    },
+    {
+      "id": "chapas-mascotas",
+      "nombre": "Chapas para mascotas",
+      "nota": null,
+      "icono": "producto-chapas-mascotas.svg",
+      "selectValor": "chapas-mascotas",
+      "selectTexto": "Chapas para mascotas",
+      "dataProducto": "Chapas para mascotas"
+    },
+    {
+      "id": "cuadros-piedra",
+      "nombre": "Cuadros de piedra",
+      "nota": null,
+      "icono": "producto-cuadros-piedra.svg",
+      "selectValor": "cuadros-piedra",
+      "selectTexto": "Cuadros de piedra",
+      "dataProducto": "Cuadros de piedra"
+    },
+    {
+      "id": "cuadros-fotos",
+      "nombre": "Cuadros de fotos",
+      "nota": "Formatos desde A6 hasta A3",
+      "icono": "producto-cuadros-fotos.svg",
+      "selectValor": "cuadros-fotos",
+      "selectTexto": "Cuadros de fotos (desde A6 hasta A3)",
+      "dataProducto": "Cuadros de fotos"
+    },
+    {
+      "id": "cuadros-aluminio",
+      "nombre": "Cuadros de fotos en aluminio",
+      "nota": "Formato A4",
+      "icono": "producto-cuadros-aluminio.svg",
+      "selectValor": "cuadros-aluminio",
+      "selectTexto": "Cuadros de fotos en aluminio (A4)",
+      "dataProducto": "Cuadros de fotos en aluminio"
+    },
+    {
+      "id": "estampado-1-color",
+      "nombre": "Estampado en telas de 1 color",
+      "nota": null,
+      "icono": "producto-estampado-1-color.svg",
+      "selectValor": "textil-1-color",
+      "selectTexto": "Estampado en telas de 1 color",
+      "dataProducto": "Estampado en telas de 1 color"
+    },
+    {
+      "id": "estampado-2-colores",
+      "nombre": "Estampado en telas de 2 colores",
+      "nota": null,
+      "icono": "producto-estampado-2-colores.svg",
+      "selectValor": "textil-2-colores",
+      "selectTexto": "Estampado en telas de 2 colores",
+      "dataProducto": "Estampado en telas de 2 colores"
+    },
+    {
+      "id": "estampado-3-colores",
+      "nombre": "Estampado en telas de 3 colores",
+      "nota": null,
+      "icono": "producto-estampado-3-colores.svg",
+      "selectValor": "textil-3-colores",
+      "selectTexto": "Estampado en telas de 3 colores",
+      "dataProducto": "Estampado en telas de 3 colores"
+    },
+    {
+      "id": "estampado-imagenes",
+      "nombre": "Estampado en tela con imágenes",
+      "nota": "Formatos de hasta A3",
+      "icono": "producto-estampado-imagenes.svg",
+      "selectValor": "textil-imagenes",
+      "selectTexto": "Estampado en tela con imágenes (hasta A3)",
+      "dataProducto": "Estampado en tela con imágenes"
+    },
+    {
+      "id": "tarjetas-presentacion",
+      "nombre": "Tarjetas de presentación",
+      "nota": null,
+      "icono": "producto-tarjetas-presentacion.svg",
+      "selectValor": "tarjetas-presentacion",
+      "selectTexto": "Tarjetas de presentación",
+      "dataProducto": "Tarjetas de presentación"
+    },
+    {
+      "id": "tarjetas-pvc",
+      "nombre": "Tarjetas de presentación PVC",
+      "nota": null,
+      "icono": "producto-tarjetas-pvc.svg",
+      "selectValor": "tarjetas-presentacion-pvc",
+      "selectTexto": "Tarjetas de presentación PVC",
+      "dataProducto": "Tarjetas de presentación PVC"
+    },
+    {
+      "id": "lanyards",
+      "nombre": "Lanyards",
+      "nota": null,
+      "icono": "producto-lanyards.svg",
+      "selectValor": "lanyards",
+      "selectTexto": "Lanyards",
+      "dataProducto": "Lanyards"
+    },
+    {
+      "id": "credenciales",
+      "nombre": "Credenciales",
+      "nota": null,
+      "icono": "producto-credenciales.svg",
+      "selectValor": "credenciales",
+      "selectTexto": "Credenciales",
+      "dataProducto": "Credenciales"
+    },
+    {
+      "id": "credenciales-pvc",
+      "nombre": "Credenciales PVC",
+      "nota": null,
+      "icono": "producto-credenciales-pvc.svg",
+      "selectValor": "credenciales-pvc",
+      "selectTexto": "Credenciales PVC",
+      "dataProducto": "Credenciales PVC"
+    }
+  ],
+  "opciones_extra": [
+    {
+      "valor": "otro",
+      "texto": "Otro soporte personalizado"
+    }
+  ]
+}

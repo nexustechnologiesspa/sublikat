@@ -1,0 +1,493 @@
+/* ==========================================================
+   Sublikat · Componentes compartidos: botones, tarjetas sticker, badges, campos y utilidades de color.
+   ========================================================== */
+
+/* ---------- bordes: 1 px con var(--line) ---------- */
+.sticker-border,
+.ink-border,
+.ink-border-sm,
+.ink-border-thick {
+        border: 1px solid var(--line);
+
+}
+
+.sticker-border {
+        border-radius: var(--radius);
+
+}
+
+.rounded-sticker {
+        border-radius: var(--radius);
+
+}
+
+/* ---------- sombras: tres niveles suaves ---------- */
+.sticker-shadow-sm,
+.shadow-offset-sm {
+        box-shadow: var(--e-sh-1);
+
+}
+
+.sticker-shadow-md,
+.shadow-offset {
+        box-shadow: var(--e-sh-2);
+
+}
+
+.sticker-shadow-lg,
+.shadow-offset-lg {
+        box-shadow: var(--e-sh-3);
+
+}
+
+/* ---------- etiquetas y píldoras: sin sombra ---------- */
+.sticker-tag {
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+
+}
+
+.badge-pill {
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+
+}
+
+/* ---------- estado activo: sombra nivel 1, sin desplazamiento ---------- */
+.btn-press:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+.btn-press {
+        transition: box-shadow 0.15s ease;
+
+}
+
+/* Reset & variables */ *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+
+}
+
+/* Etiquetas pequeñas: micro-rótulo, sin sombra */
+.sticker-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--awning);
+        color: var(--awning-ink);
+        font-weight: 800;
+        font-size: 13px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+
+}
+
+.demo-tag {
+        display: inline-block;
+        background: var(--soft-2);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        vertical-align: middle;
+
+}
+
+/* Headings */ h2.section-title {
+        font-family: var(--font-display);
+        font-size: 42px;
+        color: var(--ink);
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        margin-top: 8px;
+        margin-bottom: 8px;
+
+}
+
+p.section-subtitle {
+        font-size: 17px;
+        color: var(--ink);
+        margin-bottom: 32px;
+
+}
+
+/* Form Fields */ .form-group {
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: column;
+
+}
+
+.field-label {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+}
+
+.required-mark {
+        color: var(--accent);
+        font-size: 16px;
+
+}
+
+.field-input, .field-select, .field-textarea {
+        width: 100%;
+        min-height: 48px;
+        background: var(--field-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 10px 14px;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--ink);
+        transition: border-color 0.15s, box-shadow 0.15s;
+
+}
+
+.field-textarea {
+        min-height: 110px;
+        resize: vertical;
+
+}
+
+/* Error field state: cambia el borde, nunca la sombra */
+.field-input.has-error {
+        border: 1px solid var(--error-border);
+        background-color: var(--field-bg-error);
+
+}
+
+.field-input.has-error:focus-visible {
+        outline: 3px solid var(--error-border);
+
+}
+
+.field-error-msg {
+        color: var(--error-text);
+        font-size: 13px;
+        font-weight: 800;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+}
+
+.field-help-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 5px;
+
+}
+
+.checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        margin: 18px 0 24px 0;
+
+}
+
+.custom-checkbox {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        margin-top: 2px;
+        accent-color: var(--accent);
+        cursor: pointer;
+
+}
+
+.checkbox-label {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        cursor: pointer;
+
+}
+
+/* Submit Button (48px height minimum) */ .btn-submit {
+        width: 100%;
+        height: 48px;
+        min-height: 48px;
+        background: var(--accent-fill);
+        color: var(--on-accent);
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        font-family: var(--font-body);
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        letter-spacing: 0.04em;
+        transition: background 0.15s, box-shadow 0.15s;
+
+}
+
+.btn-submit:hover {
+        background: var(--accent-hover);
+
+}
+
+.btn-submit:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+/* WhatsApp Button */ .btn-whatsapp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        background: var(--whatsapp);
+        color: var(--on-whatsapp);
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 16px;
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 0 20px;
+        margin-bottom: 24px;
+        transition: background 0.15s, box-shadow 0.15s;
+
+}
+
+.btn-whatsapp:hover {
+        background: var(--whatsapp-hover);
+
+}
+
+.btn-whatsapp:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+/* ---------- utilidades de color del sistema ---------- */ html .bg-surface {
+   background-color: var(--surface); 
+}
+
+html .bg-soft {
+   background-color: var(--soft); 
+}
+
+html .bg-inkfill {
+   background-color: var(--ink-fill); color: var(--on-inkfill); 
+}
+
+html .bg-accent {
+   background-color: var(--accent-fill); color: var(--on-accent); 
+}
+
+html .bg-awning {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+html .bg-success {
+   background-color: var(--success); color: var(--on-success); 
+}
+
+html .bg-whatsapp {
+   background-color: var(--whatsapp); color: var(--on-whatsapp); 
+}
+
+html .bg-whatsappsoft {
+   background-color: var(--whatsapp-soft); 
+}
+
+html .tx-ink {
+   color: var(--ink); 
+}
+
+html .tx-muted {
+   color: var(--muted); 
+}
+
+html .tx-onfill {
+   color: var(--on-inkfill); 
+}
+
+html .tx-accent {
+   color: var(--accent-ink); 
+}
+
+html .tx-success {
+   color: var(--success-text); 
+}
+
+html .tx-awningink {
+   color: var(--awning-ink); 
+}
+
+html .bd-ink {
+   border-color: var(--line); 
+}
+
+html .hover-bg-soft:hover {
+   background-color: var(--soft); 
+}
+
+html .hover-bg-soft2:hover {
+   background-color: var(--soft-2); 
+}
+
+html .hover-bg-inkfillhov:hover {
+   background-color: var(--ink-fill-hover); 
+}
+
+html .hover-tx-accent:hover {
+   color: var(--accent-ink); 
+}
+
+html .sel-awning::selection {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+html .sel-ink::selection {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+/* texto heredado de una superficie con color propio */ html .bg-awning .tx-ink, html .bg-awning .tx-muted, html .bg-awning .tx-accent, html .bg-awning .tx-success {
+   color: var(--awning-ink); 
+}
+
+html .bg-success .tx-onfill, html .bg-success .tx-ink {
+   color: var(--on-success); 
+}
+
+html .bg-accent .tx-onfill, html .bg-accent .tx-ink {
+   color: var(--on-accent); 
+}
+
+html .bg-inkfill .tx-onfill, html .bg-inkfill .tx-ink {
+   color: var(--on-inkfill); 
+}
+
+html .bg-whatsapp .tx-ink, html .bg-whatsapp .tx-onfill {
+   color: var(--on-whatsapp); 
+}
+
+/* ---------- modo oscuro ---------- */
+/* Los bordes, las sombras y los rellenos ya salen de los tokens: cada tema
+   declara su propio valor. Aquí no hay que repetir ninguna regla. */
+
+@media (max-width: 767px)  {
+  html h2.section-title {
+   font-size: 30px; 
+  }
+
+}
+@media (prefers-reduced-motion: reduce)  {
+  *, *::before, *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+
+  }
+
+}
+/* La cabecera fija (--hh) y la banda de la portada (--od-portada-banda)
+   se quedan pegadas arriba: los anclajes tienen que salir por debajo de
+   las dos. */
+html section[id] {
+  scroll-margin-top:calc(var(--hh,72px) + var(--od-portada-banda, 16px) + 12px)
+}
+
+html nav a[aria-current="true"] {
+  color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px
+}
+
+/* catálogo: pestañas fijas bajo la cabecera y la banda de la portada, y
+   cambio animado */
+html [role="tablist"] {
+  position:sticky;top:calc(var(--hh,72px) + var(--od-portada-banda, 16px) + 8px);z-index:30;scroll-snap-type:x proximity;scrollbar-width:none
+}
+
+html [role="tablist"]::-webkit-scrollbar {
+  display:none
+}
+
+.dots {
+  display:none
+}
+
+@media (max-width:767px)  {
+  html .swipe {
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-inline:-16px;padding:22px 16px 10px;scrollbar-width:none;overscroll-behavior-x:contain
+  }
+
+  html .swipe::-webkit-scrollbar {
+  display:none
+  }
+
+  html .swipe>* {
+  flex:0 0 82%;scroll-snap-align:center;min-width:0
+  }
+
+  .dots {
+  display:flex;justify-content:center;gap: var(--space-2);margin-top:4px
+  }
+
+  .dots span {
+  width:10px;height:10px;border: 1px solid var(--line);border-radius:99px;background:transparent;transition:width .2s,background-color .2s
+  }
+
+  .dots span.on {
+  width:26px;background:var(--accent-fill)
+  }
+
+  /* catálogo en 2 columnas, fichas compactas */ html [data-od-id^="producto-"] {
+  padding:12px
+  }
+
+  html [data-od-id^="producto-"] svg {
+  width:3.5rem;height:3.5rem
+  }
+
+  html [data-od-id^="producto-"] h4 {
+  font-size:18px;margin-top:10px
+  }
+
+  html [data-od-id^="producto-"] a {
+  min-height:44px;margin-top:10px
+  }
+
+  html [data-od-id^="producto-"] p {
+  font-size:12.5px
+  }
+
+}
+@media (max-width:479px)  {
+  html main a[role="button"] {
+  width:100%
+  }
+
+}
+@media (prefers-reduced-motion:reduce)  {
+  html [role="tabpanel"] {
+  animation:none!important
+  }
+
+}

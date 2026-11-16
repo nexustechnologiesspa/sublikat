@@ -1,0 +1,22 @@
+<!-- PORTADA FOTOGRÁFICA · la foto del taller abre la página a sangre, por
+     detrás del menú, que flota encima. En navegadores con líneas de tiempo
+     de scroll, el marco se encoge hasta una banda fina justo debajo del
+     menú (efecto «cover to fixed header»); el alto que deja de ocupar lo
+     reserva `body`. Sin soporte, o con movimiento reducido, se queda quieta
+     ocupando una pantalla y se va con la página. Es decorativa: el nombre
+     y el lema ya están en la cabecera y en la cinta del héroe, así que no
+     se repiten para el lector de pantalla.
+
+     AVISO · la estructura es plana a propósito: NO añadir un envoltorio
+     `.od-portada__marco`. El efecto anima el `block-size` de `.od-portada`
+     y el recorte ya lo hace su `overflow: hidden`. El bloque CSS del efecto
+     vive en la zona OD:MOTION de `index.html` (con prefijo `html ` por
+     especificidad), no en `build/motion.css`. -->
+<div class="od-portada" aria-hidden="true">
+  <div class="od-portada__foto"></div>
+  <div class="od-portada__velo"></div>
+  <div class="od-portada__marca">
+    <span class="od-portada__nombre">Sublikat</span>
+    <span class="od-portada__lema">Taller de estampados &middot; Sublimaci&oacute;n textil y cer&aacute;mica</span>
+  </div>
+</div>

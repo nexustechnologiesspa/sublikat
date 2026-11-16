@@ -1,0 +1,203 @@
+/* ==========================================================
+   Sublikat · Contacto: formulario, ficha del taller y confirmacion.
+   ========================================================== */
+
+/* ========================================= 2. SECCIÓN CONTACTO Y FORMULARIO ========================================= */ .contact-section {
+        margin-bottom: var(--espacio-seccion);
+
+}
+
+.contact-layout {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 28px;
+        align-items: start;
+
+}
+
+.form-container-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 36px 38px;
+
+}
+
+/* Error Summary (Accessible Alert) */ .error-summary {
+        background: var(--error-bg);
+        border: 1px solid var(--error-border);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+        margin-bottom: 28px;
+        }
+
+.error-summary-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--error-text);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: 8px;
+
+}
+
+.error-summary-list {
+        list-style-type: disc;
+        padding-left: 24px;
+        color: var(--error-text);
+        font-size: 14px;
+        font-weight: 700;
+
+}
+
+.error-summary-list a {
+        color: var(--error-text);
+        text-decoration: underline;
+        font-weight: 800;
+
+}
+
+.error-summary-list a:hover {
+        text-decoration: none;
+
+}
+
+/* Contact Info & WhatsApp Card */ .contact-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+}
+
+.contact-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 30px 26px;
+
+}
+
+.contact-card h3 {
+        font-family: var(--font-display);
+        font-size: 26px;
+        color: var(--ink);
+        margin-bottom: 12px;
+        line-height: 1.2;
+
+}
+
+.contact-desc {
+        font-size: 15px;
+        color: var(--ink);
+        margin-bottom: 22px;
+
+}
+
+.workshop-details {
+        border-top: 1px dashed var(--divider-workshop);
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+}
+
+.detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        font-size: 14px;
+
+}
+
+.detail-icon {
+        font-size: 18px;
+        line-height: 1.2;
+
+}
+
+.detail-title {
+        font-weight: 800;
+        color: var(--ink);
+        display: block;
+
+}
+
+.detail-text {
+        color: var(--muted);
+        font-size: 13.5px;
+
+}
+
+.assurance-badge {
+        background: var(--assurance-bg);
+        border: 1px solid var(--success);
+        border-radius: var(--radius-md);
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        }
+
+.assurance-icon {
+        font-size: 24px;
+
+}
+
+.assurance-text {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--assurance-ink);
+
+}
+
+/* ---------- confirmacion del formulario ---------- */ html .exito-panel {
+        background: var(--success);
+        color: var(--on-success);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: var(--space-5);
+        box-shadow: var(--e-sh-2);
+
+}
+
+html .exito-panel h3 {
+   font-family: var(--font-display); font-size: 26px; line-height: 1.2; margin-bottom: 8px; 
+}
+
+html .exito-panel p {
+   font-size: 15px; line-height: 1.55; 
+}
+
+html .exito-panel .btn-sec {
+        margin-top: 16px;
+        min-height: 44px;
+        padding: 0 20px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--ink);
+        background: transparent;
+        color: var(--on-success);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 15px;
+        cursor: pointer;
+
+}
+
+html .exito-panel .btn-sec:focus-visible {
+   outline: 3px solid var(--focus); outline-offset: 3px; 
+}
+
+@media (max-width: 767px)  {
+  html .contact-layout {
+   grid-template-columns: 1fr; 
+  }
+
+  html .form-container-card {
+   padding: 24px 20px; 
+  }
+
+}

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sublikat - Taller de Estampados Artesanales</title>
+  <!-- Google Fonts: Chewy & Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bgcraft: '#f4e6c8',
+            ink: '#3b2417',
+            cardbg: '#fffaf1',
+            accent: '#d4573f',
+            awning: '#f7c948',
+            whatsapp: '#25d366'
+          },
+          fontFamily: {
+            chewy: ['Chewy', 'cursive', 'sans-serif'],
+            nunito: ['Nunito', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #f4e6c8;
+      color: #3b2417;
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    /* Estilo Sticker & Bordes de Tinta */
+    .ink-border-2 {
+      border: 2px solid #3b2417;
+    }
+    .ink-border-3 {
+      border: 3px solid #3b2417;
+    }
+    .sticker-shadow-sm {
+      box-shadow: 2px 2px 0px #3b2417;
+    }
+    .sticker-shadow {
+      box-shadow: 3px 3px 0px #3b2417;
+    }
+    .sticker-shadow-lg {
+      box-shadow: 4px 4px 0px #3b2417;
+    }
+    /* Comportamiento táctil accesible con microinteracción */
+    .btn-craft {
+      transition: transform 80ms ease, box-shadow 80ms ease;
+    }
+    .btn-craft:active {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0px #3b2417 !important;
+    }
+  </style>
+</head>
+<body class="bg-[#f4e6c8] text-[#3b2417] flex justify-center min-h-screen">
+
+  <!-- Contenedor móvil a 390px estricto, una sola columna sin desbordes -->
+  <div class="w-full max-w-[390px] min-h-screen bg-[#f4e6c8] flex flex-col px-4 pt-3 pb-8 space-y-4">
+
+    <!-- 1. CABECERA -->
+    <header class="w-full bg-[#fffaf1] ink-border-2 rounded-[14px] p-2.5 sticker-shadow flex items-center justify-between">
+      <!-- Logotipo con icono de gato SVG propio y texto Sublikat -->
+      <div class="flex items-center gap-2">
+        <div class="w-10 h-10 rounded-[10px] bg-[#f7c948] ink-border-2 flex items-center justify-center sticker-shadow-sm flex-shrink-0">
+          <!-- Gato Sublikat SVG Propio -->
+          <svg class="w-6 h-6 text-[#3b2417]" viewBox="0 0 24 24" fill="currentColor">
+            <!-- Orejas -->
+            <polygon points="4,9 2,2 9,5" stroke="#3b2417" stroke-width="1.8" stroke-linejoin="round" fill="#f7c948" />
+            <polygon points="20,9 22,2 15,5" stroke="#3b2417" stroke-width="1.8" stroke-linejoin="round" fill="#f7c948" />
+            <!-- Cabeza -->
+            <path d="M12 4.5c-4.6 0-8.2 3.1-8.2 7 0 2.2 1.2 4.2 3.2 5.5l-.6 2.6 3.2-1.4c.8.2 1.6.3 2.4.3 4.6 0 8.2-3.1 8.2-7s-3.6-7-8.2-7z" stroke="#3b2417" stroke-width="1.8" />
+            <!-- Ojos -->
+            <ellipse cx="8.5" cy="11.5" rx="1.2" ry="1.6" fill="#3b2417" />
+            <ellipse cx="15.5" cy="11.5" rx="1.2" ry="1.6" fill="#3b2417" />
+            <!-- Hocico y bigotes -->
+            <polygon points="12,13.5 10.8,12.2 13.2,12.2" fill="#d4573f" />
+            <path d="M10.8 14.5c.6.6 1.2.6 2.4 0" stroke="#3b2417" stroke-width="1.2" stroke-linecap="round" fill="none" />
+            <line x1="5.5" y1="12.5" x2="2.5" y2="12" stroke="#3b2417" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="5.5" y1="14" x2="3" y2="15" stroke="#3b2417" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="18.5" y1="12.5" x2="21.5" y2="12" stroke="#3b2417" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="18.5" y1="14" x2="21" y2="15" stroke="#3b2417" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-chewy text-[26px] leading-none text-[#3b2417] tracking-tight">Sublikat</span>
+          <span class="text-[9px] font-extrabold uppercase tracking-widest text-[#d4573f] -mt-0.5">Taller Artesano</span>
+        </div>
+      </div>
+
+      <!-- Botón de WhatsApp (Mínimo 44px de alto para accesibilidad táctil) -->
+      <a href="https://wa.me/?text=Hola%20Sublikat,%20quisiera%20pedir%20información%20sobre%20estampados" target="_blank" rel="noopener noreferrer" class="btn-craft h-[44px] px-3 bg-[#25d366] text-[#ffffff] ink-border-2 rounded-[14px] sticker-shadow-sm flex items-center gap-1.5 font-nunito font-extrabold text-xs">
+        <svg class="w-4 h-4 fill-white flex-shrink-0" viewBox="0 0 24 24">
+          <path d="M12.031 2C6.511 2 2.015 6.486 2.015 12c0 1.83.497 3.548 1.365 5.029L2 22l5.129-1.341C8.56 21.492 10.245 22 12.031 22c5.52 0 10.016-4.486 10.016-10S17.551 2 12.031 2zm0 18.24c-1.554 0-3.037-.417-4.329-1.144l-.31-.176-3.045.796.812-2.964-.194-.316a8.21 8.21 0 0 1-1.258-4.436c0-4.551 3.707-8.252 8.324-8.252 4.616 0 8.323 3.701 8.323 8.252 0 4.552-3.707 8.24-8.323 8.24zm4.556-6.173c-.249-.125-1.477-.729-1.706-.812-.228-.083-.395-.125-.561.125-.167.249-.644.812-.789.978-.146.166-.291.187-.54.062-.249-.125-1.052-.388-2.004-1.237-.741-.661-1.242-1.477-1.387-1.727-.146-.249-.015-.384.109-.508.112-.112.249-.291.374-.437.125-.145.166-.249.249-.415.083-.166.042-.311-.02-.435-.062-.124-.561-1.352-.769-1.851-.202-.486-.407-.42-.561-.428l-.478-.008c-.166 0-.437.062-.666.31-.228.249-.873.853-.873 2.079 0 1.227.894 2.413 1.018 2.579.125.166 1.758 2.684 4.259 3.764.595.257 1.06.41 1.423.526.598.19 1.142.163 1.572.099.479-.071 1.477-.603 1.685-1.186.208-.582.208-1.081.146-1.186-.062-.104-.229-.166-.478-.291z"/>
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+    </header>
+
+    <!-- 2. CINTA DECORATIVA / TOLDO #f7c948 -->
+    <div class="w-full bg-[#f7c948] ink-border-2 rounded-[14px] p-2.5 sticker-shadow-sm flex items-center justify-between gap-2">
+      <div class="flex items-center gap-1.5 min-w-0">
+        <span class="text-base flex-shrink-0">☀️</span>
+        <p class="font-nunito font-extrabold text-[11px] leading-tight text-[#3b2417] truncate">
+          Sublimación a 200°C • Sin tacto plástico
+        </p>
+      </div>
+      <span class="flex-shrink-0 bg-[#fffaf1] text-[#3b2417] text-[10px] font-black px-2 py-0.5 rounded-full ink-border-2 shadow-[1px_1px_0px_#3b2417]">
+        Exprés 24h
+      </span>
+    </div>
+
+    <!-- 3. HERO / SECCIÓN PRINCIPAL -->
+    <main class="w-full space-y-4">
+      <section class="bg-[#fffaf1] ink-border-3 rounded-[14px] p-4 sticker-shadow space-y-3" data-od-id="hero-movil">
+
+        <!-- Badge sticker decorativa -->
+        <div class="inline-flex items-center gap-1.5 bg-[#f4e6c8] text-[#3b2417] px-2.5 py-1 rounded-full ink-border-2 text-[10px] font-black uppercase tracking-wider sticker-shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-[#d4573f]"></span>
+          <span>Taller local & artesanía</span>
+        </div>
+
+        <!-- Único H1 en Chewy 32px -->
+        <h1 class="font-chewy text-[32px] leading-[1.1] text-[#3b2417] tracking-tight m-0">
+          Tu camiseta, estampada como ninguna otra
+        </h1>
+
+        <!-- Párrafo en Nunito 600 16px -->
+        <p class="font-nunito font-semibold text-[16px] leading-[24px] text-[#3b2417]">
+          Transferimos tus diseños favoritos a tintas vivas que se funden con la fibra para no agrietarse jamás. Hecho a mano en nuestro taller local, prenda a prenda, con el mimo que tu felino le pondría a una caja vacía.
+        </p>
+
+        <!-- Botón principal a ancho completo: #d4573f, texto #fffaf1, alto 48px -->
+        <a href="#catalogo" class="btn-craft w-full h-[48px] bg-[#d4573f] text-[#fffaf1] rounded-[14px] ink-border-2 sticker-shadow flex items-center justify-center font-nunito font-extrabold text-base tracking-wide">
+          Ver productos
+        </a>
+
+        <!-- Botón secundario con borde de tinta: alto 48px -->
+        <a href="#proceso" class="btn-craft w-full h-[48px] bg-[#fffaf1] text-[#3b2417] rounded-[14px] ink-border-2 sticker-shadow flex items-center justify-center font-nunito font-extrabold text-sm tracking-wide">
+          Cómo trabajamos
+        </a>
+
+        <!-- Foto de producto cuadrada con marco sticker de taller -->
+        <div class="pt-1">
+          <div class="relative w-full aspect-square rounded-[14px] ink-border-2 bg-[#f4e6c8] overflow-hidden sticker-shadow-sm">
+            <img src="../assets/stock/camiseta-cats.jpg" alt="Camiseta blanca con ilustración de gato estampada por sublimación artesanal" class="w-full h-full object-cover block" width="512" height="512" />
+            <!-- Pegatina de sello de taller -->
+            <div class="absolute top-2 right-2 bg-[#f7c948] text-[#3b2417] text-[10px] font-black px-2.5 py-1 rounded-[8px] ink-border-2 sticker-shadow-sm uppercase tracking-wider">
+              ¡100% fibra viva!
+            </div>
+            <!-- Etiqueta de dato de muestra -->
+            <div class="absolute bottom-2 left-2 bg-[#fffaf1] text-[#3b2417] text-[9px] font-extrabold px-2 py-0.5 rounded-[6px] ink-border-2">
+              [Dato de muestra]
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- 4. CUATRO VENTAJAS CON ICONOS SVG (Cuadrícula 2 columnas) -->
+      <section class="space-y-2" id="proceso" data-od-id="beneficios-movil">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="font-chewy text-[22px] text-[#3b2417] tracking-tight">El toque Sublikat</h2>
+          <span class="text-xs font-bold text-[#d4573f]">★ Compromiso</span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5">
+          <!-- Ventaja 1 -->
+          <div class="bg-[#fffaf1] ink-border-2 rounded-[14px] p-3 sticker-shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-8 h-8 rounded-[8px] bg-[#f7c948] ink-border-2 flex items-center justify-center text-[#3b2417] mb-2 sticker-shadow-sm">
+                <!-- SVG Prensa térmica -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 14h16v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3z" fill="#f4e6c8"/>
+                  <path d="M6 10h12V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v4z"/>
+                  <line x1="12" y1="4" x2="12" y2="2"/>
+                  <circle cx="12" cy="14" r="1.5" fill="#3b2417"/>
+                </svg>
+              </div>
+              <h3 class="font-nunito font-extrabold text-[13px] leading-tight text-[#3b2417] mb-0.5">Sublimación real</h3>
+              <p class="font-nunito font-semibold text-[11px] leading-snug text-[#3b2417]/85">
+                Termofijado a 200°C: cero plásticos gomosos.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ventaja 2 -->
+          <div class="bg-[#fffaf1] ink-border-2 rounded-[14px] p-3 sticker-shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-8 h-8 rounded-[8px] bg-[#ffeae0] ink-border-2 flex items-center justify-center text-[#d4573f] mb-2 sticker-shadow-sm">
+                <!-- SVG Reloj / Rapidez -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9"/>
+                  <polyline points="12 7 12 12 15 14"/>
+                </svg>
+              </div>
+              <h3 class="font-nunito font-extrabold text-[13px] leading-tight text-[#3b2417] mb-0.5">Listo en 24 h</h3>
+              <p class="font-nunito font-semibold text-[11px] leading-snug text-[#3b2417]/85">
+                Tiradas cortas y pedidos en stock sin esperas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ventaja 3 -->
+          <div class="bg-[#fffaf1] ink-border-2 rounded-[14px] p-3 sticker-shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-8 h-8 rounded-[8px] bg-[#f4e6c8] ink-border-2 flex items-center justify-center text-[#3b2417] mb-2 sticker-shadow-sm">
+                <!-- SVG Furgoneta de envío seguro -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="6" width="13" height="11" rx="1"/>
+                  <polygon points="15 9 19 9 22 13 22 17 15 17 15 9"/>
+                  <circle cx="6.5" cy="17.5" r="2.5" fill="#f7c948"/>
+                  <circle cx="18.5" cy="17.5" r="2.5" fill="#f7c948"/>
+                </svg>
+              </div>
+              <h3 class="font-nunito font-extrabold text-[13px] leading-tight text-[#3b2417] mb-0.5">Envío seguro</h3>
+              <p class="font-nunito font-semibold text-[11px] leading-snug text-[#3b2417]/85">
+                Empaque reforzado a prueba de transportistas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Ventaja 4 -->
+          <div class="bg-[#fffaf1] ink-border-2 rounded-[14px] p-3 sticker-shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="w-8 h-8 rounded-[8px] bg-[#d5f0d3] ink-border-2 flex items-center justify-center text-[#216127] mb-2 sticker-shadow-sm">
+                <!-- SVG Escudo de garantía -->
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  <polyline points="9 12 11 14 15 10"/>
+                </svg>
+              </div>
+              <h3 class="font-nunito font-extrabold text-[13px] leading-tight text-[#3b2417] mb-0.5">50 lavados</h3>
+              <p class="font-nunito font-semibold text-[11px] leading-snug text-[#3b2417]/85">
+                Si pierde viveza, te reimprimimos la prenda.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. CATÁLOGO: DOS TARJETAS DE PRODUCTO CON FOTO CUADRADA, ETIQUETA, NOMBRE, PRECIO CON IVA Y BOTÓN -->
+      <section class="space-y-3 pt-1" id="catalogo" data-od-id="catalogo-movil">
+        <div class="flex items-center justify-between px-1">
+          <div>
+            <span class="bg-[#f7c948] text-[#3b2417] text-[10px] font-black px-2 py-0.5 rounded-full ink-border-2 shadow-[1px_1px_0px_#3b2417] uppercase tracking-wider inline-block">
+              PIEZAS EN STOCK
+            </span>
+            <h2 class="font-chewy text-[24px] text-[#3b2417] tracking-tight mt-0.5">Listas para despacho</h2>
+          </div>
+          <span class="text-xl">☕</span>
+        </div>
+
+        <!-- TARJETA DE PRODUCTO 1: Taza Ronroneo -->
+        <article class="bg-[#fffaf1] ink-border-3 rounded-[14px] p-3.5 sticker-shadow space-y-3">
+          <!-- Foto cuadrada con etiqueta superpuesta -->
+          <div class="relative w-full aspect-square rounded-[10px] ink-border-2 bg-[#f4e6c8] overflow-hidden">
+            <img src="../assets/stock/taza-ronroneo.jpg" alt="Taza de cerámica blanca sublimada con gatito Meow and Craft" class="w-full h-full object-cover block" width="512" height="512" />
+            <!-- Etiqueta de producto -->
+            <div class="absolute top-2 left-2 flex gap-1 items-center">
+              <span class="bg-[#25d366] text-white font-nunito font-extrabold text-[10px] px-2 py-1 rounded-[8px] ink-border-2 sticker-shadow-sm flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-white"></span>
+                Despacho hoy
+              </span>
+              <span class="bg-[#fffaf1] text-[#3b2417] font-bold text-[9px] px-1.5 py-0.5 rounded border border-[#3b2417]">
+                [Dato de muestra]
+              </span>
+            </div>
+            <div class="absolute bottom-2 right-2 bg-[#fffaf1] text-[#3b2417] text-[10px] font-black px-2 py-0.5 rounded-full ink-border-2 shadow-[1px_1px_0px_#3b2417]">
+              15 uds. en taller
+            </div>
+          </div>
+
+          <!-- Nombre y precio con IVA -->
+          <div class="space-y-1">
+            <div class="flex justify-between items-baseline">
+              <h3 class="font-chewy text-[22px] text-[#3b2417] tracking-tight">Taza Ronroneo</h3>
+              <div class="text-right">
+                <span class="font-nunito font-black text-[20px] text-[#d4573f] leading-none block">11,50 €</span>
+                <span class="font-nunito font-bold text-[10px] text-[#3b2417]/70">IVA incluido</span>
+              </div>
+            </div>
+            <p class="font-nunito font-semibold text-[12px] leading-snug text-[#3b2417]/85">
+              Cerámica de triple barniz • 325 ml • Resistente al lavavajillas y microondas.
+            </p>
+            <p class="font-nunito font-semibold text-[10px] leading-tight text-[#3b2417]/80">
+              Texto de ejemplo pendiente de validar con abogado. Producto listo: derecho a retracto de 10 días.
+            </p>
+          </div>
+
+          <!-- Botón de compra / acción (Mínimo 44px de alto) -->
+          <button class="btn-craft w-full h-[48px] bg-[#d4573f] text-[#fffaf1] rounded-[14px] ink-border-2 sticker-shadow flex items-center justify-center gap-2 font-nunito font-extrabold text-sm tracking-wide">
+            <span>🛒</span>
+            <span>Comprar taza</span>
+          </button>
+        </article>
+
+        <!-- TARJETA DE PRODUCTO 2: Sudadera Miaou -->
+        <article class="bg-[#fffaf1] ink-border-3 rounded-[14px] p-3.5 sticker-shadow space-y-3">
+          <!-- Foto cuadrada con etiqueta superpuesta -->
+          <div class="relative w-full aspect-square rounded-[10px] ink-border-2 bg-[#f4e6c8] overflow-hidden">
+            <img src="../assets/stock/sudadera-miaou.jpg" alt="Sudadera beige doblada con estampado botánico de gato celestial" class="w-full h-full object-cover block" width="512" height="512" />
+            <!-- Etiqueta de producto -->
+            <div class="absolute top-2 left-2 flex gap-1 items-center">
+              <span class="bg-[#f7c948] text-[#3b2417] font-nunito font-extrabold text-[10px] px-2 py-1 rounded-[8px] ink-border-2 sticker-shadow-sm flex items-center gap-1">
+                ★ Personalizado
+              </span>
+              <span class="bg-[#fffaf1] text-[#3b2417] font-bold text-[9px] px-1.5 py-0.5 rounded border border-[#3b2417]">
+                [Dato de muestra]
+              </span>
+            </div>
+            <div class="absolute bottom-2 right-2 bg-[#fffaf1] text-[#3b2417] text-[10px] font-black px-2 py-0.5 rounded-full ink-border-2 shadow-[1px_1px_0px_#3b2417]">
+              Tallas S a XXL
+            </div>
+          </div>
+
+          <!-- Nombre y precio con IVA -->
+          <div class="space-y-1">
+            <div class="flex justify-between items-baseline">
+              <h3 class="font-chewy text-[22px] text-[#3b2417] tracking-tight">Sudadera Miaou</h3>
+              <div class="text-right">
+                <span class="font-nunito font-black text-[20px] text-[#d4573f] leading-none block">36,00 €</span>
+                <span class="font-nunito font-bold text-[10px] text-[#3b2417]/70">IVA incluido</span>
+              </div>
+            </div>
+            <p class="font-nunito font-semibold text-[12px] leading-snug text-[#3b2417]/85">
+              Algodón perchado 280g • Tacto extra cálido con tintas integradas fibra a fibra.
+            </p>
+            <p class="font-nunito font-semibold text-[10px] leading-tight text-[#3b2417]/80">
+              Texto de ejemplo pendiente de validar con abogado. Producto personalizado: sin derecho a retracto.
+            </p>
+          </div>
+
+          <!-- Botón con borde de tinta y fondo toldo #f7c948 (Mínimo 44px de alto) -->
+          <button class="btn-craft w-full h-[48px] bg-[#f7c948] text-[#3b2417] rounded-[14px] ink-border-2 sticker-shadow flex items-center justify-center gap-2 font-nunito font-extrabold text-sm tracking-wide">
+            <span>✏️</span>
+            <span>Pedir con mi diseño</span>
+          </button>
+        </article>
+
+      </section>
+
+      <!-- 6. CONTACTO RÁPIDO / ENCARGOS ESPECIALES -->
+      <section class="bg-[#fffaf1] ink-border-2 rounded-[14px] p-3.5 sticker-shadow space-y-2.5" data-od-id="encargos-movil">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-[10px] bg-[#f7c948] ink-border-2 flex items-center justify-center sticker-shadow-sm flex-shrink-0">
+            <span class="text-base">📦</span>
+          </div>
+          <div>
+            <span class="text-[9px] font-black uppercase text-[#d4573f] tracking-wider block">ENCARGOS Y PEÑAS</span>
+            <h4 class="font-chewy text-[18px] text-[#3b2417] leading-tight">¿Tienes un evento o tirada grupal?</h4>
+          </div>
+        </div>
+        <p class="font-nunito font-semibold text-[12px] leading-relaxed text-[#3b2417]/90">
+          Estampamos desde 1 pieza hasta lotes de 500 para asociaciones, despedidas y marcas locales.
+        </p>
+        <a href="https://wa.me/?text=Hola%20Sublikat,%20quisiera%20cotizar%20un%20lote" target="_blank" rel="noopener noreferrer" class="btn-craft w-full h-[44px] bg-[#f4e6c8] text-[#3b2417] rounded-[14px] ink-border-2 sticker-shadow-sm flex items-center justify-center gap-2 font-nunito font-extrabold text-xs">
+          <span>Consultar presupuesto por WhatsApp</span>
+          <span class="text-sm">→</span>
+        </a>
+      </section>
+    </main>
+
+    <!-- 7. PIE DE PÁGINA MÓVIL COMPACTO -->
+    <footer class="pt-2 pb-4 text-center space-y-2 border-t-2 border-[#3b2417]/20">
+      <div class="flex items-center justify-center gap-1.5">
+        <span class="font-chewy text-lg text-[#3b2417]">Sublikat</span>
+        <span class="text-[10px] font-extrabold bg-[#f7c948] text-[#3b2417] px-2 py-0.5 rounded-full ink-border-2 shadow-[1px_1px_0px_#3b2417]">
+          Taller de Estampados
+        </span>
+      </div>
+      <p class="font-nunito font-semibold text-[10px] text-[#3b2417]/80 px-2 leading-tight" id="aviso-legal">
+        Hecho a mano con tintas térmicas. [Datos de ejemplo para demostración de interfaz]. Contrastes verificados con ratio ≥ 4.5:1.
+      </p>
+      <div class="flex justify-center items-center gap-3 text-[11px] font-extrabold text-[#3b2417] underline decoration-[#d4573f]">
+        <a href="#aviso-legal">Aviso legal (ejemplo)</a>
+        <span>•</span>
+        <a href="#catalogo">Ver productos</a>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

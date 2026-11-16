@@ -1,0 +1,209 @@
+<!-- =========================================
+         2. SECCIÓN DE CONTACTO
+         ========================================= -->
+    <section class="contact-section" aria-labelledby="contact-heading" id="contacto" data-od-id="contacto">
+      <div style="margin-bottom: 24px;">
+        <span class="sticker-badge">Taller abierto • Habla con nosotros</span>
+        <h2 id="contact-heading" class="section-title od-reveal-soft">Pide presupuesto o cuéntanos tu idea</h2>
+        <p class="section-subtitle od-reveal-soft">Respondemos en el mismo día laborable. Sin bots, con supervisión humana y felina prenda por prenda.</p>
+      </div>
+
+      <div class="contact-layout">
+        <!-- Formulario accesible -->
+        <div class="form-container-card">
+
+          <!-- Resumen de errores superior accesible con enlace a cada campo -->
+          <div id="error-summary" class="error-summary" role="alert" aria-labelledby="error-summary-heading" tabindex="-1" hidden>
+            <div id="error-summary-heading" class="error-summary-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span id="error-summary-count">Hay 1 error en el formulario que necesita revisión:</span>
+            </div>
+            <ul id="error-summary-list" class="error-summary-list">
+              <li>
+                <a href="#contacto-email">Correo electrónico: Introduce una dirección válida con terminación de dominio (por ejemplo: .com o .es)</a>
+              </li>
+            </ul>
+          </div>
+
+          <form id="form-contacto" action="#" method="post" novalidate>
+            <!-- Campo 1: Nombre -->
+            <div class="form-group">
+              <label for="contacto-nombre" class="field-label">
+                Nombre completo <span class="required-mark" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="contacto-nombre"
+                name="nombre" autocomplete="name" enterkeyhint="next"
+                class="field-input"
+                value="Lucía Fernández"
+                aria-describedby="nombre-help"
+                required
+              >
+              <span id="nombre-help" class="field-help-text">Dinos cómo te gusta que nos dirijamos a ti al enviarte el boceto.</span>
+            </div>
+
+            <!-- Campo 2: Correo electrónico de contacto del taller -->
+            <div class="form-group">
+              <label for="contacto-email" class="field-label">
+                Correo electrónico <span class="required-mark" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="email"
+                id="contacto-email"
+                name="email" autocomplete="email" inputmode="email" enterkeyhint="next"
+                class="field-input"
+                value="pedidos@sublikat.cl"
+                aria-describedby="email-help"
+                required
+              >
+              <span id="email-help" class="field-help-text">Correo de pedidos del taller: te respondemos aquí con el desglose del presupuesto y la prueba digital.</span>
+            </div>
+
+            <!-- Campo 3: Soporte / Producto -->
+            <div class="form-group">
+              <label for="contacto-producto" class="field-label">
+                Producto o soporte que te interesa <span class="required-mark" aria-hidden="true">*</span>
+              </label>
+              <select id="contacto-producto" name="producto" class="field-select" aria-describedby="producto-help">
+                <!-- OD:OPCIONES -->
+                <!-- /OD:OPCIONES -->
+              </select>
+              <span id="producto-help" class="field-help-text">Elige el producto que te interesa. Si buscas otra base, marca «Otro soporte personalizado».</span>
+            </div>
+
+            <!-- Campo 4: Mensaje / Detalles -->
+            <div class="form-group">
+              <label for="contacto-mensaje" class="field-label">
+                Detalles del encargo o consulta <span class="required-mark" aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="contacto-mensaje"
+                name="mensaje"
+                class="field-textarea"
+                rows="4"
+                aria-describedby="mensaje-help"
+                placeholder="Cuéntanos cuántas unidades necesitas, si ya tienes el archivo o si necesitas que adaptemos el boceto..."
+              >Hola Sublikat, quisiéramos encargar 12 tazas y 6 camisetas con el logo de nuestra asociación felina para el mes que viene.</textarea>
+              <span id="mensaje-help" class="field-help-text">Puedes adjuntarnos el archivo en alta resolución o pedirnos asesoramiento técnico de color.</span>
+            </div>
+
+            <!-- Checkbox de privacidad y condiciones -->
+            <div class="checkbox-group">
+              <input type="checkbox" id="contacto-privacidad" name="privacidad" class="custom-checkbox" checked required>
+              <label for="contacto-privacidad" class="checkbox-label">
+                He leído y acepto el tratamiento de mis datos de contacto para gestionar esta consulta comercial conforme a la política de privacidad. <span class="demo-tag">Texto de ejemplo</span>
+              </label>
+            </div>
+
+            <!-- Botón de envío (Fondo #4f2cf5, texto #ffffff, alto 48px) -->
+            <button type="submit" class="btn-submit" data-od-id="enviar-consulta">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span>Enviar mensaje</span>
+            </button>
+          </form>
+
+                    <!-- OD:EXITO -->
+          <!-- Confirmación simulada: no se envía ningún dato a ningún servidor -->
+          <div id="exito-contacto" class="exito-panel hidden" role="status" tabindex="-1">
+            <h3>¡Gracias, <span id="exito-nombre">Lucía</span>!</h3>
+            <p>Tu consulta de ejemplo queda registrada solo en este navegador. No se ha enviado ningún dato a ningún servidor: esta demostración enseña la validación, el resumen de errores y la confirmación.</p>
+            <p class="mt-2">En la versión real te responderíamos por WhatsApp el mismo día laborable, con el desglose del presupuesto y la prueba de color.</p>
+            <button type="button" id="form-reiniciar" class="btn-sec">Enviar otra consulta</button>
+          </div>
+<!-- /OD:EXITO -->
+
+        </div>
+
+        <!-- Tarjeta de contacto con botón WhatsApp -->
+        <aside class="contact-aside" aria-label="Información de contacto directa">
+          <div class="contact-card">
+            <span class="sticker-badge" style="background:#dad3ff; margin-bottom:12px;">Respuesta rápida</span>
+            <h3>¿Prefieres respuesta inmediata?</h3>
+            <p class="contact-desc">
+              Escríbenos directamente por WhatsApp con tu boceto o duda de tallas y te respondemos en directo desde la mesa de planchado.
+            </p>
+
+            <!-- Botón WhatsApp #25d366, objetivo accesible de 48px -->
+            <a href="https://wa.me/56949409253?text=Hola%20Sublikat,%20quiero%20cotizar%20un%20estampado" class="btn-whatsapp" target="_blank" rel="noopener noreferrer">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.031 2c-5.509 0-9.986 4.477-9.986 9.984 0 1.761.458 3.479 1.328 4.996l-1.411 5.158 5.29-1.388c1.464.798 3.117 1.218 4.779 1.218 5.509 0 9.986-4.477 9.986-9.984 0-5.507-4.477-9.984-9.986-9.984zm5.828 14.167c-.244.686-1.419 1.309-1.956 1.378-.517.067-1.188.096-1.921-.139-.444-.142-1.016-.334-1.758-.655-3.097-1.341-5.118-4.484-5.274-4.693-.155-.208-1.258-1.674-1.258-3.193 0-1.518.795-2.266 1.077-2.576.283-.31.616-.388.823-.388.206 0 .413.002.594.011.191.01.447-.073.7.534.262.628.896 2.188.974 2.348.078.16.13.348.024.558-.106.21-.16.34-.316.525-.156.185-.328.413-.469.554-.156.155-.318.324-.137.635.181.311.805 1.328 1.726 2.148 1.185 1.055 2.185 1.382 2.496 1.537.311.155.494.137.677-.073.183-.21.782-.912.99-1.223.208-.311.416-.259.702-.155.286.104 1.815.856 2.127 1.012.312.156.52.233.598.363.078.13.078.756-.166 1.442z"/>
+              </svg>
+              <span>Pedir por WhatsApp</span>
+            </a>
+
+            <div class="workshop-details">
+              <div class="detail-item">
+                <span class="detail-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                </span>
+                <div>
+                  <span class="detail-title">Taller y recogidas</span>
+                  <span class="detail-text">Bocaccio 866, Maipú, Santiago</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.2v5.1l3.3 2"/></svg>
+                </span>
+                <div>
+                  <span class="detail-title">Horario de atención</span>
+                  <span class="detail-text">Lunes a viernes, de 10:00 a 17:00</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>
+                </span>
+                <div>
+                  <span class="detail-title">Envíos y retiros</span>
+                  <span class="detail-text">Retiro en el taller o despacho por Blueexpress a todo Chile</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+                </span>
+                <div>
+                  <span class="detail-title">WhatsApp</span>
+                  <span class="detail-text">+56 9 4940 9253</span>
+                </div>
+              </div>
+
+              <div class="detail-item">
+                <span class="detail-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.8"/><circle cx="16.9" cy="7.1" r="1" fill="currentColor" stroke="none"/></svg>
+                </span>
+                <div>
+                  <span class="detail-title">Instagram</span>
+                  <span class="detail-text">@sublikat.cl</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Insignia artesanal de garantía -->
+          <div class="assurance-badge">
+            <svg class="assurance-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+            <p class="assurance-text">
+              <strong>Garantía de horneado a 200°C:</strong> Si el color pierde intensidad en los primeros 50 lavados, reimprimimos tu prenda de inmediato.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+  

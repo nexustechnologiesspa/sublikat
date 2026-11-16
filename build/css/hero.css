@@ -1,0 +1,23 @@
+/* ==========================================================
+   Sublikat · Hero de la portada.
+   ========================================================== */
+
+/* Resplandor detrás de la foto: amarillo y violeta a muy baja opacidad.
+   No toca el layout: es un pseudo-elemento detrás de la tarjeta. */
+html .od-hero__media-col {
+        position: relative;
+
+}
+
+html .od-hero__media-col::before {
+        content: "";
+        position: absolute;
+        inset: 6% -8% -6% -8%;
+        z-index: -1;
+        pointer-events: none;
+        background:
+                radial-gradient(closest-side, color-mix(in srgb, var(--awning) 55%, transparent), transparent 72%) 26% 18% / 74% 74% no-repeat,
+                radial-gradient(closest-side, color-mix(in srgb, var(--accent) 42%, transparent), transparent 70%) 74% 76% / 70% 70% no-repeat;
+        filter: blur(8px);
+
+}

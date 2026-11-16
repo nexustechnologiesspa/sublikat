@@ -1,0 +1,106 @@
+/* ==========================================================
+   Sublikat · Compromisos del taller.
+   ========================================================== */
+
+/* ========================================= 1. SECCIÓN RESEÑAS ========================================= */ .reviews-section {
+        margin-bottom: 0;
+
+}
+
+.reviews-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+        margin-bottom: 28px;
+
+}
+
+.rating-summary-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 10px 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+}
+
+.reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+
+}
+
+.review-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.15s ease;
+        position: relative;
+
+}
+
+.review-card:hover {
+        transform: translateY(-2px);
+
+}
+
+.review-quote {
+        font-size: 16px;
+        color: var(--ink);
+        line-height: 1.55;
+        margin-bottom: 20px;
+        font-style: italic;
+
+}
+
+.review-author-wrap {
+        border-top: 1px dashed var(--divider-review);
+        padding-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+}
+
+.author-meta {
+        display: flex;
+        flex-direction: column;
+
+}
+
+.author-name {
+        font-weight: 800;
+        font-size: 15px;
+        color: var(--ink);
+
+}
+
+.author-role {
+        font-size: 13px;
+        color: var(--muted);
+
+}
+
+@media (max-width: 767px)  {
+  html .reviews-grid {
+   grid-template-columns: 1fr; 
+  }
+
+}
+@media (max-width:767px)  {
+  html .reviews-grid.swipe {
+  padding-top:8px
+  }
+
+}

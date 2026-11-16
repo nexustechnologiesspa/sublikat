@@ -1,0 +1,48 @@
+{
+    "proyecto":  "Sublikat â€” sistema de diseÃ±o",
+    "generador":  "Google Stitch (MCP) â€” proyecto projects/1209535114277963929",
+    "fecha_descarga":  "2026-11-11",
+    "aviso":  "Las tres imÃ¡genes de producto son material de ejemplo generado por el servicio de Stitch para este proyecto. No proceden de un banco de stock ni tienen licencia de terceros asociada. Se muestran en la interfaz siempre etiquetadas como Â«EjemploÂ» o Â«Dato de muestraÂ». SustitÃºyelas por fotografÃ­as reales del taller cuando el cliente las entregue, manteniendo este archivo.",
+    "imagenes":  [
+                     {
+                         "archivo":  "camiseta-cats.jpg",
+                         "descripcion":  "Camiseta blanca de algodÃ³n con ilustraciÃ³n de gato estampada por sublimaciÃ³n, sobre mesa de taller.",
+                         "origen":  "GeneraciÃ³n de imÃ¡genes de Google Stitch",
+                         "url_original":  "https://lh3.googleusercontent.com/aida/A",
+                         "pantalla_stitch":  "projects/1209535114277963929/screens/5f341578edb74969a3dc2b4eba0f42b0",
+                         "medidas":  "512x512",
+                         "licencia":  "Generada por el servicio Stitch para este proyecto; sin licencia de terceros implicada.",
+                         "usado_en":  [
+                                          "index.html",
+                                          "src/04-modo-oscuro.html",
+                                          "src/05-movil.html"
+                                      ]
+                     },
+                     {
+                         "archivo":  "taza-ronroneo.jpg",
+                         "descripcion":  "Taza de cerÃ¡mica sublimada con ilustraciÃ³n de gatito.",
+                         "origen":  "GeneraciÃ³n de imÃ¡genes de Google Stitch",
+                         "url_original":  "https://lh3.googleusercontent.com/aida/A",
+                         "pantalla_stitch":  "projects/1209535114277963929/screens/2f084070904846359d35e678d44bb637",
+                         "medidas":  "512x512",
+                         "licencia":  "Generada por el servicio Stitch para este proyecto; sin licencia de terceros implicada.",
+                         "usado_en":  [
+                                          "src/04-modo-oscuro.html",
+                                          "src/05-movil.html"
+                                      ]
+                     },
+                     {
+                         "archivo":  "sudadera-miaou.jpg",
+                         "descripcion":  "Sudadera de algodÃ³n con estampado botÃ¡nico felino.",
+                         "origen":  "GeneraciÃ³n de imÃ¡genes de Google Stitch",
+                         "url_original":  "https://lh3.googleusercontent.com/aida/A",
+                         "pantalla_stitch":  "projects/1209535114277963929/screens/2f084070904846359d35e678d44bb637",
+                         "medidas":  "512x512",
+                         "licencia":  "Generada por el servicio Stitch para este proyecto; sin licencia de terceros implicada.",
+                         "usado_en":  [
+                                          "src/04-modo-oscuro.html",
+                                          "src/05-movil.html"
+                                      ]
+                     }
+                 ]
+}

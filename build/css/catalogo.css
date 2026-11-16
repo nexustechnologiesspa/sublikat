@@ -1,0 +1,67 @@
+/* ==========================================================
+   Sublikat · Catalogo: pestanas, paneles y fichas.
+   ========================================================== */
+
+/* ---------- pestanas de categoria del catalogo ---------- */ html .cat-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        height: 44px;
+        padding: 0 var(--space-4);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background-color: var(--surface);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 1.2;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+}
+
+html .cat-tab:hover {
+        background-color: var(--soft-2);
+
+}
+
+html .cat-tab[aria-selected="true"] {
+        background-color: var(--accent-fill);
+        color: var(--on-accent);
+        box-shadow: var(--e-sh-1);
+
+}
+
+html .cat-tab[aria-selected="true"]:hover {
+        background-color: var(--accent-hover);
+
+}
+
+html .cat-tab:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+
+}
+
+html .cat-tab {
+  scroll-snap-align:center
+}
+
+@keyframes panelIn {
+  from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}
+}
+
+/* ---------- fichas ---------- */
+/* El icono va sobre un velo violeta muy claro: la tarjeta sigue siendo
+   blanca y el borde sigue siendo de 1 px. */
+html [data-od-id^="producto-"] > div > div {
+  background-color: color-mix(in srgb, var(--accent) 7%, var(--surface));
+
+}
+
+html [data-od-id^="producto-"] svg {
+  color: var(--ink);
+
+}

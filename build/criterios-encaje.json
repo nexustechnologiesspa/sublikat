@@ -1,0 +1,32 @@
+{
+  "proyecto": "Sublikat",
+  "uso": "Vara de medir: cada respuesta del cliente se contrasta con las reglas verificables del sistema de diseno. Sirve para el informe de encaje, no para generar la pagina.",
+  "fuente_de_verdad": "DESIGN.md y el propio index.html",
+  "escala": [
+    { "id": "alineado", "label": "Alineado", "nota": "El diseno actual ya cumple lo que pidio el cliente y su respuesta lo corrobora." },
+    { "id": "parcial", "label": "Parcial", "nota": "El diseno cubre parte de lo pedido: funciona en un modo, en un formato o en un punto del flujo." },
+    { "id": "desalineado", "label": "Desalineado", "nota": "El diseno actual no cubre lo pedido o va en contra." },
+    { "id": "nuevo", "label": "Peticion nueva", "nota": "La respuesta no encaja con ninguna regla vigente: es alcance nuevo que hay que decidir." }
+  ],
+  "criterios": [
+    { "id": "contraste", "regla": "Todo el texto cumple 4,5:1 de contraste contra su fondo", "donde": "index.html, tokens de --ink / --muted / --surface", "palabras": ["contraste", "legible", "leer", "borroso", "oscuro", "claro", "color", "tono", "texto", "contraste"] },
+    { "id": "movil", "regla": "Mobile-first y sin scroll horizontal", "donde": "index.html, rejillas responsive y media queries", "palabras": ["movil", "celular", "telefono", "responsive", "responsive", "pantalla", "aplicacion", "app", "tablet", "escritorio", "horizontal"] },
+    { "id": "espaciado", "regla": "Espaciado en multiplos de 8 px y contenedor de 1200 px", "donde": "index.html y tokens.css", "palabras": ["espacio", "espaciado", "separado", "separacion", "holgura", "margen", "ancho", "contenedor"] },
+    { "id": "objetivos", "regla": "Objetivos tactiles de 44 px o mas", "donde": "index.html, botones y enlaces", "palabras": ["tocar", "toque", "boton", "click", "tap", "dedo", "movil", "pequeno", "grande"] },
+    { "id": "h1", "regla": "Una sola etiqueta H1 por pantalla", "donde": "index.html", "palabras": ["titulo", "encabezado", "cabecera", "jerarquia", "h1", "encabezados"] },
+    { "id": "temas", "regla": "Modo claro y oscuro en la misma pagina", "donde": "index.html, atributo data-theme", "palabras": ["modo", "oscuro", "claro", "noche", "tema", "temas", "preferencia", "sistema"] },
+    { "id": "ejemplo", "regla": "Los datos de ejemplo van etiquetados como ejemplo", "donde": "index.html, distintivos Ejemplo y Dato de muestra", "palabras": ["ejemplo", "muestra", "falso", "real", "verdadero", "inventado", "placeholder", "prototipo", "demo"] },
+    { "id": "tipografia", "regla": "Maximo dos familias: Fraunces para titulares, Nunito para cuerpo", "donde": "tokens.css, --font-display y --font-body", "palabras": ["tipografia", "fuente", "letra", "texto", "cuerpo", "titulo", "chewy", "nunito", "legible"] },
+    { "id": "estilo", "regla": "Estilo sticker: bordes de tinta de 2-3 px, esquinas de 12-16 px, sombra plana desplazada", "donde": "tokens.css, clases ink-border y shadow-offset", "palabras": ["estilo", "icono", "grafico", "dibujo", "sombra", "borde", "redondeado", "esquina", "calido", "artesanal", "marca", "identidad"] },
+    { "id": "ficha", "regla": "Ficha de producto con espacio visual, nombre, variante y acceso a la cotizacion", "donde": "index.html, catalogo de 19 fichas", "palabras": ["ficha", "producto", "tarjeta", "foto", "imagen", "precio", "cotizar", "cotizacion", "detalle", "variante", "formato"] },
+    { "id": "categorias", "regla": "Catalogo en 5 categorias y solo se ve la seleccionada", "donde": "index.html, pestanas de categoria", "palabras": ["categoria", "categorias", "seccion", "grupo", "agrupar", "orden", "listado", "19", "productos"] },
+    { "id": "navegacion", "regla": "Acceso directo a cada categoria y enlaces internos que funcionan", "donde": "index.html, navegacion y pestañas", "palabras": ["navegacion", "menu", "enlace", "link", "acceso", "ir", "volver", "buscar", "encuentra"] },
+    { "id": "formulario", "regla": "Formulario con etiquetas visibles, ayuda bajo el campo, error con texto y resumen enlazado", "donde": "index.html y app.js", "palabras": ["formulario", "contacto", "campos", "errores", "error", "validacion", "campos", "obligatorio", "escribir", "correo"] },
+    { "id": "legal", "regla": "Aviso legal junto al precio, pendiente de validar con abogado", "donde": "index.html, aviso legal del pie y de las fichas", "palabras": ["legal", "abogado", "retracto", "desistimiento", "derecho", "condiciones", "privacidad", "terminos"] },
+    { "id": "correo", "regla": "Correo real de pedidos: pedidos@sublikat.cl", "donde": "index.html, campo del formulario", "palabras": ["correo", "email", "e-mail", "contacto", "pedidos", "responder"] },
+    { "id": "contacto", "regla": "Mecanismo de contacto o cotizacion disponible en cada ficha", "donde": "index.html, boton Cotizar de cada ficha", "palabras": ["whatsapp", "contacto", "cotizar", "pedido", "presupuesto", "whats", "telefono", "llamar"] },
+    { "id": "imagenes", "regla": "Imagenes locales, sin enlaces externos ni fotos falsas", "donde": "assets/stock/ y credits.json", "palabras": ["foto", "fotos", "imagen", "imagenes", "galeria", "real", "referencia", "stock"] },
+    { "id": "sin_inventar", "regla": "Sin precios, caracteristicas tecnicas ni plazos inventados", "donde": "index.html, fichas del catalogo", "palabras": ["precio", "precios", "valor", "costo", "caro", "barato", "descuento", "plazo", "entrega", "dias", "garantia", "medida", "caracteristica", "material"] },
+    { "id": "accesibilidad", "regla": "Foco visible, roles ARIA, texto alternativo y reduced-motion respetado", "donde": "index.html, app.js y tokens.css", "palabras": ["accesible", "accesibilidad", "lector", "teclado", "lectura", "discapacidad", "zoom", "animacion", "movimiento"] }
+  ]
+}

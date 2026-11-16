@@ -1,0 +1,163 @@
+/* ==========================================================
+   Sublikat · Portada fotografica.
+   La foto del taller abre la pagina a pantalla completa, POR DETRAS
+   del menu, que queda encima. Al bajar se encoge hasta ser una banda
+   fina pegada arriba, debajo del menu: el efecto "cover to fixed
+   header" de scroll-driven-animations.style.
+
+   Como esta hecho (y por que asi):
+   · El marco (`.od-portada`) es `fixed` y lo que se anima es su
+     `height`, de 100svh a (menu + banda). Se anima `height` y no
+     `translate` porque lo que tiene que encogerse es el marco: con
+     solo mover la foto, el fondo del marco se queda tapando la
+     pantalla entera (ese fue el fallo que se corrigio el 15-11).
+   · Como el marco sale del flujo, `<body>` reserva su alto con
+     `padding-block-start: 100svh`; sin eso el contenido saltaria
+     hacia arriba al encogerse.
+   · La foto lleva `background-position: <foco-x> 0 → <foco-x> 100%` para que
+     el recorte de la banda sea la parte de abajo de la foto.
+   · El nombre y el lema se desvanecen en la primera mitad: la banda
+     queda limpia y el nombre ya esta en la cabecera.
+
+   Aqui solo esta la FORMA. El encogido, el recorte y el desvanecido
+   viven en la zona OD:MOTION de `index.html` (bloque 11), dentro de
+   `@supports (animation-timeline: scroll())` y de
+   `prefers-reduced-motion: no-preference`. Sin soporte (o con
+   movimiento reducido) el marco se queda en el flujo, mide una
+   pantalla y se va al bajar: la pagina funciona igual.
+
+   OJO al reensamblar: las cinco reglas del efecto llevan prefijo
+   `html ` porque el estado base tambien lo lleva (`html .od-portada`,
+   0,1,1). Una regla `.od-portada` (0,1,0) pierde la cascada y el
+   marco se encoge pero se va con la pagina.
+   ========================================================== */
+
+/* ---------- el marco ---------- */
+/* Estado base: en el flujo y de una pantalla. Es el estado que ven los
+   navegadores sin lineas de tiempo y quien pide movimiento reducido.
+   No hay envoltorio `.od-portada__marco`: el recorte lo hace el
+   `overflow: hidden` de esta caja. */
+html .od-portada {
+        position: relative;
+        inset: auto;
+        block-size: 100vh;
+        block-size: 100svh;
+        overflow: hidden;
+        z-index: 0;
+        background: var(--ink-fill);
+
+}
+
+/* ---------- la foto ---------- */
+/* Capa que llena el marco. `cover` recorta lo que sobra sin deformar: en
+   pantallas anchas sobra por arriba y por abajo, en verticales por los
+   lados. La posicion inicial (vertical 0) deja el arranque de la foto
+   arriba; el foco horizontal lo pone `--od-portada-foco-x`. */
+html .od-portada__foto {
+        --od-portada-foco-x: 50%;
+        position: absolute;
+        inset: 0;
+        background-image: url('assets/portada/quita-la-luz-2150.jpg');
+        background-size: cover;
+        background-position: var(--od-portada-foco-x) 0;
+        background-repeat: no-repeat;
+
+}
+
+/* ---------- la foto, responsive ---------- */
+/* Tres archivos: vertical de movil (recorte 554x1200, 73 KB), 1440 para
+   tablet y landscape, y el original de 2150 desde 1280 px. El motivo esta
+   explicado en `index.html`: con `cover` en vertical solo se ven ~554 px
+   de ancho, asi que servir 2150 es descargar pixeles que se tiran. */
+@media (max-width: 767px) and (orientation: portrait) {
+        html .od-portada__foto {
+                background-image: url('assets/portada/quita-la-luz-movil.jpg');
+        }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+        html .od-portada__foto {
+                background-image: url('assets/portada/quita-la-luz-1024.jpg');
+        }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+        html .od-portada__foto {
+                background-image: url('assets/portada/quita-la-luz-1440.jpg');
+                --od-portada-foco-x: 68%;
+        }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+        html .od-portada__foto {
+                background-image: url('assets/portada/quita-la-luz-1440.jpg');
+        }
+}
+
+/* ---------- velo ---------- */
+/* Oscurece la parte baja para que el nombre se lea sobre la foto. Va en
+   el marco, no en la foto: si viajara con ella, el degradado se
+   despegaria del borde al bajar. Se desvanece junto con el nombre. */
+html .od-portada__velo {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+                        color-mix(in srgb, var(--ink-fill) 84%, transparent) 0%,
+                        color-mix(in srgb, var(--ink-fill) 44%, transparent) 36%,
+                        transparent 68%);
+
+}
+
+/* ---------- marca ---------- */
+html .od-portada__marca {
+        position: absolute;
+        inset-block-end: clamp(20px, 5vh, 64px);
+        inset-inline: clamp(16px, 5vw, 72px);
+        display: grid;
+        gap: 10px;
+        color: var(--white);
+        text-shadow: 0 2px 20px color-mix(in srgb, var(--ink-fill) 60%, transparent);
+
+}
+
+html .od-portada__nombre {
+        font-family: var(--font-display);
+        font-size: clamp(40px, 8.5vw, 124px);
+        font-weight: 600;
+        line-height: 0.94;
+        letter-spacing: -0.02em;
+
+}
+
+html .od-portada__lema {
+        font-family: var(--font-body);
+        font-size: clamp(11px, 1.3vw, 16px);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        opacity: 0.94;
+
+}
+
+/* ---------- sin movimiento ---------- */
+/* Con movimiento reducido (o sin soporte de lineas de tiempo) la portada
+   se queda en el flujo, mide una pantalla y se va con la pagina: no hay
+   banda ni marco que tape nada. */
+@media (prefers-reduced-motion: reduce)  {
+        html .od-portada {
+                position: relative;
+                inset: auto;
+                block-size: 100vh;
+                block-size: 100svh;
+
+        }
+
+        html .od-portada__foto,
+        html .od-portada__velo,
+        html .od-portada__marca {
+                animation: none;
+                transform: none;
+                opacity: 1;
+
+        }
+}

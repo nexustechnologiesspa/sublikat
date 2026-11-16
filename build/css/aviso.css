@@ -1,0 +1,10 @@
+/* ==========================================================
+   Sublikat · Aviso de taller.
+   ========================================================== */
+
+@media (max-width:767px)  {
+  html #aviso-taller p {
+  font-size:14px;text-transform:none;letter-spacing:0
+  }
+
+}

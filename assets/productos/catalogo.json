@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "proyecto": "Sublikat",
+  "actualizado": "2026-11-12",
+  "carpetaRaiz": "assets/productos",
+  "nota": "Manifiesto de las fotografías de producto del catálogo de la portada. Cada entrada declara la ruta relativa de la foto dentro de assets/productos/, sus medidas y el texto alternativo. Cuando la foto llegue, se guarda el archivo en la carpeta de su categoría y se completa el campo 'creditos'. Mientras 'estado' sea 'pendiente', la ficha sigue mostrando su icono SVG.",
+  "convencion": {
+    "carpetaPorCategoria": "assets/productos/<categoria>/",
+    "nombreArchivo": "kebab-case igual al id de la ficha; con varias fotos, sufijo -01, -02",
+    "medidas": "1200x1200 px (1:1)",
+    "formato": "JPEG progresivo, calidad ~80, hasta 150 KB",
+    "marcado": "<img src=\"assets/productos/<categoria>/<archivo>\" alt=\"<alt>\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\" class=\"w-full h-full object-cover\">",
+    "rutas": {
+      "index.html": "assets/productos/...",
+      "src/*.html": "../assets/productos/..."
+    }
+  },
+  "categorias": [
+    { "slug": "regalos", "etiqueta": "Regalos personalizados", "fichas": 7 },
+    { "slug": "cuadros", "etiqueta": "Cuadros y fotografías", "fichas": 3 },
+    { "slug": "textiles", "etiqueta": "Estampados textiles", "fichas": 4 },
+    { "slug": "papeleria", "etiqueta": "Papelería corporativa", "fichas": 2 },
+    { "slug": "identificacion", "etiqueta": "Identificación corporativa", "fichas": 3 }
+  ],
+  "fichas": [
+    {
+      "id": "producto-tazas",
+      "nombre": "Tazas",
+      "categoria": "regalos",
+      "archivo": "regalos/tazas.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Taza de cerámica con estampado a todo color",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-tazas-magicas",
+      "nombre": "Tazas mágicas",
+      "categoria": "regalos",
+      "archivo": "regalos/tazas-magicas.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Taza cuyo estampado aparece con el calor",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-botellas",
+      "nombre": "Botellas",
+      "categoria": "regalos",
+      "archivo": "regalos/botellas.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Botella metálica con estampado sublimado",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-mousepads",
+      "nombre": "Mousepads",
+      "categoria": "regalos",
+      "archivo": "regalos/mousepads.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Mousepad de tela con diseño impreso",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-bolsas",
+      "nombre": "Bolsas",
+      "categoria": "regalos",
+      "archivo": "regalos/bolsas.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Bolsa de tela con estampado personalizado",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-relojes",
+      "nombre": "Relojes",
+      "categoria": "regalos",
+      "archivo": "regalos/relojes.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Reloj con esfera y correa estampadas",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-chapas-mascotas",
+      "nombre": "Chapas para mascotas",
+      "categoria": "regalos",
+      "archivo": "regalos/chapas-mascotas.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Chapa circular con la fotografía de una mascota",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-cuadros-piedra",
+      "nombre": "Cuadros de piedra",
+      "categoria": "cuadros",
+      "archivo": "cuadros/cuadros-piedra.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Cuadro de piedra con imagen sublimada",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-cuadros-fotos",
+      "nombre": "Cuadros de fotos",
+      "categoria": "cuadros",
+      "archivo": "cuadros/cuadros-fotos.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Cuadro con una fotografía impresa",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-cuadros-aluminio",
+      "nombre": "Cuadros de aluminio",
+      "categoria": "cuadros",
+      "archivo": "cuadros/cuadros-aluminio.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Cuadro de aluminio con imagen impresa",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-estampado-1-color",
+      "nombre": "Estampado a 1 color",
+      "categoria": "textiles",
+      "archivo": "textiles/estampado-1-color.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Prenda de algodón con estampado a una tinta",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-estampado-2-colores",
+      "nombre": "Estampado a 2 colores",
+      "categoria": "textiles",
+      "archivo": "textiles/estampado-2-colores.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Prenda de algodón con estampado a dos tintas",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-estampado-3-colores",
+      "nombre": "Estampado a 3 colores",
+      "categoria": "textiles",
+      "archivo": "textiles/estampado-3-colores.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Prenda de algodón con estampado a tres tintas",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-estampado-imagenes",
+      "nombre": "Estampado con imágenes",
+      "categoria": "textiles",
+      "archivo": "textiles/estampado-imagenes.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Prenda de algodón con imagen a todo color",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-tarjetas-presentacion",
+      "nombre": "Tarjetas de presentación",
+      "categoria": "papeleria",
+      "archivo": "papeleria/tarjetas-presentacion.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Tarjeta de presentación con la marca del taller",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-tarjetas-pvc",
+      "nombre": "Tarjetas PVC",
+      "categoria": "papeleria",
+      "archivo": "papeleria/tarjetas-pvc.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Tarjeta PVC rígida con impresión a todo color",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-lanyards",
+      "nombre": "Lanyards",
+      "categoria": "identificacion",
+      "archivo": "identificacion/lanyards.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Lanyard con cinta impresa y gancho",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-credenciales",
+      "nombre": "Credenciales",
+      "categoria": "identificacion",
+      "archivo": "identificacion/credenciales.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Credencial con fotografía y datos impresos",
+      "estado": "pendiente",
+      "creditos": null
+    },
+    {
+      "id": "producto-credenciales-pvc",
+      "nombre": "Credenciales PVC",
+      "categoria": "identificacion",
+      "archivo": "identificacion/credenciales-pvc.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Credencial PVC rígida con fotografía y datos",
+      "estado": "pendiente",
+      "creditos": null
+    }
+  ]
+}

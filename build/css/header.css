@@ -1,0 +1,59 @@
+/* ==========================================================
+   Sublikat · Cabecera: barra superior, navegacion y menu movil.
+   ========================================================== */
+
+/* La cabecera NO pinta fondo: la foto de la portada tiene que verse por
+   detras del menu y dentro de la propia cabecera (en su relleno de arriba
+   y de abajo). Solo la tarjeta interior lleva superficie. */
+html #site-header {
+  /* background: var(--bg); */
+}
+
+/* menú móvil */ html .menu-movil {
+  display:grid;gap:6px;padding-top:6px;border-top: 1px dashed var(--line-soft);margin-top:4px
+}
+
+html .menu-movil[hidden] {
+  display:none!important
+}
+
+html .menu-movil a {
+  display:flex;align-items:center;min-height:48px;padding:0 14px;border: 1px solid var(--line);border-radius: var(--radius-sm);background:var(--soft);font-weight:800;color:var(--ink)
+}
+
+html .menu-movil a[aria-current="true"] {
+  background:var(--awning);color:var(--awning-ink)
+}
+
+/* El conmutador de tema, cuando se muda al menú (móvil): una fila más,
+   a todo el ancho, con el texto a la izquierda y el icono a la derecha. */
+html .menu-movil__tema[hidden] {
+  display:none!important
+}
+
+html #menu-tema #theme-toggle {
+  width:100%;min-height:48px;padding:0 14px;
+  border: 1px solid var(--line);border-radius: var(--radius-sm);
+  background:var(--soft);
+  justify-content:space-between;
+  box-shadow:none
+}
+
+html #menu-tema #theme-toggle svg {
+  flex:0 0 auto
+}
+
+html .od-tema-etiqueta {
+  display:none
+}
+
+html #menu-movil .od-tema-etiqueta {
+  display:inline;font-weight:800;font-size:0.9375rem;letter-spacing:0.01em
+}
+
+@media (min-width:768px)  {
+  html .menu-movil {
+  display:none!important
+  }
+
+}

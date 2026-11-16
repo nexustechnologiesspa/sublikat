@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Sublikat">
+  <rect width="32" height="32" rx="7" fill="#f7c948"/>
+  <g stroke="#3b2417" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polygon points="6,12 9,4 14,8" fill="#f4e6c8" stroke="none"/>
+    <polygon points="26,12 23,4 18,8" fill="#f4e6c8" stroke="none"/>
+    <path d="M6 13C6 21 10 24 16 24C22 24 26 21 26 13C26 11 25 9 24 8C20 9.5 12 9.5 8 8C7 9 6 11 6 13Z" fill="#fffaf1"/>
+    <path d="M10 14Q12 11 14 14"/>
+    <path d="M18 14Q20 11 22 14"/>
+    <polygon points="15,17 17,17 16,18.5" fill="#3b2417" stroke="none"/>
+    <path d="M14 19Q16 21 18 19"/>
+    <path d="M7 16L7 18M25 16L25 18"/>
+  </g>
+</svg>

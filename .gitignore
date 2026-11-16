@@ -1,0 +1,12 @@
+# Historial del editor y artefactos generados: no son fuente del sitio.
+.file-versions/
+.od-frames/
+.od-skills/
+logs/
+renders/
+
+# Capturas de QA generadas (se regeneran con qa/capturar-linea-base.mjs).
+qa/antes/
+qa/despues/
+qa/comparacion/
+qa/baseline/capturas/

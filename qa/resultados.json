@@ -1,0 +1,277 @@
+{
+ "fecha": "2026-11-16T03:40:56.354Z",
+ "pruebas": [
+  {
+   "nombre": "Un solo <main>",
+   "ok": true,
+   "detalle": "1 encontrados"
+  },
+  {
+   "nombre": "Un solo <h1>",
+   "ok": true,
+   "detalle": "1 encontrados"
+  },
+  {
+   "nombre": "Sin ids duplicados",
+   "ok": true,
+   "detalle": "47 ids únicos"
+  },
+  {
+   "nombre": "Sin scroll horizontal (1280)",
+   "ok": true,
+   "detalle": "1280 vs 1280"
+  },
+  {
+   "nombre": "Sin scroll horizontal (375)",
+   "ok": true,
+   "detalle": "375 vs 375"
+  },
+  {
+   "nombre": "Sin scroll horizontal (768)",
+   "ok": true,
+   "detalle": "768 vs 768"
+  },
+  {
+   "nombre": "Sin scroll horizontal (1280)",
+   "ok": true,
+   "detalle": "1280 vs 1280"
+  },
+  {
+   "nombre": "Portada: abre en y=0 y mide una pantalla",
+   "ok": true,
+   "detalle": "top=0 alto=900 ventana=900 posición=fixed"
+  },
+  {
+   "nombre": "Portada: la foto abre arriba y el nombre se lee (y=0)",
+   "ok": true,
+   "detalle": "foto=50% 0% nombre opacidad=1"
+  },
+  {
+   "nombre": "Portada: el menú flota por encima (z-index mayor y sin hueco)",
+   "ok": true,
+   "detalle": "z cabecera=50 z portada=35 alto cabecera=99 top cabecera=0"
+  },
+  {
+   "nombre": "Portada: es decorativa y no roba clics",
+   "ok": true,
+   "detalle": "pointer-events=none"
+  },
+  {
+   "nombre": "Portada: al bajar se encoge hasta una banda bajo el menú",
+   "ok": true,
+   "detalle": "esperado 117px (--hh 99 + banda 18): y=810 top=0 alto=117 | y=900 top=0 alto=117 | y=1800 top=0 alto=117 | y=3600 top=0 alto=117"
+  },
+  {
+   "nombre": "Portada: la banda no tapa nada por debajo del menú",
+   "ok": true,
+   "detalle": "alto=117 cabecera hasta 99 | alto=117 cabecera hasta 99 | alto=117 cabecera hasta 99 | alto=117 cabecera hasta 99"
+  },
+  {
+   "nombre": "Portada: la foto se recorta hacia su parte de abajo",
+   "ok": true,
+   "detalle": "inicio=50% 0% final=50% 100%"
+  },
+  {
+   "nombre": "Al bajar aparecen las secciones: nada las tapa",
+   "ok": true,
+   "detalle": "y=900 centro en main + bajo la banda ok | y=1800 centro en main + bajo la banda ok | y=3600 centro en main + bajo la banda ok"
+  },
+  {
+   "nombre": "Anclas: cada sección queda entera por debajo del menú",
+   "ok": true,
+   "detalle": "tienda top=129 alto=1803 | proceso top=129 alto=837 | resenas top=129 alto=442 | contacto top=129 alto=1172"
+  },
+  {
+   "nombre": "Portada responsive: cada ancho carga su propio archivo de foto",
+   "ok": true,
+   "detalle": "1280=quita-la-luz-2150.jpg · 768=quita-la-luz-1440.jpg (foco 68%) · 375 vertical=quita-la-luz-movil.jpg · 667×375 apaisado=quita-la-luz-1024.jpg"
+  },
+  {
+   "nombre": "Menú móvil: abre y cierra",
+   "ok": true,
+   "detalle": "abierto=true cerrado=true"
+  },
+  {
+   "nombre": "Menú móvil: aria-expanded correcto",
+   "ok": true,
+   "detalle": "aria-expanded=true"
+  },
+  {
+   "nombre": "Las 5 pestañas cambian de panel",
+   "ok": true,
+   "detalle": "regalos ok | cuadros ok | textiles ok | papeleria ok | identificacion ok"
+  },
+  {
+   "nombre": "Teclado en pestañas: flecha derecha y fin",
+   "ok": true,
+   "detalle": "derecha=cuadros fin=identificacion"
+  },
+  {
+   "nombre": "Catálogo: cambiar de categoría desde el fondo vuelve a la primera ficha",
+   "ok": true,
+   "detalle": "antes: panelTop=-881 · después: hueco bajo la barra=12 · primera ficha visible=true · bloque siguiente después de la ficha=true"
+  },
+  {
+   "nombre": "Catálogo: desde el inicio de la sección el cambio no da un salto",
+   "ok": true,
+   "detalle": "y 2176 → 2176 · panel bajo la barra=true"
+  },
+  {
+   "nombre": "Carruseles: indicadores .dots generados",
+   "ok": true,
+   "detalle": "3 carruseles, 3 indicadores"
+  },
+  {
+   "nombre": "Formulario: al enviar vacío muestra el resumen de errores",
+   "ok": true,
+   "detalle": "3 errores: Nombre completo, Correo electrónico, Detalles del encargo"
+  },
+  {
+   "nombre": "Formulario: los campos se marcan con aria-invalid",
+   "ok": true,
+   "detalle": "3 campos marcados"
+  },
+  {
+   "nombre": "Formulario: confirmación con el nombre y el formulario oculto",
+   "ok": true,
+   "detalle": "nombre=María Fernández (requestSubmit: el clic no disparo submit tras insertar el resumen de errores)"
+  },
+  {
+   "nombre": "Formulario: el clic en «Revisar mi consulta» confirma (pagina limpia)",
+   "ok": true,
+   "detalle": "{\"exito\":true,\"formOculto\":true,\"nombre\":\"Ana Ruiz\"}"
+  },
+  {
+   "nombre": "Formulario: «Enviar otra consulta» reinicia",
+   "ok": true,
+   "detalle": "{\"formVisible\":true,\"exitoOculto\":true}"
+  },
+  {
+   "nombre": "Botón de tema: alterna claro/oscuro y lo guarda",
+   "ok": true,
+   "detalle": "inicio=light tras=dark guardado=dark"
+  },
+  {
+   "nombre": "Botón de tema: aria-pressed y icono coherentes",
+   "ok": true,
+   "detalle": "pressed=true"
+  },
+  {
+   "nombre": "Modo oscuro dentro de la hamburguesa: en móvil el conmutador vive en el menú",
+   "ok": true,
+   "detalle": "padre=menu-tema · nodos=1 · fila=301×48 · etiqueta=true"
+  },
+  {
+   "nombre": "Modo oscuro dentro de la hamburguesa: alterna y cambia la etiqueta",
+   "ok": true,
+   "detalle": "dark → light · etiqueta=Modo oscuro"
+  },
+  {
+   "nombre": "Modo oscuro dentro de la hamburguesa: vuelve a la barra al ensanchar",
+   "ok": true,
+   "detalle": "antesDe=menu-btn · ancho=44 · etiqueta=false"
+  },
+  {
+   "nombre": "Widget de WhatsApp: enlace, destino y etiqueta",
+   "ok": true,
+   "detalle": "https://wa.me/56949409253?text=Hola%20Sublikat,%20quiero%20cotizar%20un%20estampado"
+  },
+  {
+   "nombre": "Widget de WhatsApp: fijo y dentro de la pantalla",
+   "ok": true,
+   "detalle": "position=fixed visible=true"
+  },
+  {
+   "nombre": "Foco visible en los controles",
+   "ok": true,
+   "detalle": "#enviar-consulta: no encontrado | #tab-cat-regalos: outline=3px solid shadow=rgba(30, 28, 42, 0.06) 0px 1px 2px 0px,  | #theme-toggle: outline=2px solid shadow=rgb(255, 255, 255) 0px 0px 0px 0px, rgb( | .contacto-nombre, #contacto-nombre: outline=3px solid shadow=none"
+  },
+  {
+   "nombre": "Contraste light: muestras AA",
+   "ok": true,
+   "detalle": "h1 10.31 | p 10.31 | .section-title 9.2 | #contacto-nombre 10.31 | label 10.31 | .cat-tab 6.97 | a[href=\"#tienda\"] 10.31"
+  },
+  {
+   "nombre": "Contraste dark: muestras AA",
+   "ok": true,
+   "detalle": "h1 9.2 | p 9.2 | .section-title 12.77 | #contacto-nombre 11.21 | label 9.2 | .cat-tab 6.97 | a[href=\"#tienda\"] 9.2"
+  },
+  {
+   "nombre": "Movimiento: el navegador admite animation-timeline",
+   "ok": true,
+   "detalle": "view() y scroll() soportados"
+  },
+  {
+   "nombre": "Movimiento: la barra de lectura avanza con el scroll",
+   "ok": true,
+   "detalle": "scaleX arriba=0 abajo=0.236756"
+  },
+  {
+   "nombre": "Movimiento: las fichas del catálogo aparecen al entrar en pantalla",
+   "ok": true,
+   "detalle": "opacidad lejos=0 cerca=1 animación=od-reveal-rise"
+  },
+  {
+   "nombre": "Demo 6: el parallax de la foto del héroe la mueve con el scroll",
+   "ok": true,
+   "detalle": "translate Y arriba=16 abajo=-16 animaciones=od-hero-curtain, od-hero-parallax"
+  },
+  {
+   "nombre": "Demo 6: la cortina del héroe termina abierta y sin dejar la foto recortada",
+   "ok": true,
+   "detalle": "clip-path=inset(0px 0px 0%) scale=1.14"
+  },
+  {
+   "nombre": "Regresión: la línea del proceso no vuelve (se retiró el 15-11-2026)",
+   "ok": true,
+   "detalle": "relleno=none / none | base=none / none | segmento móvil=none / none | apilado de pasos=od-step-recede"
+  },
+  {
+   "nombre": "Demo 6: el icono de la ficha se asienta al entrar",
+   "ok": true,
+   "detalle": "opacidad lejos=0 cerca=1 animación=od-icon-settle"
+  },
+  {
+   "nombre": "Demo 6: la cortina del recuadro de la ficha se abre al entrar",
+   "ok": true,
+   "detalle": "clip-path lejos=inset(0px 0px 26% round 16px) cerca=inset(0px 0px 0% round 16px)"
+  },
+  {
+   "nombre": "Regresión: ninguna ficha visible queda a media opacidad",
+   "ok": true,
+   "detalle": "3/7 visibles, translúcidas: ninguna"
+  },
+  {
+   "nombre": "Demo 15: los pasos se reducen al salir (apilado ligero)",
+   "ok": true,
+   "detalle": "scale antes=1 después=0.964504 animación=od-step-recede"
+  },
+  {
+   "nombre": "Barra de lectura: 6 px y visible",
+   "ok": true,
+   "detalle": "alto=6px display=block"
+  },
+  {
+   "nombre": "Demo 14: los carruseles avisan con sombra de borde por encima de las tarjetas",
+   "ok": true,
+   "detalle": "alpha izquierda 0→0.3, derecha 0.3, z-index 2, ancho 24px, recorrido 264/824, desbordan beneficios:824 proceso:710 resenas:529"
+  },
+  {
+   "nombre": "Movimiento reducido: el contenido se ve completo y quieto",
+   "ok": true,
+   "detalle": "opacidad 1 y sin animación en 12 elementos; línea del proceso=none"
+  },
+  {
+   "nombre": "Movimiento reducido: sin barra de lectura ni sombra de borde",
+   "ok": true,
+   "detalle": "barra=none capas de sombra=none"
+  },
+  {
+   "nombre": "Sin errores en consola",
+   "ok": true,
+   "detalle": "ninguno"
+  }
+ ],
+ "erroresConsola": [],
+ "recursosExternos": []
+}
