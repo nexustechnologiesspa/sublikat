@@ -1,1 +1,181 @@
-/* Etapa 1: los tokens de diseño se migrarán desde la web original en una etapa posterior. */
+
+/* ==========================================================
+   Sublikat · variables de diseño (tokens)
+   Única definición por tema y con nombre canónico.
+   Paleta oficial: violeta #4F2CF5, oliva #B5A94E, amarillo #F5DF2B,
+   violeta suave #6052A0, oliva oscuro #757150 y pizarra #413F4B.
+   ========================================================== */
+
+/* ---------- tokens que no cambian entre temas ---------- */ :root {
+        /* Tipografía */
+        --font-body: 'Nunito', sans-serif;
+        --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+        /* Radios */
+        --radius: 16px;
+        --radius-sm: 10px;
+        --radius-md: 12px;
+        /* Bordes */
+        --border-ink: 1px solid var(--line);
+        --focus-ring: 3px solid var(--focus);
+        /* Color · literales compartidos */
+        --white: #ffffff;
+        --whatsapp: #25d366;
+        --on-whatsapp: #2b2933;
+        --whatsapp-soft: rgba(37, 211, 102, 0.3);
+        --whatsapp-hover: #20bd5a;
+        /* Espaciado */
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-5: 24px;
+        /* Ritmo vertical entre secciones (se ajusta mas abajo por ancho) */
+        --espacio-seccion: 56px;
+        /* Portada fotografica: alto de la banda en la que se encoge la foto
+           al bajar (se ajusta mas abajo por ancho). El alto final de la banda
+           es --hh + esto, asi que este valor es el "labio" de foto que queda
+           asomando POR DEBAJO del menu: la idea es que la banda acabe casi a
+           la altura del menu, no a media pantalla. */
+        --od-portada-banda: clamp(10px, 2vh, 20px);
+        /* Movimiento · mismas constantes en claro y oscuro */
+        --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --motion-enter: 240ms;
+        --motion-stagger: 60ms;
+
+}
+
+/* ---------- modo claro ---------- */ :root, [data-theme="light"] {
+        /* Color · superficies */
+        --bg: #f3f1f8;
+        --soft: #f3f1f8;
+        --soft-2: #f8f6fc;
+        --surface: #ffffff;
+        --field-bg: #ffffff;
+        --field-bg-error: #fff9f8;
+        /* Color · texto y líneas */
+        --ink: #413f4b;
+        --muted: #5f5d6e;
+        --line: rgba(65, 63, 75, 0.16);
+        --line-soft: rgba(65, 63, 75, 0.10);
+        --ink-fill: #413f4b;
+        --ink-fill-hover: #2b2933;
+        --on-inkfill: #ffffff;
+        /* Color · marca y acciones */
+        --accent: #4f2cf5;
+        --accent-fill: #4f2cf5;
+        --accent-ink: #4f2cf5;
+        --accent-hover: #3f21d6;
+        --on-accent: #ffffff;
+        /* Color · acentos y apoyos */
+        --awning: #f5df2b;
+        --awning-ink: #413f4b;
+        --star: #7b7129;
+        /* Color · confianza y estados */
+        --success: #b5a94e;
+        --on-success: #2b2933;
+        --success-text: #5f5b3e;
+        --assurance-bg: #f3f1e3;
+        --assurance-ink: #4b4830;
+        /* Color · errores */
+        --error-bg: #ffe8e6;
+        --error-border: #c82333;
+        --error-text: #891b1b;
+        /* Color · pie y foco */
+        --footer-bg: #413f4b;
+        --footer-text: #f3f1f8;
+        --footer-muted: #cfcddb;
+        --focus: #4f2cf5;
+        /* Color · separadores y cajas sobre pizarra */
+        --divider-review: rgba(65, 63, 75, 0.12);
+        --divider-workshop: rgba(65, 63, 75, 0.12);
+        --divider-footer: rgba(246, 245, 250, 0.16);
+        --hours-bg: rgba(246, 245, 250, 0.08);
+        --legal-bg: rgba(246, 245, 250, 0.06);
+        --legal-border: rgba(246, 245, 250, 0.18);
+        --legal-accent: #f5df2b;
+        /* Sombras · tres niveles suaves */
+        --shadow-ink: #1e1c2a;
+        --e-sh-1: 0 1px 2px rgba(30, 28, 42, 0.06), 0 4px 14px -6px rgba(30, 28, 42, 0.14);
+        --e-sh-2: 0 2px 4px rgba(30, 28, 42, 0.05), 0 12px 28px -10px rgba(30, 28, 42, 0.20);
+        --e-sh-3: 0 4px 8px rgba(30, 28, 42, 0.05), 0 24px 48px -18px rgba(30, 28, 42, 0.28);
+
+}
+
+/* ---------- modo oscuro ---------- */ [data-theme="dark"] {
+        /* Color · superficies */
+        --bg: #2b2933;
+        --soft: #34323e;
+        --soft-2: #3f3d4b;
+        --surface: #413f4b;
+        --field-bg: #34323e;
+        --field-bg-error: #3a2020;
+        /* Color · texto y líneas */
+        --ink: #f3f1f8;
+        --muted: #cfcddb;
+        --line: #575468;
+        --line-soft: #575468;
+        --ink-fill: #3f3d4b;
+        --ink-fill-hover: #2b2933;
+        --on-inkfill: #f3f1f8;
+        /* Color · marca y acciones */
+        --accent: #4f2cf5;
+        --accent-fill: #4f2cf5;
+        --accent-ink: #b9adff;
+        --accent-hover: #3a1fcf;
+        --on-accent: #ffffff;
+        /* Color · acentos y apoyos */
+        --awning: #f5df2b;
+        --awning-ink: #413f4b;
+        --star: #b5a94e;
+        /* Color · confianza y estados */
+        --success: #b5a94e;
+        --on-success: #2b2933;
+        --success-text: #d6cc7a;
+        --assurance-bg: rgba(181, 169, 78, 0.22);
+        --assurance-ink: #ece8c2;
+        /* Color · errores */
+        --error-bg: #4a1f1f;
+        --error-border: #f08a8a;
+        --error-text: #ffd2d2;
+        /* Color · pie y foco */
+        --footer-bg: #24222b;
+        --footer-text: #f3f1f8;
+        --footer-muted: #cfcddb;
+        --focus: #f5df2b;
+        /* Color · separadores y cajas sobre pizarra */
+        --divider-review: rgba(246, 245, 250, 0.16);
+        --divider-workshop: rgba(246, 245, 250, 0.16);
+        --divider-footer: rgba(246, 245, 250, 0.16);
+        --hours-bg: rgba(246, 245, 250, 0.08);
+        --legal-bg: rgba(246, 245, 250, 0.06);
+        --legal-border: rgba(246, 245, 250, 0.18);
+        --legal-accent: #f5df2b;
+        /* Sombras · mismas estructuras en negro */
+        --shadow-ink: #121116;
+        --e-sh-1: 0 1px 2px rgba(0, 0, 0, 0.30), 0 4px 14px -6px rgba(0, 0, 0, 0.30);
+        --e-sh-2: 0 2px 4px rgba(0, 0, 0, 0.30), 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+        --e-sh-3: 0 4px 8px rgba(0, 0, 0, 0.30), 0 24px 48px -18px rgba(0, 0, 0, 0.65);
+
+}
+
+/* ---------- ritmo vertical por ancho de pantalla ---------- */
+@media (min-width: 768px) {
+        :root {
+                --espacio-seccion: 88px;
+        }
+}
+
+@media (min-width: 1024px) {
+        :root {
+                --espacio-seccion: 112px;
+        }
+}
+
+/* ---------- portada fotografica por ancho de pantalla ---------- */
+@media (max-width: 767px) {
+        :root {
+                /* En vertical el menu ya ocupa dos filas: el labio de foto
+                   baja un escalon para que la banda no pase del menu. */
+                --od-portada-banda: clamp(8px, 1.6vh, 16px);
+        }
+}
+  

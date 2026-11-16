@@ -1,1 +1,97 @@
-/* Etapa 1: los estilos base se migrarán desde la web original en una etapa posterior. */
+
+/* ==========================================================
+   Sublikat · Reset, tipografía y utilidades base. Se carga el primero.
+   ========================================================== */
+
+body {
+        background-color: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.5;
+        padding-top: 40px;
+        -webkit-font-smoothing: antialiased;
+
+}
+
+/* ---------- tipografía de titulares: Fraunces ---------- */
+/* El cuerpo es Nunito; los titulares, una serif de contraste (Fraunces). */
+.font-display,
+h1,
+h2,
+h3,
+h4 {
+        font-family: var(--font-display);
+        font-weight: 600;
+        letter-spacing: -0.015em;
+
+}
+
+.main-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 var(--space-5);
+
+}
+
+/* Focus accessibility */ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+        outline: var(--focus-ring);
+        outline-offset: 3px;
+
+}
+
+/* ---------- estructura y responsive ---------- */ [hidden]:not([hidden="until-found" i]) {
+   display: none !important; 
+}
+
+/* ---------- ritmo vertical entre secciones ----------
+   Todas las secciones viven dentro de la misma caja del <main> (.od-secciones).
+   Esta regla da a todas el mismo aire y sustituye a los margenes sueltos que
+   traia cada parcial (que dejaban secciones pegadas entre si). El valor sale
+   del token --espacio-seccion, que sube por ancho de pantalla. */
+html .od-secciones > * + * {
+        margin-top: var(--espacio-seccion);
+
+}
+
+/* ---------- cabecera flotante ----------
+   El menu no ocupa alto en el flujo: va `fixed` sobre la portada, que
+   arranca en y=0. Con `inset-inline: 0` y el ancho maximo que ya trae
+   la clase, queda centrado igual que antes.
+   --hh (alto medido por JS) sigue sirviendo para los anclajes. */
+html .od-header {
+   position: fixed;
+   inset-inline: 0;
+   inset-block-start: 0;
+}
+
+html body {
+   padding-top: 0; padding-bottom: 96px; 
+}
+
+@media (max-width: 767px)  {
+  html body {
+   padding-bottom: 88px; 
+  }
+}
+html {
+  overflow-x:clip;scroll-behavior:smooth
+}
+
+html [role="tabpanel"]:not([hidden]) {
+  animation:panelIn .28s ease-out
+}
+
+@media (max-width:767px)  {
+  html h1 {
+   overflow-wrap:anywhere
+  }
+}
+@media (prefers-reduced-motion:reduce)  {
+  html {
+   scroll-behavior:auto
+  }
+}
+  
