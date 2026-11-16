@@ -1605,8 +1605,161 @@ html .od-hero__media-col::before {
 }
 
 /* ==========================================================
-   Sublikat · Bloque de ventajas. Se compone con utilidades; aun no tiene reglas propias.
+   Sublikat · Bloque de ventajas.
+
+   Cuatro tarjetas verticales (ilustración + texto). En escritorio la
+   fila se convierte en una PISTA HORIZONTAL que se clava a la pantalla
+   y avanza mientras se baja (el "sectionPin" de
+   scroll-driven-animations.style). Sin soporte de lineas de tiempo, con
+   movimiento reducido o en movil, se queda como la rejilla de siempre:
+   la pista no depende de la animacion para verse.
    ========================================================== */
+
+/* ---------- tarjeta: ilustracion arriba, texto debajo ---------- */
+/* El titular de la seccion solo se ve en el modo clavado (mas abajo);
+   fuera de el no existe, para no cambiar el respaldo estatico ni movil. */
+html .pin-intro {
+  display: none;
+}
+
+html .feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 18px 20px;
+  text-align: left;
+}
+
+/* Recuadro de la ilustracion: mismo lenguaje "sticker" que llevaban los
+   iconos (fondo suave + borde), pero sin recortar: la imagen flota y
+   asoma un poco por encima del recuadro. */
+html .feature-card__tile {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--soft);
+  overflow: visible;
+}
+
+html .card-illustration {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: contain;
+  animation: floating 4s ease-in-out infinite;
+  transition: scale .45s ease;
+  will-change: translate, rotate;
+}
+
+/* El balanceo va en `translate`/`rotate` (propiedades sueltas) para que
+   el `scale` del hover no compita con la animacion: si los dos usaran
+   `transform`, la animacion ganaria siempre y el hover no se veria. */
+@keyframes floating {
+  0%, 100% {
+    translate: 0 0;
+    rotate: -2deg;
+  }
+  50% {
+    translate: 0 -9px;
+    rotate: 2deg;
+  }
+}
+
+html .feature-card:hover .card-illustration {
+  scale: 1.08;
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .card-illustration {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ---------- pista horizontal clavada ---------- */
+/* `#beneficios` se estira en alto para dar recorrido; `.pin-vista` se
+   queda pegada y es la pista la que se desplaza, atada a la linea de
+   tiempo de la seccion con `contain 0% → contain 100%` (exactamente el
+   tramo en el que esta clavada). */
+@media (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      html #beneficios {
+        --pin-top: calc(var(--hh, 72px) + var(--od-portada-banda, 16px));
+        --pin-lado: max(24px, calc((100vw - 1200px) / 2 + 24px));
+        height: clamp(170vh, 180vh, 210vh);
+        overflow: visible;
+        view-timeline-name: --pin-ventajas;
+        view-timeline-axis: block;
+      }
+
+      html #beneficios .pin-vista {
+        position: sticky;
+        top: var(--pin-top);
+        width: 100vw;
+        /* Rompe la caja de 1200 px de `.od-secciones` sin meter scroll
+           horizontal: `html` ya va con `overflow-x: clip`. */
+        margin-inline: calc(50% - 50vw);
+        height: calc(100svh - var(--pin-top));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(14px, 2.2vh, 28px);
+        overflow: hidden;
+      }
+
+      /* La pista de la seccion ya no es rejilla: es una fila sin corte. */
+      html #beneficios .pin-pista {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 2vw, 36px);
+        width: max-content;
+        padding-inline: var(--pin-lado);
+        animation: linear od-pin-mover forwards;
+        animation-timeline: --pin-ventajas;
+        animation-range: contain 0% contain 100%;
+        will-change: transform;
+      }
+
+      html #beneficios .pin-pista > .feature-card {
+        flex: 0 0 clamp(300px, 31vw, 430px);
+      }
+
+      html #beneficios .pin-pista .feature-card p {
+        font-size: 0.875rem;
+        line-height: 1.35;
+      }
+
+      /* Titular de la seccion: solo tiene sentido en el modo clavado, asi
+         que no aparece ni en movil ni en el respaldo estatico. */
+      html #beneficios .pin-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding-inline: var(--pin-lado);
+      }
+
+      html #beneficios .pin-intro__hint {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      @keyframes od-pin-mover {
+        to {
+          /* Borde derecho de la pista contra el borde de la ventana */
+          transform: translateX(calc(-100% + 100vw));
+        }
+      }
+    }
+  }
+}
 
 /* ==========================================================
    Sublikat · Aviso de taller.
@@ -2504,16 +2657,17 @@ html .od-was.compact .od-was__btn {
   }
 }
 
-/* ---------- 6. Filas 4 y 9 · Beneficios y compromisos ---------- */
-/* Las dos rejillas llevan `.swipe`, que en móvil es un contenedor de
+/* ---------- 6. Fila 9 · Compromisos ---------- */
+/* La rejilla de reseñas lleva `.swipe`, que en móvil es un contenedor de
    scroll en los dos ejes: `view()` sobre sus hijos daría un rango de
    cero y las tarjetas se quedarían invisibles. Por eso la línea de
    tiempo se declara en la propia rejilla (que sí se mide contra el
    scroll de la página) y los hijos la consumen por nombre.
 
-   Va acotado a `#beneficios` y `#resenas` a propósito: la rejilla del
-   proceso arrastra los ganchos `od-stagger`/`od-stagger-2` y lleva su
-   propia animación en el bloque 8, así que no debe consumir esta.
+   Va acotado a `#resenas` a propósito: la rejilla del proceso arrastra
+   los ganchos `od-stagger`/`od-stagger-2` y lleva su propia animación en
+   el bloque 8, así que no debe consumir esta. La rejilla de ventajas ya
+   no entra aquí: es la pista horizontal del bloque 6 bis.
 
    El asentamiento es con `scale`, no con `translate`: las tarjetas viven
    dentro de un contenedor que en móvil desplaza en horizontal, y moverlas
@@ -2522,31 +2676,52 @@ html .od-was.compact .od-was__btn {
    96 % se ve igual de bien y no ocupa ni un píxel de layout. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    #beneficios .od-stagger,
     #resenas .od-stagger {
       view-timeline-name: --od-rejilla;
       view-timeline-axis: block;
     }
 
-    #beneficios .od-stagger > *,
     #resenas .od-stagger > * {
       animation: od-rejilla-fade linear both;
       animation-timeline: --od-rejilla;
       animation-range: entry 5% cover 12%;
     }
 
-    #beneficios .od-stagger > :nth-child(2),
     #resenas .od-stagger > :nth-child(2) { animation-range: entry 12% cover 18%; }
 
-    #beneficios .od-stagger > :nth-child(3),
     #resenas .od-stagger > :nth-child(3) { animation-range: entry 19% cover 24%; }
 
-    #beneficios .od-stagger > :nth-child(4),
     #resenas .od-stagger > :nth-child(4) { animation-range: entry 26% cover 30%; }
 
     @keyframes od-rejilla-fade {
       from { opacity: 0; scale: 0.96; }
       to   { opacity: 1; scale: 1; }
+    }
+  }
+}
+
+/* ---------- 6 bis. Fila 4 · La pista de ventajas ---------- */
+/* El desplazamiento horizontal vive en `build/css/beneficios.css`, junto
+   al resto de la sección. Aquí solo queda la entrada del titular, atada
+   a la misma línea de tiempo (`--pin-ventajas`) para que aparezca justo
+   cuando la sección se clava y no antes.
+
+   Los hijos de la pista NO llevan entrada propia: ya entran moviéndose en
+   horizontal, y un `view()` sobre ellos mediría contra el carrusel de
+   móvil (rango de cero) y los dejaría invisibles. */
+@media (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      #beneficios .pin-intro {
+        animation: od-pin-intro linear both;
+        animation-timeline: --pin-ventajas;
+        animation-range: entry 30% cover 40%;
+      }
+
+      @keyframes od-pin-intro {
+        from { opacity: 0; translate: 0 18px; }
+        to   { opacity: 1; translate: 0 0; }
+      }
     }
   }
 }
@@ -3065,76 +3240,62 @@ html .od-was.compact .od-was__btn {
 <!-- /OD:HERO -->
   <!-- OD:BENEFICIOS -->
 <section id="beneficios" data-od-id="beneficios-taller" aria-label="Ventajas del taller">
-      <div class="swipe-marco">
-        <div class="swipe grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 od-stagger od-stagger-2">
+      <div class="pin-vista">
 
-          <!-- ITEM 1: SUBLIMACIÓN REAL -->
-          <div class="bg-surface sticker-border sticker-shadow-md p-5 flex items-center gap-4 hover:translate-y-[-2px] transition-transform od-fade">
-            <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-xl bg-soft sticker-border flex items-center justify-center flex-shrink-0">
-              <!-- SVG Plancha térmica / prenda -->
-              <svg class="w-7 h-7 tx-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 18h16"></path>
-                <path d="M4 14h16"></path>
-                <path d="M6 14V8a2 2 0 012-2h8a2 2 0 012 2v6"></path>
-                <circle cx="12" cy="10" r="1" fill="#413f4b"></circle>
-                <path d="M9 4l1 2h4l1-2"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-display text-xl tx-ink leading-none mb-1">Pedidos desde una unidad</h3>
-              <p class="text-xs tx-muted font-bold leading-tight">También para empresas: cada encargo se cotiza por separado.</p>
-            </div>
+        <!-- Titular: solo se muestra cuando la seccion se clava (escritorio). -->
+        <div class="pin-intro">
+          <h2 class="font-display text-3xl md:text-4xl tx-ink leading-tight">Ventajas del taller</h2>
+          <p class="pin-intro__hint" aria-hidden="true">Sigue bajando →</p>
+        </div>
+
+        <div class="swipe-marco">
+          <div class="swipe pin-pista grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+
+            <!-- ITEM 1: PEDIDOS DESDE UNA UNIDAD -->
+            <article class="feature-card bg-surface sticker-border sticker-shadow-md hover:translate-y-[-2px] transition-transform">
+              <div class="feature-card__tile">
+                <img class="card-illustration" src="assets/beneficios/pedidos-unidad.jpg" alt="Ilustración de ejemplo: una taza de cerámica ilustrada junto a una caja de regalo" width="640" height="640" loading="lazy" decoding="async">
+              </div>
+              <div>
+                <h3 class="font-display text-xl tx-ink leading-none mb-1">Pedidos desde una unidad</h3>
+                <p class="text-xs tx-muted font-bold leading-tight">También para empresas: cada encargo se cotiza por separado.</p>
+              </div>
+            </article>
+
+            <!-- ITEM 2: PERSONALIZACIÓN DE PRODUCTOS -->
+            <article class="feature-card bg-surface sticker-border sticker-shadow-md hover:translate-y-[-2px] transition-transform">
+              <div class="feature-card__tile">
+                <img class="card-illustration" src="assets/beneficios/personalizacion.jpg" alt="Ilustración de ejemplo: una camiseta, un bolso de tela y una taza con el mismo diseño impreso" width="640" height="640" loading="lazy" decoding="async">
+              </div>
+              <div>
+                <h3 class="font-display text-xl tx-ink leading-none mb-1">Personalización de productos</h3>
+                <p class="text-xs tx-muted font-bold leading-tight">Polerones, tazas, textiles, papelería e identificación.</p>
+              </div>
+            </article>
+
+            <!-- ITEM 3: MUESTRA ANTES DE IMPRIMIR -->
+            <article class="feature-card bg-surface sticker-border sticker-shadow-md hover:translate-y-[-2px] transition-transform">
+              <div class="feature-card__tile">
+                <img class="card-illustration" src="assets/beneficios/muestra-impresion.jpg" alt="Ilustración de ejemplo: una prueba de diseño en arcilla sobre una taza, marcada con una aprobación" width="640" height="640" loading="lazy" decoding="async">
+              </div>
+              <div>
+                <h3 class="font-display text-xl tx-ink leading-none mb-1">Muestra antes de imprimir</h3>
+                <p class="text-xs tx-muted font-bold leading-tight">Revisamos su diseño y lo aprobamos con usted.</p>
+              </div>
+            </article>
+
+            <!-- ITEM 4: ATENCIÓN DE LUNES A VIERNES -->
+            <article class="feature-card bg-surface sticker-border sticker-shadow-md hover:translate-y-[-2px] transition-transform">
+              <div class="feature-card__tile">
+                <img class="card-illustration" src="assets/beneficios/atencion-whatsapp.jpg" alt="Ilustración de ejemplo: un teléfono con mensajes de chat y un reloj, atención por WhatsApp" width="640" height="640" loading="lazy" decoding="async">
+              </div>
+              <div>
+                <h3 class="font-display text-xl tx-ink leading-none mb-1">Atención de lunes a viernes</h3>
+                <p class="text-xs tx-muted font-bold leading-tight">De 10:00 a 17:00, por WhatsApp o por correo.</p>
+              </div>
+            </article>
+
           </div>
-
-          <!-- ITEM 2: LISTO EN 24 H -->
-          <div class="bg-surface sticker-border sticker-shadow-md p-5 flex items-center gap-4 hover:translate-y-[-2px] transition-transform od-fade">
-            <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-xl bg-awning sticker-border flex items-center justify-center flex-shrink-0">
-              <!-- SVG Cronómetro / Reloj ágil -->
-              <svg class="w-7 h-7 tx-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="13" r="8"></circle>
-                <path d="M12 9v4l2.5 2.5"></path>
-                <path d="M12 5V2"></path>
-                <path d="M10 2h4"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-display text-xl tx-ink leading-none mb-1">Personalización de productos</h3>
-              <p class="text-xs tx-muted font-bold leading-tight">Polerones, tazas, textiles, papelería e identificación.</p>
-            </div>
-          </div>
-
-          <!-- ITEM 3: ENVÍO A TODO EL PAÍS -->
-          <div class="bg-surface sticker-border sticker-shadow-md p-5 flex items-center gap-4 hover:translate-y-[-2px] transition-transform od-fade">
-            <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-xl bg-soft sticker-border flex items-center justify-center flex-shrink-0">
-              <!-- SVG Camioneta / paquete seguro -->
-              <svg class="w-7 h-7 tx-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="1" y="4" width="14" height="12" rx="1"></rect>
-                <path d="M15 8h4l3 4v4h-7V8z"></path>
-                <circle cx="6" cy="18" r="2"></circle>
-                <circle cx="18" cy="18" r="2"></circle>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-display text-xl tx-ink leading-none mb-1">Muestra antes de imprimir</h3>
-              <p class="text-xs tx-muted font-bold leading-tight">Revisamos su diseño y lo aprobamos con usted.</p>
-            </div>
-          </div>
-
-          <!-- ITEM 4: GARANTÍA DE UN AÑO -->
-          <div class="bg-surface sticker-border sticker-shadow-md p-5 flex items-center gap-4 hover:translate-y-[-2px] transition-transform od-fade">
-            <div class="w-13 h-13 min-w-[50px] min-h-[50px] rounded-xl bg-soft sticker-border flex items-center justify-center flex-shrink-0">
-              <!-- SVG Escudo con check de garantía -->
-              <svg class="w-7 h-7 tx-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                <path d="M9 12l2 2 4-4"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="font-display text-xl tx-ink leading-none mb-1">Atención de lunes a viernes</h3>
-              <p class="text-xs tx-muted font-bold leading-tight">De 10:00 a 17:00, por WhatsApp o por correo.</p>
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

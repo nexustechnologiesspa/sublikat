@@ -1,5 +1,11 @@
 # build/ — la fuente de verdad del sitio
 
+> **Aviso (2026-11-16): `index.html` va por delante de `build/`.** Desde el 2026-11-15 se editó la
+> página directamente (copy de héroe, ventajas y avisos cambiada a mano), así que los parciales de
+> `build/sections/` **no reproducen** el contenido actual. Mientras no se resincronice todo el cuerpo,
+> `actualizar-portada.ps1` **revertiría** ese copy: no se ejecuta sin revisar antes. Las secciones que
+> sí se han espejado (ventajas, 2026-11-16) están marcadas abajo. `index.html` manda.
+
 Aquí vive todo lo que se inyecta en `index.html`. `index.html` es un archivo **generado**: no se
 edita a mano, se regenera.
 

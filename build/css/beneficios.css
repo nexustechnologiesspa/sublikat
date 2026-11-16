@@ -1,3 +1,156 @@
 /* ==========================================================
-   Sublikat · Bloque de ventajas. Se compone con utilidades; aun no tiene reglas propias.
+   Sublikat · Bloque de ventajas.
+
+   Cuatro tarjetas verticales (ilustración + texto). En escritorio la
+   fila se convierte en una PISTA HORIZONTAL que se clava a la pantalla
+   y avanza mientras se baja (el "sectionPin" de
+   scroll-driven-animations.style). Sin soporte de lineas de tiempo, con
+   movimiento reducido o en movil, se queda como la rejilla de siempre:
+   la pista no depende de la animacion para verse.
    ========================================================== */
+
+/* ---------- tarjeta: ilustracion arriba, texto debajo ---------- */
+/* El titular de la seccion solo se ve en el modo clavado (mas abajo);
+   fuera de el no existe, para no cambiar el respaldo estatico ni movil. */
+html .pin-intro {
+  display: none;
+}
+
+html .feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 18px 20px;
+  text-align: left;
+}
+
+/* Recuadro de la ilustracion: mismo lenguaje "sticker" que llevaban los
+   iconos (fondo suave + borde), pero sin recortar: la imagen flota y
+   asoma un poco por encima del recuadro. */
+html .feature-card__tile {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--soft);
+  overflow: visible;
+}
+
+html .card-illustration {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: contain;
+  animation: floating 4s ease-in-out infinite;
+  transition: scale .45s ease;
+  will-change: translate, rotate;
+}
+
+/* El balanceo va en `translate`/`rotate` (propiedades sueltas) para que
+   el `scale` del hover no compita con la animacion: si los dos usaran
+   `transform`, la animacion ganaria siempre y el hover no se veria. */
+@keyframes floating {
+  0%, 100% {
+    translate: 0 0;
+    rotate: -2deg;
+  }
+  50% {
+    translate: 0 -9px;
+    rotate: 2deg;
+  }
+}
+
+html .feature-card:hover .card-illustration {
+  scale: 1.08;
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .card-illustration {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ---------- pista horizontal clavada ---------- */
+/* `#beneficios` se estira en alto para dar recorrido; `.pin-vista` se
+   queda pegada y es la pista la que se desplaza, atada a la linea de
+   tiempo de la seccion con `contain 0% → contain 100%` (exactamente el
+   tramo en el que esta clavada). */
+@media (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      html #beneficios {
+        --pin-top: calc(var(--hh, 72px) + var(--od-portada-banda, 16px));
+        --pin-lado: max(24px, calc((100vw - 1200px) / 2 + 24px));
+        height: clamp(170vh, 180vh, 210vh);
+        overflow: visible;
+        view-timeline-name: --pin-ventajas;
+        view-timeline-axis: block;
+      }
+
+      html #beneficios .pin-vista {
+        position: sticky;
+        top: var(--pin-top);
+        width: 100vw;
+        /* Rompe la caja de 1200 px de `.od-secciones` sin meter scroll
+           horizontal: `html` ya va con `overflow-x: clip`. */
+        margin-inline: calc(50% - 50vw);
+        height: calc(100svh - var(--pin-top));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(14px, 2.2vh, 28px);
+        overflow: hidden;
+      }
+
+      /* La pista de la seccion ya no es rejilla: es una fila sin corte. */
+      html #beneficios .pin-pista {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 2vw, 36px);
+        width: max-content;
+        padding-inline: var(--pin-lado);
+        animation: linear od-pin-mover forwards;
+        animation-timeline: --pin-ventajas;
+        animation-range: contain 0% contain 100%;
+        will-change: transform;
+      }
+
+      html #beneficios .pin-pista > .feature-card {
+        flex: 0 0 clamp(300px, 31vw, 430px);
+      }
+
+      html #beneficios .pin-pista .feature-card p {
+        font-size: 0.875rem;
+        line-height: 1.35;
+      }
+
+      /* Titular de la seccion: solo tiene sentido en el modo clavado, asi
+         que no aparece ni en movil ni en el respaldo estatico. */
+      html #beneficios .pin-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding-inline: var(--pin-lado);
+      }
+
+      html #beneficios .pin-intro__hint {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      @keyframes od-pin-mover {
+        to {
+          /* Borde derecho de la pista contra el borde de la ventana */
+          transform: translateX(calc(-100% + 100vw));
+        }
+      }
+    }
+  }
+}
