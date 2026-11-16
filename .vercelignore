@@ -1,0 +1,10 @@
+# Archivos de desarrollo: no son necesarios para servir index.html
+build/
+docs/
+qa/
+
+# Metadatos y documentación de assets; las imágenes usadas por la web se conservan
+assets/productos/README.md
+assets/productos/catalogo.json
+assets/productos/*/README.md
+assets/stock/credits.json
