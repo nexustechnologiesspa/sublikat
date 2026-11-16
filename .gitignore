@@ -5,6 +5,10 @@
 logs/
 renders/
 
+# Vite / npm outputs
+/node_modules/
+/dist/
+
 # Capturas de QA generadas (se regeneran con qa/capturar-linea-base.mjs).
 qa/antes/
 qa/despues/

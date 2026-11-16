@@ -1,11 +1,35 @@
+import Header from './components/Header/Header.jsx';
+import Portada from './components/Portada/Portada.jsx';
+import ReadingProgress from './components/ReadingProgress/ReadingProgress.jsx';
+import WhatsAppWidget from './components/WhatsAppWidget/WhatsAppWidget.jsx';
+import Benefits from './sections/Benefits/Benefits.jsx';
+import Catalog from './sections/Catalog/Catalog.jsx';
+import Commitments from './sections/Commitments/Commitments.jsx';
+import Contact from './sections/Contact/Contact.jsx';
+import Footer from './sections/Footer/Footer.jsx';
+import Hero from './sections/Hero/Hero.jsx';
+import Process from './sections/Process/Process.jsx';
+import WorkshopNotice from './sections/WorkshopNotice/WorkshopNotice.jsx';
+
 export default function App() {
   return (
-    <main>
-      <h1>Infraestructura React + Vite</h1>
-      <p>
-        Pantalla provisional para verificar el montaje de React. La migración
-        del sitio todavía no comienza.
-      </p>
-    </main>
+    <>
+      <ReadingProgress />
+      <Header />
+      <Portada />
+      <main>
+        <div className="od-secciones w-full max-w-[1200px] mx-auto px-4 sm:px-6 pt-4 sm:pt-6">
+          <Hero />
+          <Benefits />
+          <WorkshopNotice />
+          <Catalog />
+          <Process />
+          <Commitments />
+          <Contact />
+        </div>
+      </main>
+      <Footer />
+      <WhatsAppWidget />
+    </>
   );
 }
