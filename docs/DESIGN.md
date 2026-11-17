@@ -111,7 +111,8 @@ sola vez por bloque, el verde solo en mensajes de confianza y el crema es el col
 - Objetivos táctiles de al menos 44 × 44 px, con 8 px de separación entre objetivos adyacentes.
 
 ### Tarjeta de producto
-- Foto cuadrada (1:1).
+- Foto cuadrada (1:1), servida con `<picture>` en AVIF y WebP a 480 y 960 px; el maestro JPEG de
+  1200 px no se publica. Con `loading="lazy"` y el atributo `sizes` ajustado al ancho real de la tarjeta.
 - Etiqueta de estado: "Listo para despacho" o "Personalizado a pedido".
 - Nombre del producto.
 - Precio con IVA indicado.

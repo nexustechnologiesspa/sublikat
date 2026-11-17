@@ -610,6 +610,11 @@ html .od-portada__foto {
         position: absolute;
         inset: 0;
         background-image: url('/assets/portada/quita-la-luz-2150.jpg');
+        background-image: image-set(
+                url('/assets/portada/quita-la-luz-2150.avif') type('image/avif'),
+                url('/assets/portada/quita-la-luz-2150.webp') type('image/webp'),
+                url('/assets/portada/quita-la-luz-2150.jpg') type('image/jpeg')
+        );
         background-size: cover;
         background-position: var(--od-portada-foco-x) 0;
         background-repeat: no-repeat;
@@ -637,6 +642,11 @@ html .od-portada__foto {
 @media (max-width: 767px) and (orientation: portrait) {
         html .od-portada__foto {
                 background-image: url('/assets/portada/quita-la-luz-movil.jpg');
+                background-image: image-set(
+                        url('/assets/portada/quita-la-luz-movil.avif') type('image/avif'),
+                        url('/assets/portada/quita-la-luz-movil.webp') type('image/webp'),
+                        url('/assets/portada/quita-la-luz-movil.jpg') type('image/jpeg')
+                );
                 --od-portada-foco-x: 50%;
         }
 }
@@ -644,12 +654,22 @@ html .od-portada__foto {
 @media (max-width: 767px) and (orientation: landscape) {
         html .od-portada__foto {
                 background-image: url('/assets/portada/quita-la-luz-1024.jpg');
+                background-image: image-set(
+                        url('/assets/portada/quita-la-luz-1024.avif') type('image/avif'),
+                        url('/assets/portada/quita-la-luz-1024.webp') type('image/webp'),
+                        url('/assets/portada/quita-la-luz-1024.jpg') type('image/jpeg')
+                );
         }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {
         html .od-portada__foto {
                 background-image: url('/assets/portada/quita-la-luz-1440.jpg');
+                background-image: image-set(
+                        url('/assets/portada/quita-la-luz-1440.avif') type('image/avif'),
+                        url('/assets/portada/quita-la-luz-1440.webp') type('image/webp'),
+                        url('/assets/portada/quita-la-luz-1440.jpg') type('image/jpeg')
+                );
                 /* Tablet vertical: `cover` recorta casi 8 de cada 10 px de
                    ancho y el centro de la foto es pared. 68 % deja dentro
                    la prensa y las tazas. */
@@ -660,6 +680,11 @@ html .od-portada__foto {
 @media (min-width: 1024px) and (max-width: 1279px) {
         html .od-portada__foto {
                 background-image: url('/assets/portada/quita-la-luz-1440.jpg');
+                background-image: image-set(
+                        url('/assets/portada/quita-la-luz-1440.avif') type('image/avif'),
+                        url('/assets/portada/quita-la-luz-1440.webp') type('image/webp'),
+                        url('/assets/portada/quita-la-luz-1440.jpg') type('image/jpeg')
+                );
         }
 }
 

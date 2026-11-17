@@ -1,27 +1,36 @@
 {
-  "version": 1,
+  "version": 2,
   "proyecto": "Sublikat",
-  "actualizado": "2026-11-12",
+  "actualizado": "2026-11-17",
   "carpetaRaiz": "assets/productos",
-  "nota": "Manifiesto de las fotografías de producto del catálogo de la portada. Cada entrada declara la ruta relativa de la foto dentro de assets/productos/, sus medidas y el texto alternativo. Cuando la foto llegue, se guarda el archivo en la carpeta de su categoría y se completa el campo 'creditos'. Mientras 'estado' sea 'pendiente', la ficha sigue mostrando su icono SVG.",
+  "nota": "Manifiesto de las fotografías de producto del catálogo de la portada: una entrada por cada una de las 20 fichas. El campo 'archivo' apunta al maestro JPEG (1200 × 1200) que se guarda en la carpeta de su categoría; ese maestro NO se publica. Lo que se empaqueta son las variantes -480 y -960 en AVIF y WebP que genera `npm run fotos` (build/optimizar-fotos.mjs). Con 'estado': 'muestra' el archivo ya está en su carpeta y la ficha lo muestra en la web; 'pendiente' significa que la ficha sigue con su icono SVG. Todas las imágenes actuales son material de muestra generado con IA: no son fotografías del taller y deben sustituirse cuando el cliente las entregue, manteniendo el mismo nombre de archivo.",
   "convencion": {
     "carpetaPorCategoria": "assets/productos/<categoria>/",
     "nombreArchivo": "kebab-case igual al id de la ficha; con varias fotos, sufijo -01, -02",
-    "medidas": "1200x1200 px (1:1)",
-    "formato": "JPEG progresivo, calidad ~80, hasta 150 KB",
-    "marcado": "<img src=\"assets/productos/<categoria>/<archivo>\" alt=\"<alt>\" width=\"1200\" height=\"1200\" loading=\"lazy\" decoding=\"async\" class=\"w-full h-full object-cover\">",
+    "maestro": "JPEG progresivo 1200x1200, ≤ 150 KB. Es la fuente: no se publica ni se importa desde React",
+    "variantes": "<nombre>-480.avif, <nombre>-960.avif, <nombre>-480.webp, <nombre>-960.webp; las genera `npm run fotos`",
+    "compresion": "AVIF calidad 52, croma 4:4:4; WebP calidad 80. Ninguna variante pasa de 43 KB",
+    "pesoPublicado": "las 20 fichas: 105 KB en 480 AVIF, 283 KB en 960 AVIF, 167 KB en 480 WebP, 453 KB en 960 WebP",
+    "marcado": "<picture><source type=\"image/avif\" srcSet=\"…-480.avif 480w, …-960.avif 960w\" sizes=\"(min-width: 1024px) 330px, (min-width: 640px) 310px, 33vw\"><source type=\"image/webp\" …><img src=\"…-960.webp\" alt=\"<alt>\" width=\"960\" height=\"960\" loading=\"lazy\" decoding=\"async\" class=\"w-full h-full object-cover\"></picture>",
     "rutas": {
       "index.html": "assets/productos/...",
-      "src/*.html": "../assets/productos/..."
+      "src/*.html": "../assets/productos/...",
+      "src/sections/Catalog": "import.meta.glob sobre ../../../assets/productos/*/*-{480,960}.{avif,webp} (Vite conserva la ruta)"
     }
   },
   "categorias": [
     { "slug": "regalos", "etiqueta": "Regalos personalizados", "fichas": 7 },
     { "slug": "cuadros", "etiqueta": "Cuadros y fotografías", "fichas": 3 },
-    { "slug": "textiles", "etiqueta": "Estampados textiles", "fichas": 4 },
+    { "slug": "textiles", "etiqueta": "Estampados textiles", "fichas": 5 },
     { "slug": "papeleria", "etiqueta": "Papelería corporativa", "fichas": 2 },
     { "slug": "identificacion", "etiqueta": "Identificación corporativa", "fichas": 3 }
   ],
+  "creditosMuestra": {
+    "origen": "Imagen de muestra generada con IA a partir de los prompts del catálogo del proyecto",
+    "recibida": "2026-11-17",
+    "licencia": "Material de muestra del proyecto; no es fotografía del taller",
+    "requiere_foto_real": true
+  },
   "fichas": [
     {
       "id": "producto-tazas",
@@ -30,9 +39,9 @@
       "archivo": "regalos/tazas.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Taza de cerámica con estampado a todo color",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Taza blanca de cerámica con un estampado botánico de líneas coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-tazas-magicas",
@@ -41,9 +50,9 @@
       "archivo": "regalos/tazas-magicas.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Taza cuyo estampado aparece con el calor",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Taza negra mate con un estampado floral coral que aparece con el calor",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-botellas",
@@ -52,9 +61,9 @@
       "archivo": "regalos/botellas.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Botella metálica con estampado sublimado",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Botella térmica color crema con una banda geométrica coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-mousepads",
@@ -63,9 +72,9 @@
       "archivo": "regalos/mousepads.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Mousepad de tela con diseño impreso",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Mousepad rectangular de tela con curvas impresas en coral y mostaza",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-bolsas",
@@ -74,9 +83,9 @@
       "archivo": "regalos/bolsas.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Bolsa de tela con estampado personalizado",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Bolsa de tela cruda con un motivo geométrico coral estampado",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-relojes",
@@ -85,9 +94,9 @@
       "archivo": "regalos/relojes.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Reloj con esfera y correa estampadas",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Reloj de pulsera con esfera y correa estampadas en tonos coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-chapas-mascotas",
@@ -96,9 +105,9 @@
       "archivo": "regalos/chapas-mascotas.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Chapa circular con la fotografía de una mascota",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Chapa redonda de metal con el perfil de un perro dibujado en línea coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-cuadros-piedra",
@@ -107,9 +116,9 @@
       "archivo": "cuadros/cuadros-piedra.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Cuadro de piedra con imagen sublimada",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Cuadro de piedra con un paisaje abstracto en tonos tierra y coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-cuadros-fotos",
@@ -118,64 +127,75 @@
       "archivo": "cuadros/cuadros-fotos.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Cuadro con una fotografía impresa",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Marco negro con una lámina de hojas y montañas en tonos cálidos",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-cuadros-aluminio",
-      "nombre": "Cuadros de aluminio",
+      "nombre": "Cuadros de fotos en aluminio",
       "categoria": "cuadros",
       "archivo": "cuadros/cuadros-aluminio.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Cuadro de aluminio con imagen impresa",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Cuadro de aluminio con un diseño geométrico de arcos en coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
+    },
+    {
+      "id": "producto-polerones",
+      "nombre": "Polerones",
+      "categoria": "textiles",
+      "archivo": "textiles/polerones.jpg",
+      "ancho": 1200,
+      "alto": 1200,
+      "alt": "Polerón de algodón color crema con un estampado geométrico coral y mostaza",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-estampado-1-color",
-      "nombre": "Estampado a 1 color",
+      "nombre": "Estampado en telas de 1 color",
       "categoria": "textiles",
       "archivo": "textiles/estampado-1-color.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Prenda de algodón con estampado a una tinta",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Camiseta doblada con un estampado circular a una sola tinta coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-estampado-2-colores",
-      "nombre": "Estampado a 2 colores",
+      "nombre": "Estampado en telas de 2 colores",
       "categoria": "textiles",
       "archivo": "textiles/estampado-2-colores.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Prenda de algodón con estampado a dos tintas",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Camiseta doblada con un estampado botánico en coral y mostaza",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-estampado-3-colores",
-      "nombre": "Estampado a 3 colores",
+      "nombre": "Estampado en telas de 3 colores",
       "categoria": "textiles",
       "archivo": "textiles/estampado-3-colores.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Prenda de algodón con estampado a tres tintas",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Camiseta doblada con un estampado botánico en tres tintas: coral, mostaza y café",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-estampado-imagenes",
-      "nombre": "Estampado con imágenes",
+      "nombre": "Estampado en tela con imágenes",
       "categoria": "textiles",
       "archivo": "textiles/estampado-imagenes.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Prenda de algodón con imagen a todo color",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Camiseta doblada con una impresión a todo color de hojas en tonos cálidos",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-tarjetas-presentacion",
@@ -184,20 +204,20 @@
       "archivo": "papeleria/tarjetas-presentacion.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Tarjeta de presentación con la marca del taller",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Mazo de tarjetas de presentación de papel grueso con un símbolo coral",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-tarjetas-pvc",
-      "nombre": "Tarjetas PVC",
+      "nombre": "Tarjetas de presentación PVC",
       "categoria": "papeleria",
       "archivo": "papeleria/tarjetas-pvc.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Tarjeta PVC rígida con impresión a todo color",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Tarjeta de PVC brillante con un patrón geométrico coral y crema",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-lanyards",
@@ -206,9 +226,9 @@
       "archivo": "identificacion/lanyards.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Lanyard con cinta impresa y gancho",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Lanyard de cinta estampada con mosquetón metálico y portacredencial",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-credenciales",
@@ -217,9 +237,9 @@
       "archivo": "identificacion/credenciales.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Credencial con fotografía y datos impresos",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Credencial impresa en funda transparente con lanyard oscuro",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     },
     {
       "id": "producto-credenciales-pvc",
@@ -228,9 +248,9 @@
       "archivo": "identificacion/credenciales-pvc.jpg",
       "ancho": 1200,
       "alto": 1200,
-      "alt": "Credencial PVC rígida con fotografía y datos",
-      "estado": "pendiente",
-      "creditos": null
+      "alt": "Credencial rígida de PVC con silueta genérica y código de barras",
+      "estado": "muestra",
+      "creditos": { "origen": "Imagen de muestra generada con IA", "recibida": "2026-11-17", "requiere_foto_real": true }
     }
   ]
 }

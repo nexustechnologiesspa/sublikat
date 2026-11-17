@@ -5,5 +5,5 @@ fondo claro y producto centrado. Detalle completo en `../README.md`.
 
 | Ficha | Archivo | Texto alternativo |
 |---|---|---|
-| Tarjetas de presentación | `tarjetas-presentacion.jpg` | Tarjeta de presentación con la marca del taller |
-| Tarjetas PVC | `tarjetas-pvc.jpg` | Tarjeta PVC rígida con impresión a todo color |
+| Tarjetas de presentación | `tarjetas-presentacion.jpg` | Mazo de tarjetas de presentación de papel grueso con un símbolo coral |
+| Tarjetas PVC | `tarjetas-pvc.jpg` | Tarjeta de PVC brillante con un patrón geométrico coral y crema |

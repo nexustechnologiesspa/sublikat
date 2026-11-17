@@ -5,6 +5,6 @@ fondo claro y producto centrado. Detalle completo en `../README.md`.
 
 | Ficha | Archivo | Texto alternativo |
 |---|---|---|
-| Lanyards | `lanyards.jpg` | Lanyard con cinta impresa y gancho |
-| Credenciales | `credenciales.jpg` | Credencial con fotografía y datos impresos |
-| Credenciales PVC | `credenciales-pvc.jpg` | Credencial PVC rígida con fotografía y datos |
+| Lanyards | `lanyards.jpg` | Lanyard de cinta estampada con mosquetón metálico y portacredencial |
+| Credenciales | `credenciales.jpg` | Credencial impresa en funda transparente con lanyard oscuro |
+| Credenciales PVC | `credenciales-pvc.jpg` | Credencial rígida de PVC con silueta genérica y código de barras |

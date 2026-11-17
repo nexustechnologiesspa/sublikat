@@ -225,14 +225,14 @@ export default function Catalog() {
             20 productos en 5 categorías
           </h2>
           <p className="text-base tx-ink font-semibold mt-1 max-w-2xl">
-            Cada ficha muestra el tipo de producto y abre su cotización con el nombre ya escrito. El precio y la fotografía de cada producto se incorporan al confirmar la línea definitiva.
+            Cada ficha muestra el producto con una fotografía de muestra y abre su cotización con el nombre ya escrito. El precio se confirma en la cotización.
           </p>
         </div>
         <div className="bg-surface ink-border rounded-sticker px-3 py-2 text-xs font-bold tx-ink flex items-center gap-2 shadow-offset-sm self-start md:self-auto">
           <span className="bg-accent tx-onfill px-2 py-0.5 rounded text-[10px] uppercase font-black">
             Ejemplo
           </span>
-          <span>Lista de productos del taller</span>
+          <span>Fotografías y precios de muestra</span>
         </div>
       </div>
 

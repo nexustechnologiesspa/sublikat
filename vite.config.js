@@ -52,6 +52,9 @@ export default defineConfig({
   plugins: [react(), copyHtmlImageAssets()],
   publicDir: 'public',
   build: {
+    // Ninguna imagen se incrusta como data URI: las variantes AVIF/WebP de 480 px pesan ~4 KB
+    // y, incrustadas, engordarían el JS que se descarga siempre y perderían el lazy loading.
+    assetsInlineLimit: 0,
     cssMinify: false,
     rollupOptions: {
       output: {
