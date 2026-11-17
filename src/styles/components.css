@@ -1,0 +1,1564 @@
+
+/* ==========================================================
+   Sublikat · Componentes compartidos: botones, tarjetas sticker, badges, campos y utilidades de color.
+   ========================================================== */
+
+/* ---------- bordes: 1 px con var(--line) ---------- */
+.sticker-border,
+.ink-border,
+.ink-border-sm,
+.ink-border-thick {
+        border: 1px solid var(--line);
+
+}
+
+.sticker-border {
+        border-radius: var(--radius);
+
+}
+
+.rounded-sticker {
+        border-radius: var(--radius);
+
+}
+
+/* ---------- sombras: tres niveles suaves ---------- */
+.sticker-shadow-sm,
+.shadow-offset-sm {
+        box-shadow: var(--e-sh-1);
+
+}
+
+.sticker-shadow-md,
+.shadow-offset {
+        box-shadow: var(--e-sh-2);
+
+}
+
+.sticker-shadow-lg,
+.shadow-offset-lg {
+        box-shadow: var(--e-sh-3);
+
+}
+
+/* ---------- etiquetas y píldoras: sin sombra ---------- */
+.sticker-tag {
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+
+}
+
+.badge-pill {
+        border: 1px solid var(--line);
+        border-radius: 9999px;
+
+}
+
+/* ---------- estado activo: sombra nivel 1, sin desplazamiento ---------- */
+.btn-press:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+.btn-press {
+        transition: box-shadow 0.15s ease;
+
+}
+
+/* Reset & variables */ *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+
+}
+
+/* Etiquetas pequeñas: micro-rótulo, sin sombra */
+.sticker-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--awning);
+        color: var(--awning-ink);
+        font-weight: 800;
+        font-size: 13px;
+        padding: 5px 14px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+
+}
+
+.demo-tag {
+        display: inline-block;
+        background: var(--soft-2);
+        color: var(--ink);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+        vertical-align: middle;
+
+}
+
+/* Headings */ h2.section-title {
+        font-family: var(--font-display);
+        font-size: 42px;
+        color: var(--ink);
+        line-height: 1.15;
+        letter-spacing: -0.015em;
+        margin-top: 8px;
+        margin-bottom: 8px;
+
+}
+
+p.section-subtitle {
+        font-size: 17px;
+        color: var(--ink);
+        margin-bottom: 32px;
+
+}
+
+/* Form Fields */ .form-group {
+        margin-bottom: 22px;
+        display: flex;
+        flex-direction: column;
+
+}
+
+.field-label {
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--ink);
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+}
+
+.required-mark {
+        color: var(--accent);
+        font-size: 16px;
+
+}
+
+.field-input, .field-select, .field-textarea {
+        width: 100%;
+        min-height: 48px;
+        background: var(--field-bg);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        padding: 10px 14px;
+        font-family: var(--font-body);
+        font-weight: 600;
+        font-size: 15px;
+        color: var(--ink);
+        transition: border-color 0.15s, box-shadow 0.15s;
+
+}
+
+.field-textarea {
+        min-height: 110px;
+        resize: vertical;
+
+}
+
+/* Error field state: cambia el borde, nunca la sombra */
+.field-input.has-error {
+        border: 1px solid var(--error-border);
+        background-color: var(--field-bg-error);
+
+}
+
+.field-input.has-error:focus-visible {
+        outline: 3px solid var(--error-border);
+
+}
+
+.field-error-msg {
+        color: var(--error-text);
+        font-size: 13px;
+        font-weight: 800;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+}
+
+.field-help-text {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--muted);
+        margin-top: 5px;
+
+}
+
+.checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        margin: 18px 0 24px 0;
+
+}
+
+.custom-checkbox {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        margin-top: 2px;
+        accent-color: var(--accent);
+        cursor: pointer;
+
+}
+
+.checkbox-label {
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.4;
+        cursor: pointer;
+
+}
+
+/* Submit Button (48px height minimum) */ .btn-submit {
+        width: 100%;
+        height: 48px;
+        min-height: 48px;
+        background: var(--accent-fill);
+        color: var(--on-accent);
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        font-family: var(--font-body);
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        letter-spacing: 0.04em;
+        transition: background 0.15s, box-shadow 0.15s;
+
+}
+
+.btn-submit:hover {
+        background: var(--accent-hover);
+
+}
+
+.btn-submit:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+/* WhatsApp Button */ .btn-whatsapp {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        min-height: 48px;
+        background: var(--whatsapp);
+        color: var(--on-whatsapp);
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 16px;
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 0 20px;
+        margin-bottom: 24px;
+        transition: background 0.15s, box-shadow 0.15s;
+
+}
+
+.btn-whatsapp:hover {
+        background: var(--whatsapp-hover);
+
+}
+
+.btn-whatsapp:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+/* ---------- utilidades de color del sistema ---------- */ html .bg-surface {
+   background-color: var(--surface); 
+}
+
+html .bg-soft {
+   background-color: var(--soft); 
+}
+
+html .bg-inkfill {
+   background-color: var(--ink-fill); color: var(--on-inkfill); 
+}
+
+html .bg-accent {
+   background-color: var(--accent-fill); color: var(--on-accent); 
+}
+
+html .bg-awning {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+html .bg-success {
+   background-color: var(--success); color: var(--on-success); 
+}
+
+html .bg-whatsapp {
+   background-color: var(--whatsapp); color: var(--on-whatsapp); 
+}
+
+html .bg-whatsappsoft {
+   background-color: var(--whatsapp-soft); 
+}
+
+html .tx-ink {
+   color: var(--ink); 
+}
+
+html .tx-muted {
+   color: var(--muted); 
+}
+
+html .tx-onfill {
+   color: var(--on-inkfill); 
+}
+
+html .tx-accent {
+   color: var(--accent-ink); 
+}
+
+html .tx-success {
+   color: var(--success-text); 
+}
+
+html .tx-awningink {
+   color: var(--awning-ink); 
+}
+
+html .bd-ink {
+   border-color: var(--line); 
+}
+
+html .hover-bg-soft:hover {
+   background-color: var(--soft); 
+}
+
+html .hover-bg-soft2:hover {
+   background-color: var(--soft-2); 
+}
+
+html .hover-bg-inkfillhov:hover {
+   background-color: var(--ink-fill-hover); 
+}
+
+html .hover-tx-accent:hover {
+   color: var(--accent-ink); 
+}
+
+html .sel-awning::selection {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+html .sel-ink::selection {
+   background-color: var(--awning); color: var(--awning-ink); 
+}
+
+/* texto heredado de una superficie con color propio */ html .bg-awning .tx-ink, html .bg-awning .tx-muted, html .bg-awning .tx-accent, html .bg-awning .tx-success {
+   color: var(--awning-ink); 
+}
+
+html .bg-success .tx-onfill, html .bg-success .tx-ink {
+   color: var(--on-success); 
+}
+
+html .bg-accent .tx-onfill, html .bg-accent .tx-ink {
+   color: var(--on-accent); 
+}
+
+html .bg-inkfill .tx-onfill, html .bg-inkfill .tx-ink {
+   color: var(--on-inkfill); 
+}
+
+html .bg-whatsapp .tx-ink, html .bg-whatsapp .tx-onfill {
+   color: var(--on-whatsapp); 
+}
+
+/* ---------- modo oscuro ---------- */
+/* Los bordes, las sombras y los rellenos ya salen de los tokens: cada tema
+   declara su propio valor. Aquí no hay que repetir ninguna regla. */
+
+@media (max-width: 767px)  {
+  html h2.section-title {
+   font-size: 30px; 
+  }
+
+}
+@media (prefers-reduced-motion: reduce)  {
+  *, *::before, *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+
+  }
+
+}
+/* La cabecera flota sobre la portada y, al bajar, la portada se queda
+   como banda justo debajo: los anclajes tienen que salir por debajo de
+   las dos. */
+html section[id] {
+  scroll-margin-top:calc(var(--hh,72px) + var(--od-portada-banda, 16px) + 12px)
+}
+
+html nav a[aria-current="true"] {
+  color:var(--accent-ink);text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:6px
+}
+
+/* catálogo: pestañas fijas bajo la cabecera y la banda de la portada, y
+   cambio animado */
+html [role="tablist"] {
+  position:sticky;top:calc(var(--hh,72px) + var(--od-portada-banda, 16px) + 8px);z-index:30;scroll-snap-type:x proximity;scrollbar-width:none
+}
+
+html [role="tablist"]::-webkit-scrollbar {
+  display:none
+}
+
+.dots {
+  display:none
+}
+
+@media (max-width:767px)  {
+  html .swipe {
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-inline:-16px;padding:22px 16px 10px;scrollbar-width:none;overscroll-behavior-x:contain
+  }
+
+  html .swipe::-webkit-scrollbar {
+  display:none
+  }
+
+  html .swipe>* {
+  flex:0 0 82%;scroll-snap-align:center;min-width:0
+  }
+
+  .dots {
+  display:flex;justify-content:center;gap: var(--space-2);margin-top:4px
+  }
+
+  .dots span {
+  width:10px;height:10px;border: 1px solid var(--line);border-radius:99px;background:transparent;transition:width .2s,background-color .2s
+  }
+
+  .dots span.on {
+  width:26px;background:var(--accent-fill)
+  }
+
+  /* catálogo en 2 columnas, fichas compactas */ html [data-od-id^="producto-"] {
+  padding:12px
+  }
+
+  html [data-od-id^="producto-"] svg {
+  width:3.5rem;height:3.5rem
+  }
+
+  html [data-od-id^="producto-"] h4 {
+  font-size:18px;margin-top:10px
+  }
+
+  html [data-od-id^="producto-"] a {
+  min-height:44px;margin-top:10px
+  }
+
+  html [data-od-id^="producto-"] p {
+  font-size:12.5px
+  }
+
+}
+@media (max-width:479px)  {
+  html main a[role="button"] {
+  width:100%
+  }
+
+}
+@media (prefers-reduced-motion:reduce)  {
+  html [role="tabpanel"] {
+  animation:none!important
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Cabecera: barra superior, navegacion y menu movil.
+   ========================================================== */
+
+/* La cabecera NO pinta fondo: la foto de la portada tiene que verse por
+   detras del menu y dentro de la propia cabecera (en su relleno de arriba
+   y de abajo). Solo la tarjeta interior lleva superficie. */
+html #site-header {
+  /* background: var(--bg); */
+}
+
+/* menú móvil */ html .menu-movil {
+  display:grid;gap:6px;padding-top:6px;border-top: 1px dashed var(--line-soft);margin-top:4px
+}
+
+html .menu-movil[hidden] {
+  display:none!important
+}
+
+html .menu-movil a {
+  display:flex;align-items:center;min-height:48px;padding:0 14px;border: 1px solid var(--line);border-radius: var(--radius-sm);background:var(--soft);font-weight:800;color:var(--ink)
+}
+
+html .menu-movil a[aria-current="true"] {
+  background:var(--awning);color:var(--awning-ink)
+}
+
+/* El conmutador de tema, cuando se muda al menú (móvil). Se estira a todo
+   el ancho y pasa a ser una fila más, con el texto a la izquierda y el
+   icono a la derecha: en la barra es un cuadrado de 44 px y aquí un
+   renglón de 48, tocable como los enlaces. */
+html .menu-movil__tema[hidden] {
+  display:none!important
+}
+
+html #menu-tema #theme-toggle {
+  width:100%;min-height:48px;padding:0 14px;
+  border: 1px solid var(--line);border-radius: var(--radius-sm);
+  background:var(--soft);
+  justify-content:space-between;
+  box-shadow:none
+}
+
+html #menu-tema #theme-toggle svg {
+  flex:0 0 auto
+}
+
+/* La etiqueta escrita no existe en la barra: allí el botón es un cuadrado
+   con icono, y el nombre accesible lo da `aria-label`. */
+html .od-tema-etiqueta {
+  display:none
+}
+
+html #menu-movil .od-tema-etiqueta {
+  display:inline;font-weight:800;font-size:0.9375rem;letter-spacing:0.01em
+}
+
+@media (min-width:768px)  {
+  html .menu-movil {
+  display:none!important
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Portada fotografica.
+   La foto del taller abre la pagina a pantalla completa, POR DETRAS
+   del menu, que queda encima. Al bajar se encoge hasta ser una banda
+   fina pegada arriba, debajo del menu: el efecto "cover to fixed
+   header" de scroll-driven-animations.style.
+
+   Como esta hecho (y por que asi):
+   · El marco (`.od-portada`) es `fixed` y lo que se anima es su
+     `height`, de 100svh a (menu + banda). Se anima `height` y no
+     `translate` porque lo que tiene que encogerse es el marco: con
+     solo mover la foto, el fondo del marco se queda tapando la
+     pantalla entera (ese fue el fallo que se corrigio el 15-11).
+   · Como el marco sale del flujo, `<body>` reserva su alto con
+     `padding-block-start: 100svh`; sin eso el contenido saltaria
+     hacia arriba al encogerse.
+   · La foto lleva `background-position: 50% 0 → 50% 100%` para que
+     el recorte de la banda sea la parte de abajo de la foto.
+   · El nombre y el lema se desvanecen en la primera mitad: la banda
+     queda limpia y el nombre ya esta en la cabecera.
+
+   Todo esto vive dentro de `@supports (animation-timeline: scroll())`
+   y de `prefers-reduced-motion: no-preference`. Sin soporte (o con
+   movimiento reducido) el marco se queda en el flujo, mide una
+   pantalla y se va al bajar: la pagina funciona igual.
+   ========================================================== */
+
+/* ---------- el marco ---------- */
+/* Estado base: en el flujo y de una pantalla. Es el estado que ven los
+   navegadores sin lineas de tiempo y quien pide movimiento reducido. */
+html .od-portada {
+        position: relative;
+        inset: auto;
+        block-size: 100vh;
+        block-size: 100svh;
+        overflow: hidden;
+        z-index: 0;
+        background: var(--ink-fill);
+
+}
+
+/* ---------- la foto ---------- */
+/* Capa que llena el marco. `cover` recorta lo que sobra sin deformar: en
+   pantallas anchas sobra por arriba y por abajo, en verticales por los
+   lados. La posicion inicial (vertical 0) deja el arranque de la foto
+   arriba; el foco horizontal lo pone `--od-portada-foco-x`, porque en
+   vertical el recorte es tan estrecho que conviene elegirlo a mano.
+   El archivo tambien cambia por ancho: ver el bloque siguiente. */
+html .od-portada__foto {
+        --od-portada-foco-x: 50%;
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/portada/quita-la-luz-2150.jpg');
+        background-size: cover;
+        background-position: var(--od-portada-foco-x) 0;
+        background-repeat: no-repeat;
+
+}
+
+/* ---------- la foto, responsive ---------- */
+/* Tres encuadres, no uno. Con `cover` el navegador escala por la
+   dimension que falta: en un movil vertical (375 x 812) escala por el
+   alto, asi que de los 2150 px de ancho solo se ven unos 554 y el resto
+   se descarga para nada (287 KB). Por eso:
+
+   · Vertical hasta 767 px: `quita-la-luz-movil.jpg`, un recorte vertical
+     de 554 x 1200 (73 KB). Conserva los 1200 px de alto del original, o
+     sea el mismo detalle, y el encuadre ya viene elegido: prensa y taza.
+     Al tener la misma proporcion que la pantalla, `cover` no recorta.
+   · Landscape hasta 767 px y tablet: `-1440.jpg` (157 KB), que es el
+     ancho que pide un `cover` de hasta 900 px de alto.
+   · 1280 px o mas: el original de 2150 px.
+
+   El foco horizontal va en la variable `--od-portada-foco-x` y no
+   duplicando los `@keyframes` del recorte: se cambia por ancho y la
+   animacion lo respeta sola. */
+
+@media (max-width: 767px) and (orientation: portrait) {
+        html .od-portada__foto {
+                background-image: url('/assets/portada/quita-la-luz-movil.jpg');
+                --od-portada-foco-x: 50%;
+        }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+        html .od-portada__foto {
+                background-image: url('/assets/portada/quita-la-luz-1024.jpg');
+        }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+        html .od-portada__foto {
+                background-image: url('/assets/portada/quita-la-luz-1440.jpg');
+                /* Tablet vertical: `cover` recorta casi 8 de cada 10 px de
+                   ancho y el centro de la foto es pared. 68 % deja dentro
+                   la prensa y las tazas. */
+                --od-portada-foco-x: 68%;
+        }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+        html .od-portada__foto {
+                background-image: url('/assets/portada/quita-la-luz-1440.jpg');
+        }
+}
+
+/* ---------- velo ---------- */
+/* Oscurece la parte baja para que el nombre se lea sobre la foto. Va en
+   el marco, no en la foto: si viajara con ella, el degradado se
+   despegaria del borde al bajar. Se desvanece junto con el nombre. */
+html .od-portada__velo {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+                        color-mix(in srgb, var(--ink-fill) 84%, transparent) 0%,
+                        color-mix(in srgb, var(--ink-fill) 44%, transparent) 36%,
+                        transparent 68%);
+
+}
+
+/* ---------- marca ---------- */
+html .od-portada__marca {
+        position: absolute;
+        inset-block-end: clamp(20px, 5vh, 64px);
+        inset-inline: clamp(16px, 5vw, 72px);
+        display: grid;
+        gap: 10px;
+        color: var(--white);
+        text-shadow: 0 2px 20px color-mix(in srgb, var(--ink-fill) 60%, transparent);
+
+}
+
+html .od-portada__nombre {
+        font-family: var(--font-display);
+        font-size: clamp(40px, 8.5vw, 124px);
+        font-weight: 600;
+        line-height: 0.94;
+        letter-spacing: -0.02em;
+
+}
+
+html .od-portada__lema {
+        font-family: var(--font-body);
+        font-size: clamp(11px, 1.3vw, 16px);
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        opacity: 0.94;
+
+}
+
+/* ---------- sin movimiento ---------- */
+/* Con movimiento reducido (o sin soporte de lineas de tiempo) la portada
+   se queda en el flujo, mide una pantalla y se va con la pagina: no hay
+   banda ni marco que tape nada. */
+@media (prefers-reduced-motion: reduce)  {
+        html .od-portada {
+                position: relative;
+                inset: auto;
+                block-size: 100vh;
+                block-size: 100svh;
+
+        }
+
+        html .od-portada__foto,
+        html .od-portada__velo,
+        html .od-portada__marca {
+                animation: none;
+                transform: none;
+                opacity: 1;
+
+        }
+}
+
+/* ==========================================================
+   Sublikat · Hero de la portada.
+   ========================================================== */
+
+/* Resplandor detrás de la foto: amarillo y violeta a muy baja opacidad.
+   No toca el layout: es un pseudo-elemento detrás de la tarjeta. */
+html .od-hero__media-col {
+        position: relative;
+
+}
+
+html .od-hero__media-col::before {
+        content: "";
+        position: absolute;
+        inset: 6% -8% -6% -8%;
+        z-index: -1;
+        pointer-events: none;
+        background:
+                radial-gradient(closest-side, color-mix(in srgb, var(--awning) 55%, transparent), transparent 72%) 26% 18% / 74% 74% no-repeat,
+                radial-gradient(closest-side, color-mix(in srgb, var(--accent) 42%, transparent), transparent 70%) 74% 76% / 70% 70% no-repeat;
+        filter: blur(8px);
+
+}
+
+/* ==========================================================
+   Sublikat · Bloque de ventajas.
+
+   Cuatro tarjetas verticales (ilustración + texto). En escritorio la
+   fila se convierte en una PISTA HORIZONTAL que se clava a la pantalla
+   y avanza mientras se baja (el "sectionPin" de
+   scroll-driven-animations.style). Sin soporte de lineas de tiempo, con
+   movimiento reducido o en movil, se queda como la rejilla de siempre:
+   la pista no depende de la animacion para verse.
+   ========================================================== */
+
+/* ---------- tarjeta: ilustracion arriba, texto debajo ---------- */
+/* El titular de la seccion solo se ve en el modo clavado (mas abajo);
+   fuera de el no existe, para no cambiar el respaldo estatico ni movil. */
+html .pin-intro {
+  display: none;
+}
+
+html .feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 18px 20px;
+  text-align: left;
+}
+
+/* Recuadro de la ilustracion: mismo lenguaje "sticker" que llevaban los
+   iconos (fondo suave + borde), pero sin recortar: la imagen flota y
+   asoma un poco por encima del recuadro. */
+html .feature-card__tile {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--soft);
+  overflow: visible;
+}
+
+html .card-illustration {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: contain;
+  animation: floating 4s ease-in-out infinite;
+  transition: scale .45s ease;
+  will-change: translate, rotate;
+}
+
+/* El balanceo va en `translate`/`rotate` (propiedades sueltas) para que
+   el `scale` del hover no compita con la animacion: si los dos usaran
+   `transform`, la animacion ganaria siempre y el hover no se veria. */
+@keyframes floating {
+  0%, 100% {
+    translate: 0 0;
+    rotate: -2deg;
+  }
+  50% {
+    translate: 0 -9px;
+    rotate: 2deg;
+  }
+}
+
+html .feature-card:hover .card-illustration {
+  scale: 1.08;
+  rotate: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .card-illustration {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* ---------- pista horizontal clavada ---------- */
+/* `#beneficios` se estira en alto para dar recorrido; `.pin-vista` se
+   queda pegada y es la pista la que se desplaza, atada a la linea de
+   tiempo de la seccion con `contain 0% → contain 100%` (exactamente el
+   tramo en el que esta clavada). */
+@media (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      html #beneficios {
+        --pin-top: calc(var(--hh, 72px) + var(--od-portada-banda, 16px));
+        --pin-lado: max(24px, calc((100vw - 1200px) / 2 + 24px));
+        height: clamp(170vh, 180vh, 210vh);
+        overflow: visible;
+        view-timeline-name: --pin-ventajas;
+        view-timeline-axis: block;
+      }
+
+      html #beneficios .pin-vista {
+        position: sticky;
+        top: var(--pin-top);
+        width: 100vw;
+        /* Rompe la caja de 1200 px de `.od-secciones` sin meter scroll
+           horizontal: `html` ya va con `overflow-x: clip`. */
+        margin-inline: calc(50% - 50vw);
+        height: calc(100svh - var(--pin-top));
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: clamp(14px, 2.2vh, 28px);
+        overflow: hidden;
+      }
+
+      /* La pista de la seccion ya no es rejilla: es una fila sin corte. */
+      html #beneficios .pin-pista {
+        display: flex;
+        align-items: center;
+        gap: clamp(20px, 2vw, 36px);
+        width: max-content;
+        padding-inline: var(--pin-lado);
+        animation: linear od-pin-mover forwards;
+        animation-timeline: --pin-ventajas;
+        animation-range: contain 0% contain 100%;
+        will-change: transform;
+      }
+
+      html #beneficios .pin-pista > .feature-card {
+        flex: 0 0 clamp(300px, 31vw, 430px);
+      }
+
+      html #beneficios .pin-pista .feature-card p {
+        font-size: 0.875rem;
+        line-height: 1.35;
+      }
+
+      /* Titular de la seccion: solo tiene sentido en el modo clavado, asi
+         que no aparece ni en movil ni en el respaldo estatico. */
+      html #beneficios .pin-intro {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding-inline: var(--pin-lado);
+      }
+
+      html #beneficios .pin-intro__hint {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      @keyframes od-pin-mover {
+        to {
+          /* Borde derecho de la pista contra el borde de la ventana */
+          transform: translateX(calc(-100% + 100vw));
+        }
+      }
+    }
+  }
+}
+
+/* ==========================================================
+   Sublikat · Aviso de taller.
+   ========================================================== */
+
+@media (max-width:767px)  {
+  html #aviso-taller p {
+  font-size:14px;text-transform:none;letter-spacing:0
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Catalogo: pestanas, paneles y fichas.
+   ========================================================== */
+
+/* ---------- pestanas de categoria del catalogo ---------- */ html .cat-tab {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        height: 44px;
+        padding: 0 var(--space-4);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background-color: var(--surface);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 1.2;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+
+}
+
+html .cat-tab:hover {
+        background-color: var(--soft-2);
+
+}
+
+html .cat-tab[aria-selected="true"] {
+        background-color: var(--accent-fill);
+        color: var(--on-accent);
+        box-shadow: var(--e-sh-1);
+
+}
+
+html .cat-tab[aria-selected="true"]:hover {
+        background-color: var(--accent-hover);
+
+}
+
+html .cat-tab:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+
+}
+
+html .cat-tab {
+  scroll-snap-align:center
+}
+
+@keyframes panelIn {
+  from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}
+}
+
+/* ---------- fichas ---------- */
+/* El icono va sobre un velo violeta muy claro: la tarjeta sigue siendo
+   blanca y el borde sigue siendo de 1 px. */
+html [data-od-id^="producto-"] > div > div {
+  background-color: color-mix(in srgb, var(--accent) 7%, var(--surface));
+
+}
+
+html [data-od-id^="producto-"] svg {
+  color: var(--ink);
+
+}
+
+/* ==========================================================
+   Sublikat · Metodo de trabajo. Se compone con utilidades; aun no tiene reglas propias.
+   ========================================================== */
+
+/* ==========================================================
+   Sublikat · Compromisos del taller.
+   ========================================================== */
+
+/* ========================================= 1. SECCIÓN RESEÑAS ========================================= */ .reviews-section {
+        margin-bottom: 0;
+
+}
+
+.reviews-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+        margin-bottom: 28px;
+
+}
+
+.rating-summary-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 10px 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+}
+
+.reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+
+}
+
+.review-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: transform 0.15s ease;
+        position: relative;
+
+}
+
+.review-card:hover {
+        transform: translateY(-2px);
+
+}
+
+.review-quote {
+        font-size: 16px;
+        color: var(--ink);
+        line-height: 1.55;
+        margin-bottom: 20px;
+        font-style: italic;
+
+}
+
+.review-author-wrap {
+        border-top: 1px dashed var(--divider-review);
+        padding-top: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+}
+
+.author-meta {
+        display: flex;
+        flex-direction: column;
+
+}
+
+.author-name {
+        font-weight: 800;
+        font-size: 15px;
+        color: var(--ink);
+
+}
+
+.author-role {
+        font-size: 13px;
+        color: var(--muted);
+
+}
+
+@media (max-width: 767px)  {
+  html .reviews-grid {
+   grid-template-columns: 1fr; 
+  }
+
+}
+@media (max-width:767px)  {
+  html .reviews-grid.swipe {
+  padding-top:8px
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Contacto: formulario, ficha del taller y confirmacion.
+   ========================================================== */
+
+/* ========================================= 2. SECCIÓN CONTACTO Y FORMULARIO ========================================= */ .contact-section {
+        margin-bottom: var(--espacio-seccion);
+
+}
+
+.contact-layout {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 28px;
+        align-items: start;
+
+}
+
+.form-container-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 36px 38px;
+
+}
+
+/* Error Summary (Accessible Alert) */ .error-summary {
+        background: var(--error-bg);
+        border: 1px solid var(--error-border);
+        border-radius: var(--radius-md);
+        padding: 16px 20px;
+        margin-bottom: 28px;
+        }
+
+.error-summary-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--error-text);
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: 8px;
+
+}
+
+.error-summary-list {
+        list-style-type: disc;
+        padding-left: 24px;
+        color: var(--error-text);
+        font-size: 14px;
+        font-weight: 700;
+
+}
+
+.error-summary-list a {
+        color: var(--error-text);
+        text-decoration: underline;
+        font-weight: 800;
+
+}
+
+.error-summary-list a:hover {
+        text-decoration: none;
+
+}
+
+/* Contact Info & WhatsApp Card */ .contact-aside {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+}
+
+.contact-card {
+        background: var(--surface);
+        border: var(--border-ink);
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        padding: 30px 26px;
+
+}
+
+.contact-card h3 {
+        font-family: var(--font-display);
+        font-size: 26px;
+        color: var(--ink);
+        margin-bottom: 12px;
+        line-height: 1.2;
+
+}
+
+.contact-desc {
+        font-size: 15px;
+        color: var(--ink);
+        margin-bottom: 22px;
+
+}
+
+.workshop-details {
+        border-top: 1px dashed var(--divider-workshop);
+        padding-top: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+}
+
+.detail-item {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--space-3);
+        font-size: 14px;
+
+}
+
+.detail-icon {
+        font-size: 18px;
+        line-height: 1.2;
+
+}
+
+.detail-title {
+        font-weight: 800;
+        color: var(--ink);
+        display: block;
+
+}
+
+.detail-text {
+        color: var(--muted);
+        font-size: 13.5px;
+
+}
+
+.assurance-badge {
+        background: var(--assurance-bg);
+        border: 1px solid var(--success);
+        border-radius: var(--radius-md);
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        }
+
+.assurance-icon {
+        font-size: 24px;
+
+}
+
+.assurance-text {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--assurance-ink);
+
+}
+
+/* ---------- confirmacion del formulario ---------- */ html .exito-panel {
+        background: var(--success);
+        color: var(--on-success);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: var(--space-5);
+        box-shadow: var(--e-sh-2);
+
+}
+
+html .exito-panel h3 {
+   font-family: var(--font-display); font-size: 26px; line-height: 1.2; margin-bottom: 8px; 
+}
+
+html .exito-panel p {
+   font-size: 15px; line-height: 1.55; 
+}
+
+html .exito-panel .btn-sec {
+        margin-top: 16px;
+        min-height: 44px;
+        padding: 0 20px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--ink);
+        background: transparent;
+        color: var(--on-success);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 15px;
+        cursor: pointer;
+
+}
+
+html .exito-panel .btn-sec:focus-visible {
+   outline: 3px solid var(--focus); outline-offset: 3px; 
+}
+
+@media (max-width: 767px)  {
+  html .contact-layout {
+   grid-template-columns: 1fr; 
+  }
+
+  html .form-container-card {
+   padding: 24px 20px; 
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Pie de pagina.
+   ========================================================== */
+
+/* ========== PIE DE PÁGINA EN PIZARRA ========== */ .site-footer {
+        background-color: var(--footer-bg);
+        color: var(--footer-text);
+        border-top: 1px solid var(--divider-footer);
+        padding: 56px 0 36px 0;
+        position: relative;
+
+}
+
+.footer-grid {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr 1fr 1.4fr;
+        gap: 36px;
+        margin-bottom: 40px;
+
+}
+
+.footer-brand-title {
+        font-family: var(--font-display);
+        font-size: 32px;
+        color: var(--white);
+        letter-spacing: -0.015em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+
+}
+
+.footer-brand-title svg {
+        background: var(--awning);
+        border: 1px solid var(--white);
+        border-radius: var(--radius-sm);
+        padding: 3px;
+
+}
+
+.footer-brand-desc {
+        font-size: 14.5px;
+        color: var(--footer-muted);
+        line-height: 1.6;
+        margin-bottom: 16px;
+
+}
+
+.footer-col-title {
+        font-family: var(--font-display);
+        font-size: 20px;
+        color: var(--awning);
+        margin-bottom: 16px;
+        letter-spacing: 0.4px;
+
+}
+
+.footer-nav-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+}
+
+.footer-nav-list a {
+        color: var(--footer-text);
+        text-decoration: none;
+        font-size: 14.5px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        min-height: 36px;
+        transition: color 0.15s, transform 0.15s;
+
+}
+
+.footer-nav-list a:hover {
+        color: var(--awning);
+
+}
+
+.footer-hours-box {
+        background: var(--hours-bg);
+        border: 1px solid var(--divider-footer);
+        border-radius: var(--radius-sm);
+        padding: 14px 16px;
+        font-size: 13.5px;
+
+}
+
+.footer-hours-box p {
+        margin-bottom: 6px;
+        color: var(--footer-muted);
+
+}
+
+.footer-hours-box strong {
+        color: var(--white);
+
+}
+
+/* Legal Notice Box */ .legal-notice-box {
+        background: var(--legal-bg);
+        border: 1px solid var(--legal-border);
+        border-radius: var(--radius-sm);
+        padding: 16px 20px;
+        margin-bottom: 30px;
+        font-size: 13px;
+        line-height: 1.6;
+        color: var(--footer-muted);
+
+}
+
+.legal-notice-box strong {
+        color: var(--legal-accent);
+
+}
+
+.footer-bottom {
+        border-top: 1px solid var(--divider-footer);
+        padding-top: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+        font-size: 13px;
+        color: var(--footer-muted);
+
+}
+
+.footer-bottom-links {
+        display: flex;
+        gap: 18px;
+
+}
+
+.footer-bottom-links a {
+        color: var(--footer-muted);
+        text-decoration: none;
+        min-height: 32px;
+        display: inline-flex;
+        align-items: center;
+
+}
+
+.footer-bottom-links a:hover {
+        color: var(--white);
+        text-decoration: underline;
+
+}
+
+@media (max-width: 767px)  {
+  html .footer-grid {
+   grid-template-columns: 1fr 1fr; 
+  }
+
+}
+@media (max-width:767px)  {
+  html .footer-grid>:first-child,html .footer-grid>:last-child {
+  grid-column:1/-1
+  }
+
+}
+
+/* ==========================================================
+   Sublikat · Boton flotante de WhatsApp.
+   ========================================================== */
+
+@media (max-width: 767px)  {
+  html .od-was {
+   right: 16px; bottom: 16px; 
+  }
+
+  html .od-was__btn {
+   padding: 0 var(--space-4); font-size: 14px; 
+  }
+
+}
+/* ---------- widget flotante de WhatsApp ---------- */ html .od-was {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 40;
+
+}
+
+html .od-was__btn {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-2);
+        min-height: 48px;
+        padding: 0 var(--space-4);
+        background: var(--whatsapp);
+        color: var(--on-whatsapp);
+        border: 1px solid transparent;
+        border-radius: var(--radius);
+        box-shadow: var(--e-sh-2);
+        font-family: var(--font-body);
+        font-weight: 800;
+        font-size: 15px;
+        line-height: 1.2;
+        text-decoration: none;
+        cursor: pointer;
+        transition: box-shadow 0.15s ease;
+
+}
+
+html .od-was__btn:hover {
+        box-shadow: var(--e-sh-3);
+
+}
+
+html .od-was__btn:active {
+        box-shadow: var(--e-sh-1);
+
+}
+
+html .od-was__btn:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+
+}
+
+html .od-was__icon {
+   width: 22px; height: 22px; flex: none; 
+}
+
+@media (max-width:767px)  {
+  html .od-was__label {
+  display:none
+  }
+
+  html .od-was__btn {
+  width:56px;height:56px;padding:0;justify-content:center;border-radius:999px
+  }
+
+  html .od-was__icon {
+  width:28px;height:28px
+  }
+
+}
+html .od-was {
+  bottom:calc(16px + env(safe-area-inset-bottom,0px))
+}
+
+html .od-was.compact .od-was__label {
+  display:none
+}
+
+html .od-was.compact .od-was__btn {
+  padding:0 14px
+}
+  

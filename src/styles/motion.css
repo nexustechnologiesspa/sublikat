@@ -1,0 +1,615 @@
+
+/* ==========================================================
+   Sublikat · Movimiento ligado al scroll
+   Fuente única del movimiento del sitio. Se inyecta en la zona
+   OD:MOTION de index.html, después de OD:ESTILOS.
+
+   Estado: IMPLEMENTADO el 2026-11-12 con las filas 1, 2, 3, 4,
+   6, 9, 10 y 11 de la matriz de MOTION.md §6. Fuera por decisión
+   del cliente: 5 (aviso, sin animación), 7 (pestañas, sin
+   animación), 8 (spine del proceso) y 12 (scroll shadows).
+
+   Ampliado el 2026-11-14 con cuatro demos más de
+   <https://scroll-driven-animations.style/>, una por sección:
+   la 5 adaptada (el héroe se aleja), la 14 (sombras de scroll en
+   los carruseles), la 6 enriquecida (el icono de la ficha) y la 15
+   (la columna vertebral del proceso). El mapa completo está en
+   MOTION.md §6.
+
+   CALIBRADO el 2026-11-14 (segunda pasada del mismo día). El
+   movimiento era correcto pero no se veía: 10-12 px de recorrido y
+   rangos que terminaban en `entry`, es decir, con el elemento aún
+   asomando por el borde inferior. Ahora el recorrido es de 28-40 px
+   y los rangos terminan dentro de `cover`, cuando el elemento ya
+   está delante del usuario. Regla nueva, medible: un elemento
+   completamente visible tiene que estar a opacidad 1 y en su sitio.
+
+   Reglas que cumple cada animación de este archivo:
+   1. Solo `opacity`, `translate`, `scale`, `transform` y
+      `clip-path`: propiedades que el compositor anima sin
+      recalcular layout. Nunca width, height, top, left, margin,
+      padding ni `box-shadow`.
+   2. Todo estado inicial (opacity:0, desplazamiento) vive dentro
+      de @supports y/o @media (prefers-reduced-motion: no-preference),
+      y los @keyframes también. Sin soporte o con movimiento
+      reducido, el contenido se ve completo y en su sitio.
+   3. Ningún hexadecimal: solo var(--…).
+   4. Las tarjetas que ya tienen hover de `transform` se animan
+      con `translate`, para no anular el hover.
+   5. Nada de librerías, listeners de scroll ni rAF.
+   ========================================================== */
+
+/* ---------- 0. Estado base: nada oculto y nada desplazado ---------- */
+/* La barra de lectura solo existe si el navegador puede animarla.
+   Sin soporte (o sin movimiento permitido) es un div de altura cero. */
+.od-progress { display: none; }
+
+/* ---------- 1. Red de seguridad: movimiento reducido ---------- */
+/* Deja el contenido en su estado final y elimina cualquier
+   desplazamiento, incluso si una animación se añade más adelante.
+   No se toca `transform`: el toldo del héroe y la cinta del proceso
+   se rotan con transform y deben seguir rotados. */
+@media (prefers-reduced-motion: reduce) {
+  .od-header,
+  .od-hero,
+  .od-hero__body,
+  .od-hero__media-col,
+  .od-hero__claim,
+  .od-hero__title,
+  .od-hero__lead,
+  .od-hero__ctas,
+  .od-hero__note,
+  .od-hero__media,
+  .od-hero__media img,
+  .od-hero__deco,
+  .od-hero__tape,
+  .od-parallax,
+  .od-stagger,
+  .od-stagger > *,
+  .od-stagger-2,
+  .od-stagger-2 > *,
+  .od-fade,
+  .od-reveal,
+  .od-reveal > div > div,
+  .od-reveal-left,
+  .od-reveal-right,
+  .od-reveal-scale,
+  .od-reveal-soft,
+  .od-tablist,
+  .od-steps,
+  .od-step,
+  .od-progress,
+  .swipe {
+    animation: none !important;
+    opacity: 1 !important;
+    translate: none !important;
+    scale: none !important;
+    clip-path: none !important;
+  }
+
+  /* Lo que no es opacidad: el icono de la ficha. `transform: none` lo deja
+     en su sitio. (Hasta el 15-11-2026 esta lista incluía la línea del
+     proceso; se retiró junto con el efecto.) */
+  .od-reveal > div > div > svg {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Las dos capas de sombra de los carruseles no son contenido: si no
+     hay movimiento, no hay aviso que dar y se retiran del todo. */
+  .swipe-marco::before,
+  .swipe-marco::after {
+    display: none !important;
+  }
+}
+
+/* ---------- 2. Fila 1 · Barra de lectura ---------- */
+/* `position: fixed` y 6 px: no entra en el flujo, así que no mueve
+   ni un píxel del layout. `scroll(root block)` recorre todo el
+   documento; el `scaleX` va de 0 a 1 sin repintar nada más.
+   Medía 3 px y en la práctica era invisible bajo el borde de la
+   cabecera: 6 px es el mínimo que se lee como barra. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .od-progress {
+      display: block;
+      position: fixed;
+      inset-block-start: 0;
+      inset-inline: 0;
+      block-size: 6px;
+      z-index: 60;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      animation: od-progress-grow linear both;
+      animation-timeline: scroll(root block);
+    }
+
+    @keyframes od-progress-grow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+  }
+}
+
+/* ---------- 3. Fila 2 · Sombra de la cabecera ---------- */
+/* Un pseudo-elemento absoluto con `box-shadow` y `opacity` animada:
+   la sombra se pinta una vez y solo cambia su opacidad, que sí es
+   compositable. La cabecera no cambia de alto (rompería --hh, del que
+   depende la tablist fija). */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .od-header::after {
+      content: "";
+      position: absolute;
+      inset-inline: var(--space-4);
+      inset-block-end: var(--space-3);
+      block-size: 2px;
+      pointer-events: none;
+      box-shadow: 0 12px 20px -10px var(--shadow-ink);
+      opacity: 0;
+      animation: od-header-shadow linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 150px;
+    }
+
+    @keyframes od-header-shadow {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  }
+}
+
+/* ---------- 4. Fila 3 · Entrada del héroe ---------- */
+/* Animación de tiempo, no de scroll: se ve al cargar. No lleva
+   @supports porque no depende de las líneas de tiempo; el
+   `prefers-reduced-motion` basta para que el contenido quede
+   visible cuando no se permite movimiento. Los elementos que se
+   animan son hojas del árbol (claim, título, entradilla, CTA, nota,
+   foto y cinta) para que los desplazamientos no se sumen. */
+@media (prefers-reduced-motion: no-preference) {
+  .od-hero__claim,
+  .od-hero__title,
+  .od-hero__lead,
+  .od-hero__ctas,
+  .od-hero__note,
+  .od-hero__media,
+  .od-hero__tape {
+    animation: od-hero-enter var(--motion-enter) var(--motion-ease-out) both;
+  }
+
+  .od-hero__title { animation-delay: var(--motion-stagger); }
+  .od-hero__lead  { animation-delay: calc(var(--motion-stagger) * 2); }
+  .od-hero__media { animation-delay: calc(var(--motion-stagger) * 2); }
+  .od-hero__ctas  { animation-delay: calc(var(--motion-stagger) * 3); }
+  .od-hero__tape  { animation-delay: calc(var(--motion-stagger) * 3); }
+  .od-hero__note  { animation-delay: calc(var(--motion-stagger) * 4); }
+
+  @keyframes od-hero-enter {
+    from { opacity: 0; translate: 0 12px; }
+    to   { opacity: 1; translate: 0 0; }
+  }
+}
+
+/* ---------- 5. Filas 6, 10 y 11 · Aparición al entrar en pantalla ---------- */
+/* `animation-range: entry 0% entry 90%` termina en cuanto la tarjeta
+   ha entrado entera: una ficha que ya está a la vista (por ejemplo al
+   cambiar de pestaña del catálogo) queda opaca al instante, no a medias.
+   El 90 % (antes 60 %) es el máximo que conserva esa garantía: a partir
+   de ahí el rango ya no termina dentro del `entry` y las fichas de una
+   pestaña recién abierta podían quedar translúcidas.
+   El recorrido pasa de 12 a 28 px: 12 px sobre una ficha de ~260 px es
+   un 4,6 % de su altura, que el ojo no registra. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Catálogo: las 19 fichas. */
+    .od-reveal {
+      animation: od-reveal-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 90%;
+    }
+
+    @keyframes od-reveal-rise {
+      from { opacity: 0; translate: 0 28px; }
+      to   { opacity: 1; translate: 0 0; }
+    }
+
+    /* Contacto: solo opacidad, sin desplazamiento. El formulario no
+       lleva gancho: nunca se oculta ni se mueve mientras se rellena. */
+    .od-reveal-soft {
+      animation: od-fade-only linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+
+    /* Pie: opacidad y un desplazamiento corto (20 px). Aquí no hay
+       campos ni foco que proteger, así que se permite moverse. */
+    .site-footer.od-reveal-soft {
+      animation-name: od-fade-rise;
+      animation-range: entry 0% cover 20%;
+    }
+
+    @keyframes od-fade-only {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes od-fade-rise {
+      from { opacity: 0; translate: 0 20px; }
+      to   { opacity: 1; translate: 0 0; }
+    }
+  }
+}
+
+/* ---------- 6. Fila 9 · Compromisos ---------- */
+/* La rejilla de reseñas lleva `.swipe`, que en móvil es un contenedor de
+   scroll en los dos ejes: `view()` sobre sus hijos daría un rango de
+   cero y las tarjetas se quedarían invisibles. Por eso la línea de
+   tiempo se declara en la propia rejilla (que sí se mide contra el
+   scroll de la página) y los hijos la consumen por nombre.
+
+   Va acotado a `#resenas` a propósito: la rejilla del proceso arrastra
+   los ganchos `od-stagger`/`od-stagger-2` y lleva su propia animación en
+   el bloque 8, así que no debe consumir esta. La rejilla de ventajas ya
+   no entra aquí: es la pista horizontal del bloque 6 bis.
+
+   El asentamiento es con `scale`, no con `translate`: las tarjetas viven
+   dentro de un contenedor que en móvil desplaza en horizontal, y moverlas
+   en vertical crearía desbordamiento dentro del propio carrusel (el
+   relleno superior es de 22 px y el inferior de 10 px). Una escala del
+   96 % se ve igual de bien y no ocupa ni un píxel de layout. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    #resenas .od-stagger {
+      view-timeline-name: --od-rejilla;
+      view-timeline-axis: block;
+    }
+
+    #resenas .od-stagger > * {
+      animation: od-rejilla-fade linear both;
+      animation-timeline: --od-rejilla;
+      animation-range: entry 5% cover 12%;
+    }
+
+    #resenas .od-stagger > :nth-child(2) { animation-range: entry 12% cover 18%; }
+
+    #resenas .od-stagger > :nth-child(3) { animation-range: entry 19% cover 24%; }
+
+    #resenas .od-stagger > :nth-child(4) { animation-range: entry 26% cover 30%; }
+
+    @keyframes od-rejilla-fade {
+      from { opacity: 0; scale: 0.96; }
+      to   { opacity: 1; scale: 1; }
+    }
+  }
+}
+
+/* ---------- 6 bis. Fila 4 · La pista de ventajas ---------- */
+/* El desplazamiento horizontal vive en `build/css/beneficios.css`, junto
+   al resto de la sección. Aquí solo queda la entrada del titular, atada
+   a la misma línea de tiempo (`--pin-ventajas`) para que aparezca justo
+   cuando la sección se clava y no antes.
+
+   Los hijos de la pista NO llevan entrada propia: ya entran moviéndose en
+   horizontal, y un `view()` sobre ellos mediría contra el carrusel de
+   móvil (rango de cero) y los dejaría invisibles. */
+@media (min-width: 768px) {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      #beneficios .pin-intro {
+        animation: od-pin-intro linear both;
+        animation-timeline: --pin-ventajas;
+        animation-range: entry 30% cover 40%;
+      }
+
+      @keyframes od-pin-intro {
+        from { opacity: 0; translate: 0 18px; }
+        to   { opacity: 1; translate: 0 0; }
+      }
+    }
+  }
+}
+
+/* ---------- 7. Demos 5 y 6 · La foto del héroe ---------- */
+/* "Image Reveal Effects" (la cortina) y "Window Carousel" (solo su
+   parallax), las dos sobre la misma foto y con propiedades distintas
+   para que no se pisen: `clip-path` la una, `translate` la otra.
+
+   · La cortina es de TIEMPO, no de scroll. El héroe ya está a la vista
+     al cargar, así que un `view()` nacería a medio abrir y no llegaría
+     a abrirse nunca (con el rango medido contra una posición que no
+     cambia hasta que bajas). Como animación de entrada sí se ve: cada
+     visita la foto se abre desde su borde inferior.
+   · El parallax sí es de scroll (`scroll(root block)`): la foto se
+     mueve más despacio que la página. Es el efecto que falta al bajar,
+     y dura 700 px de scroll, no 150.
+
+   El `scale` estático (1.14) da el margen necesario para que el
+   desplazamiento no descubra el borde del recuadro en ningún ancho.
+   Sustituye a la retirada anterior (scale 0.96 + opacidad 0.55), que
+   apagaba la foto justo cuando empezabas a mirarla. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .od-hero__media img {
+      scale: 1.14;
+      animation:
+        od-hero-curtain 620ms var(--motion-ease-out) 120ms both,
+        od-hero-parallax linear both;
+      animation-timeline: auto, scroll(root block);
+      animation-range: normal, 0 700px;
+    }
+
+    @keyframes od-hero-curtain {
+      from { clip-path: inset(0 0 24% 0); }
+      to   { clip-path: inset(0 0 0 0); }
+    }
+
+    @keyframes od-hero-parallax {
+      from { translate: 0 16px; }
+      to   { translate: 0 -16px; }
+    }
+  }
+}
+
+/* ---------- 8. Demo 15 · La columna vertebral del proceso (RETIRADA) ---------- */
+/* "The Road to Baseline Newly Available": una línea de recorrido que se
+   dibujaba al avanzar y cuyos hitos se activaban por el camino.
+
+   **Retirada el 15-11-2026 a petición del cliente.** La barra de `--accent`
+   que avanzaba sobre las píldoras «Paso NN» se leía como un subrayado a
+   medias y competía con las píldoras, que ya numeran los pasos. Se quitaron
+   las cinco piezas del efecto:
+
+   · la base gris (`#proceso .od-steps::before`),
+   · el relleno que crecía (`#proceso .od-steps::after`),
+   · el segmento por tarjeta del carrusel móvil (`#proceso .od-step::after`),
+   · los `@keyframes od-spine-grow`,
+   · el `z-index: 1` de las tarjetas, que solo servía para pasar por delante
+     de la línea.
+
+   Eran pseudo-elementos: no queda markup que limpiar, ni hueco en el
+   layout. El espacio entre las píldoras y las tarjetas ya lo pone el `gap`
+   de la rejilla.
+
+   Lo que SÍ se queda de este bloque es el apilado ligero al salir por
+   arriba (`od-step-recede`), que no tiene nada que ver con la línea. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    @media (min-width: 768px) {
+      /* Apilado ligero. Al salir por arriba, cada paso se reduce al 96 %
+         y pierde un poco de cuerpo, como si quedara debajo del que viene
+         detrás. No hay `position: sticky` ni reordenación: la rejilla de
+         4 columnas se respeta y el orden de lectura no cambia. El
+         escalonado (8 % por tarjeta) es lo que crea la sensación de pila. */
+      #proceso .od-step {
+        animation: od-step-recede linear both;
+        animation-timeline: view();
+        animation-range: exit 0% exit 100%;
+      }
+
+      #proceso .od-step:nth-child(2) { animation-range: exit 8% exit 100%; }
+      #proceso .od-step:nth-child(3) { animation-range: exit 16% exit 100%; }
+      #proceso .od-step:nth-child(4) { animation-range: exit 24% exit 100%; }
+
+      @keyframes od-step-recede {
+        from { scale: 1; opacity: 1; }
+        to   { scale: 0.96; opacity: 0.9; }
+      }
+    }
+  }
+}
+
+/* ---------- 9. Demo 6 (enriquecida) · El icono de la ficha ---------- */
+/* "Image Reveal Effects": la ficha del catálogo ya subía y aparecía al
+   entrar (bloque 5). Aquí además el icono se asienta, como un sello que
+   se estampa: entra un poco más pequeño y se coloca. El icono es un SVG
+   en línea, así que se anima con `transform` sin tocar su `currentColor`.
+
+   El icono NO puede medir su propia línea de tiempo: el recuadro que lo
+   contiene tiene `overflow-hidden` (por las esquinas redondeadas) y sería
+   su contenedor de scroll, con lo que el icono estaría «dentro» desde el
+   principio y no se movería nunca. Por eso la línea de tiempo se declara
+   en la ficha, que sí se mide contra la ventana, y el icono la consume por
+   nombre. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .od-reveal {
+      view-timeline-name: --od-ficha;
+    }
+
+    /* La cortina: el recuadro del icono se abre desde abajo, como el
+       telón del demo. Va en el recuadro y no en el SVG para que el
+       efecto se lea sobre el marco, no sobre el dibujo. */
+    .od-reveal > div > div {
+      animation: od-ficha-curtain linear both;
+      animation-timeline: --od-ficha;
+      animation-range: entry 0% entry 90%;
+    }
+
+    .od-reveal > div > div > svg {
+      animation: od-icon-settle linear both;
+      animation-timeline: --od-ficha;
+      animation-range: entry 0% entry 60%;
+    }
+
+    @keyframes od-ficha-curtain {
+      from { clip-path: inset(0 0 26% 0 round var(--radius)); }
+      to   { clip-path: inset(0 0 0 0 round var(--radius)); }
+    }
+
+    @keyframes od-icon-settle {
+      from { opacity: 0; transform: scale(0.86); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  }
+}
+
+/* ---------- 10. Demo 14 · Sombras de scroll en los carruseles ---------- */
+/* "Scroll Shadows": en móvil los tres carruseles (beneficios, proceso y
+   compromisos) se desplazan en horizontal y nada lo avisa. La sombra del
+   borde aparece cuando hay contenido hacia ese lado y desaparece al
+   llegar al extremo.
+
+   Técnica, en dos piezas que hay que entender juntas:
+
+   · `@property` registra dos números (`--od-can-scroll-l/r`) para poder
+     interpolarlos, y son la intensidad del degradado de cada borde.
+   · Una línea de tiempo de scroll del carrusel (`scroll-timeline:
+     --od-desliz inline`) los recorre.
+
+   La primera versión pintaba el degradado en el FONDO del carrusel y no
+   se veía nunca: las tarjetas son opacas y el recorte de `overflow` es
+   el padding box, así que al desplazarse tapan justo la franja donde
+   vivía la sombra. Ahora se pinta en dos capas POR ENCIMA, sobre un
+   envoltorio `.swipe-marco` añadido en `build/sections/`; la línea de
+   tiempo sube al envoltorio por nombre con `timeline-scope`.
+
+   Solo en móvil: en escritorio las rejillas no desbordan (son rejillas
+   de 4, 4 y 3 columnas) y una sombra de borde sería mentira. */
+@property --od-can-scroll-l {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@property --od-can-scroll-r {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}
+
+@media (max-width: 767px) {
+  .swipe-marco {
+    position: relative;
+    /* Crea contexto de apilado propio: las dos capas tienen que pintarse
+       por encima de las tarjetas, no debajo. */
+    isolation: isolate;
+    timeline-scope: --od-desliz;
+  }
+
+  .swipe-marco::before,
+  .swipe-marco::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    width: 24px;
+    pointer-events: none;
+    z-index: 2;
+    --od-can-scroll-l: 0;
+    --od-can-scroll-r: 0;
+    background-repeat: no-repeat;
+  }
+
+  /* El carrusel se sale 16 px por cada lado (`margin-inline: -16px` en
+     móvil), así que la capa se ancla a SU borde, no al del envoltorio. */
+  .swipe-marco::before {
+    left: -16px;
+    background-image: linear-gradient(to right,
+      color-mix(in srgb, var(--shadow-ink) calc(30% * var(--od-can-scroll-l)), transparent),
+      transparent);
+  }
+
+  .swipe-marco::after {
+    right: -16px;
+    background-image: linear-gradient(to left,
+      color-mix(in srgb, var(--shadow-ink) calc(30% * var(--od-can-scroll-r)), transparent),
+      transparent);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .swipe {
+        scroll-timeline: --od-desliz inline;
+      }
+
+      .swipe-marco::before,
+      .swipe-marco::after {
+        animation: od-scroll-shadow linear both;
+        animation-timeline: --od-desliz;
+      }
+
+      @keyframes od-scroll-shadow {
+        0%   { --od-can-scroll-l: 0; --od-can-scroll-r: 1; }
+        14%  { --od-can-scroll-l: 1; --od-can-scroll-r: 1; }
+        86%  { --od-can-scroll-l: 1; --od-can-scroll-r: 1; }
+        100% { --od-can-scroll-l: 1; --od-can-scroll-r: 0; }
+      }
+    }
+  }
+}
+
+/* ---------- 11. Demo 16 · Portada que se encoge hasta ser una banda ---------- */
+/* La foto del taller abre la pagina a pantalla completa, POR DETRAS del
+   menu (que queda encima, z-index 50), y al bajar se encoge hasta una
+   banda fina pegada arriba. Es el "cover to fixed header" de
+   scroll-driven-animations.style, adaptado: alli el cover se convierte
+   en la cabecera, aqui se convierte en una banda bajo la cabecera que
+   ya existe.
+
+   Por que se anima `height` y no `translate`:
+   · Lo que tiene que encogerse es el MARCO. La version del 14-11 movia
+     solo la foto dentro de un marco fijo de pantalla completa: el fondo
+     del marco se quedaba y tapaba todas las secciones.
+   · El marco esta `fixed` para que al encoger no se lleve por delante
+     el recorrido de scroll del documento. Como sale del flujo, `<body>`
+     reserva su alto con `padding-block-start: 100svh`.
+   · El alto final es (menu + banda) y no el 10vh del demo: en este sitio
+     el menu ya ocupa la franja de arriba y con 10vh la banda quedaria
+     escondida detras de el.
+
+   El nombre y el lema se desvanecen en la primera mitad del recorrido
+   para que la banda quede limpia. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* El prefijo `html` no es adorno: el estado base de arriba es
+       `html .od-portada` (0,1,1) y sin el prefijo esta regla (0,1,0)
+       perderia la cascada. Fue justo el fallo del intento anterior: el
+       alto se animaba pero el marco seguia `relative` y se iba con la
+       pagina, con lo que la banda nunca llegaba a clavarse arriba. */
+    html .od-portada {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 35;
+      pointer-events: none;
+      animation: od-portada-encoger linear forwards;
+      animation-timeline: scroll(root block);
+      animation-range: 0 90vh;
+    }
+
+    /* El marco sale del flujo: el hueco de la primera pantalla lo pone
+       el cuerpo. Sin esto el contenido saltaria hacia arriba. */
+    html body {
+      padding-block-start: 100vh;
+      padding-block-start: 100svh;
+    }
+
+    html .od-portada__foto {
+      animation: od-portada-recorte linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 90vh;
+    }
+
+    html .od-portada__velo,
+    html .od-portada__marca {
+      animation: od-portada-desvanecer linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 45vh;
+    }
+
+    @keyframes od-portada-encoger {
+      from { block-size: 100vh; block-size: 100svh; }
+      to   { block-size: calc(var(--hh, 72px) + var(--od-portada-banda, 16px)); }
+    }
+
+    @keyframes od-portada-recorte {
+      from { background-position: var(--od-portada-foco-x, 50%) 0; }
+      to   { background-position: var(--od-portada-foco-x, 50%) 100%; }
+    }
+
+    @keyframes od-portada-desvanecer {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+  }
+}
+  
