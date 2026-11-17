@@ -1,4 +1,141 @@
+import { useEffect, useRef, useState } from 'react';
+
+const fieldValidators = [
+  {
+    id: 'contacto-nombre',
+    label: 'Nombre completo',
+    validate: (value) =>
+      value.trim().length >= 2
+        ? ''
+        : 'Escribe tu nombre para poder dirigirnos a ti.'
+  },
+  {
+    id: 'contacto-email',
+    label: 'Correo electrónico',
+    validate: (value) =>
+      /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
+        ? ''
+        : 'Introduce una dirección válida con terminación de dominio (por ejemplo: .com o .es).'
+  },
+  {
+    id: 'contacto-producto',
+    label: 'Producto o soporte',
+    validate: (value) =>
+      value ? '' : 'Elige el producto o soporte que te interesa.'
+  },
+  {
+    id: 'contacto-mensaje',
+    label: 'Detalles del encargo',
+    validate: (value) =>
+      value.trim().length >= 10
+        ? ''
+        : 'Cuéntanos cuántas unidades necesitas y qué quieres estampar (10 caracteres mínimo).'
+  }
+];
+
 export default function Contact() {
+  const formRef = useRef(null);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const productRef = useRef(null);
+  const messageRef = useRef(null);
+  const privacyRef = useRef(null);
+  const successRef = useRef(null);
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [summaryErrors, setSummaryErrors] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successName, setSuccessName] = useState('');
+  const [focusNameAfterReset, setFocusNameAfterReset] = useState(false);
+  const fieldRefs = {
+    'contacto-nombre': nameRef,
+    'contacto-email': emailRef,
+    'contacto-producto': productRef,
+    'contacto-mensaje': messageRef,
+    'contacto-privacidad': privacyRef
+  };
+
+  const getValidationErrors = () => {
+    const errors = fieldValidators.reduce((currentErrors, field) => {
+      const value = fieldRefs[field.id].current?.value ?? '';
+      const message = field.validate(value);
+      if (message) {
+        currentErrors.push({ id: field.id, label: field.label, message });
+      }
+      return currentErrors;
+    }, []);
+
+    if (privacyRef.current && !privacyRef.current.checked) {
+      errors.push({
+        id: 'contacto-privacidad',
+        label: 'Aceptación de la política de privacidad',
+        message: 'Marca la casilla para poder gestionar tu consulta.'
+      });
+    }
+
+    return errors;
+  };
+
+  const handleFieldBlur = (field) => {
+    const value = fieldRefs[field.id].current?.value ?? '';
+    const message = field.validate(value);
+
+    setFieldErrors((currentErrors) => {
+      const nextErrors = { ...currentErrors };
+      if (message) {
+        nextErrors[field.id] = message;
+      } else {
+        delete nextErrors[field.id];
+      }
+      return nextErrors;
+    });
+    setSummaryErrors(getValidationErrors());
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const errors = getValidationErrors();
+    const nextFieldErrors = {};
+    fieldValidators.forEach((field) => {
+      const error = errors.find((item) => item.id === field.id);
+      if (error) nextFieldErrors[field.id] = error.message;
+    });
+    setFieldErrors(nextFieldErrors);
+    setSummaryErrors(errors);
+
+    if (errors.length > 0) {
+      fieldRefs[errors[0].id].current?.focus();
+      return;
+    }
+
+    setSuccessName(nameRef.current?.value.trim() ?? '');
+    setIsSuccess(true);
+  };
+
+  const handlePrivacyChange = () => {
+    setSummaryErrors(getValidationErrors());
+  };
+
+  const handleReset = () => {
+    formRef.current?.reset();
+    setFieldErrors({});
+    setSummaryErrors([]);
+    setSuccessName('');
+    setIsSuccess(false);
+    setFocusNameAfterReset(true);
+  };
+
+  useEffect(() => {
+    if (isSuccess) successRef.current?.focus();
+  }, [isSuccess]);
+
+  useEffect(() => {
+    if (focusNameAfterReset && !isSuccess) {
+      nameRef.current?.focus();
+      setFocusNameAfterReset(false);
+    }
+  }, [focusNameAfterReset, isSuccess]);
+
   return (
     <section
       className="contact-section"
@@ -25,7 +162,7 @@ export default function Contact() {
             role="alert"
             aria-labelledby="error-summary-heading"
             tabIndex="-1"
-            hidden
+            hidden={isSuccess || summaryErrors.length === 0}
           >
             <div id="error-summary-heading" className="error-summary-title">
               <svg
@@ -48,21 +185,30 @@ export default function Contact() {
               </span>
             </div>
             <ul id="error-summary-list" className="error-summary-list">
-              <li>
-                <a href="#contacto-email">
-                  Correo electrónico: Introduce una dirección válida con
-                  terminación de dominio (por ejemplo: .com o .es)
-                </a>
-              </li>
+              {summaryErrors.map((error) => (
+                <li key={error.id}>
+                  <a
+                    href={`#${error.id}`}
+                    onClick={(event) => {
+                      event.preventDefault();
+                      fieldRefs[error.id].current?.focus();
+                    }}
+                  >
+                    {error.label}: {error.message}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <form
+            ref={formRef}
             id="form-contacto"
             action="#"
             method="post"
             noValidate
-            onSubmit={(event) => event.preventDefault()}
+            hidden={isSuccess}
+            onSubmit={handleSubmit}
           >
             <div className="form-group">
               <label htmlFor="contacto-nombre" className="field-label">
@@ -72,16 +218,30 @@ export default function Contact() {
                 </span>
               </label>
               <input
+                ref={nameRef}
+                onBlur={() => handleFieldBlur(fieldValidators[0])}
                 type="text"
                 id="contacto-nombre"
                 name="nombre"
                 autoComplete="name"
                 enterKeyHint="next"
-                className="field-input"
+                className={`field-input${fieldErrors['contacto-nombre'] ? ' has-error' : ''}`}
                 defaultValue=""
                 aria-describedby="nombre-help"
+                aria-invalid={
+                  fieldErrors['contacto-nombre'] ? 'true' : undefined
+                }
                 required
               />
+              {fieldErrors['contacto-nombre'] && (
+                <div
+                  id="contacto-nombre-error"
+                  className="field-error-msg"
+                  role="status"
+                >
+                  <span>Error: {fieldErrors['contacto-nombre']}</span>
+                </div>
+              )}
               <span id="nombre-help" className="field-help-text">
                 Indíquenos cómo prefiere que le contactemos al enviarle el
                 boceto.
@@ -96,17 +256,31 @@ export default function Contact() {
                 </span>
               </label>
               <input
+                ref={emailRef}
+                onBlur={() => handleFieldBlur(fieldValidators[1])}
                 type="email"
                 id="contacto-email"
                 name="email"
                 autoComplete="email"
                 inputMode="email"
                 enterKeyHint="next"
-                className="field-input"
+                className={`field-input${fieldErrors['contacto-email'] ? ' has-error' : ''}`}
                 defaultValue=""
                 aria-describedby="email-help"
+                aria-invalid={
+                  fieldErrors['contacto-email'] ? 'true' : undefined
+                }
                 required
               />
+              {fieldErrors['contacto-email'] && (
+                <div
+                  id="contacto-email-error"
+                  className="field-error-msg"
+                  role="status"
+                >
+                  <span>Error: {fieldErrors['contacto-email']}</span>
+                </div>
+              )}
               <span id="email-help" className="field-help-text">
                 Correo de contacto del taller: rolakun@gmail.com. Le
                 respondemos aquí con el desglose del presupuesto y la prueba
@@ -122,10 +296,15 @@ export default function Contact() {
                 </span>
               </label>
               <select
+                ref={productRef}
+                onBlur={() => handleFieldBlur(fieldValidators[2])}
                 id="contacto-producto"
                 name="producto"
-                className="field-select"
+                className={`field-select${fieldErrors['contacto-producto'] ? ' has-error' : ''}`}
                 aria-describedby="producto-help"
+                aria-invalid={
+                  fieldErrors['contacto-producto'] ? 'true' : undefined
+                }
                 defaultValue="tazas"
               >
                 <optgroup label="Regalos personalizados">
@@ -175,6 +354,15 @@ export default function Contact() {
                 </optgroup>
                 <option value="otro">Otro soporte personalizado</option>
               </select>
+              {fieldErrors['contacto-producto'] && (
+                <div
+                  id="contacto-producto-error"
+                  className="field-error-msg"
+                  role="status"
+                >
+                  <span>Error: {fieldErrors['contacto-producto']}</span>
+                </div>
+              )}
               <span id="producto-help" className="field-help-text">
                 Elija el producto que le interesa. Si busca otra base, marque
                 «Otro soporte personalizado».
@@ -240,13 +428,27 @@ export default function Contact() {
                 </span>
               </label>
               <textarea
+                ref={messageRef}
+                onBlur={() => handleFieldBlur(fieldValidators[3])}
                 id="contacto-mensaje"
                 name="mensaje"
-                className="field-textarea"
+                className={`field-textarea${fieldErrors['contacto-mensaje'] ? ' has-error' : ''}`}
                 rows="4"
                 aria-describedby="mensaje-help"
+                aria-invalid={
+                  fieldErrors['contacto-mensaje'] ? 'true' : undefined
+                }
                 placeholder="Cuéntanos cuántas unidades necesitas, si ya tienes el archivo o si necesitas que adaptemos el boceto..."
               />
+              {fieldErrors['contacto-mensaje'] && (
+                <div
+                  id="contacto-mensaje-error"
+                  className="field-error-msg"
+                  role="status"
+                >
+                  <span>Error: {fieldErrors['contacto-mensaje']}</span>
+                </div>
+              )}
               <span id="mensaje-help" className="field-help-text">
                 Puedes adjuntarnos el archivo en alta resolución o pedirnos
                 asesoramiento técnico de color.
@@ -255,6 +457,8 @@ export default function Contact() {
 
             <div className="checkbox-group">
               <input
+                ref={privacyRef}
+                onChange={handlePrivacyChange}
                 type="checkbox"
                 id="contacto-privacidad"
                 name="privacidad"
@@ -293,14 +497,15 @@ export default function Contact() {
           </form>
 
           <div
+            ref={successRef}
             id="exito-contacto"
-            className="exito-panel hidden"
+            className={`exito-panel${isSuccess ? '' : ' hidden'}`}
             role="status"
             tabIndex="-1"
-            hidden
+            hidden={!isSuccess}
           >
             <h3>
-              ¡Gracias, <span id="exito-nombre">Lucía</span>!
+              ¡Gracias, <span id="exito-nombre">{successName}</span>!
             </h3>
             <p>
               Su consulta de ejemplo queda registrada solo en este navegador.
@@ -311,7 +516,12 @@ export default function Contact() {
               En la versión real le responderíamos por WhatsApp el mismo día
               laborable, con el desglose del presupuesto y la prueba de color.
             </p>
-            <button type="button" id="form-reiniciar" className="btn-sec">
+            <button
+              type="button"
+              id="form-reiniciar"
+              className="btn-sec"
+              onClick={handleReset}
+            >
               Enviar otra consulta
             </button>
           </div>
