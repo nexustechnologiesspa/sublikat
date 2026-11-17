@@ -64,7 +64,7 @@ export default function Footer() {
             <h4 className="footer-col-title">El Taller</h4>
             <ul className="footer-nav-list">
               <li>
-                <a href="#contacto">Cómo trabajamos</a>
+                <a href="#proceso">Cómo trabajamos</a>
               </li>
               <li>
                 <a href="#resenas">Compromisos del taller</a>

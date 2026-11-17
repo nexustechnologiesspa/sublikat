@@ -3,10 +3,12 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 const themeStorageKey = 'sublikat-tema';
 const navigationItems = [
   { href: '#tienda', label: 'Tienda' },
-  { href: '#contacto', label: 'Cómo funciona' },
+  { href: '#proceso', label: 'Cómo funciona' },
   { href: '#resenas', label: 'Compromisos' },
   { href: '#contacto', label: 'Contacto' }
 ];
+
+const sectionIds = navigationItems.map(({ href }) => href.slice(1));
 
 function getInitialTheme() {
   try {
@@ -96,23 +98,55 @@ export default function Header() {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (!('IntersectionObserver' in window)) return undefined;
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+    if (!sections.length) return undefined;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: '-35% 0px -55% 0px' }
-    );
+    let frame = 0;
 
-    ['tienda', 'proceso', 'resenas', 'contacto'].forEach((id) => {
-      const section = document.getElementById(id);
-      if (section) observer.observe(section);
-    });
+    const update = () => {
+      frame = 0;
 
-    return () => observer.disconnect();
+      const cssHeaderHeight = parseFloat(
+        getComputedStyle(document.documentElement).getPropertyValue('--hh')
+      );
+      const headerHeight =
+        headerRef.current?.offsetHeight ||
+        (Number.isFinite(cssHeaderHeight) ? cssHeaderHeight : 72);
+
+      // Línea de referencia: un poco por debajo de la cabecera, dentro del
+      // tercio superior del viewport. La sección que la cruza es la activa.
+      const line = headerHeight + (window.innerHeight - headerHeight) * 0.35;
+
+      let current = null;
+      let lastPassed = null;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= line) lastPassed = section.id;
+        if (rect.top <= line && rect.bottom > line) current = section.id;
+      });
+
+      setActiveSection(current ?? lastPassed);
+    };
+
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    window.addEventListener('load', onScroll);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      window.removeEventListener('load', onScroll);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -172,22 +206,24 @@ export default function Header() {
   );
 
   const renderNavigationLinks = (mobile = false) =>
-    navigationItems.map(({ href, label }) => (
-      <a
-        key={`${href}-${label}`}
-        href={href}
-        aria-current={
-          activeSection
-            ? activeSection === href.slice(1)
-              ? 'true'
-              : 'false'
-            : undefined
-        }
-        onClick={mobile ? closeMenu : undefined}
-      >
-        {label}
-      </a>
-    ));
+    navigationItems.map(({ href, label }) => {
+      const targetId = href.slice(1);
+      const isActive = activeSection === targetId;
+
+      return (
+        <a
+          key={targetId}
+          href={href}
+          aria-current={isActive ? 'true' : undefined}
+          onClick={() => {
+            setActiveSection(targetId);
+            if (mobile) closeMenu();
+          }}
+        >
+          {label}
+        </a>
+      );
+    });
 
   return (
     <header
