@@ -49,6 +49,7 @@ export default function Catalog() {
   const initialActiveCategory = useRef(activeCategory);
   const alignmentFrame = useRef(null);
   const alignmentCleanup = useRef(null);
+  const quoteFocusFrame = useRef(null);
 
   const cancelPendingAlignment = () => {
     if (alignmentFrame.current !== null) {
@@ -155,6 +156,30 @@ export default function Catalog() {
     schedulePanelAlignment(category.panelId);
   };
 
+  const handleProductQuote = (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const link = target.closest('a[data-producto]');
+    if (!link || !event.currentTarget.contains(link)) return;
+
+    const productName = link.getAttribute('data-producto');
+    const message = document.getElementById('contacto-mensaje');
+    if (productName === null || !message) return;
+
+    if (message.value.trim() === '') {
+      message.value = `Consulta sobre: ${productName}\n`;
+    }
+    message.focus();
+    if (quoteFocusFrame.current !== null) {
+      window.cancelAnimationFrame(quoteFocusFrame.current);
+    }
+    quoteFocusFrame.current = window.requestAnimationFrame(() => {
+      quoteFocusFrame.current = null;
+      if (message.isConnected) message.focus();
+    });
+  };
+
   useEffect(() => {
     const activateFromHash = () => {
       const category = getCategoryFromHash(window.location.hash);
@@ -172,6 +197,9 @@ export default function Catalog() {
   useEffect(
     () => () => {
       cancelPendingAlignment();
+      if (quoteFocusFrame.current !== null) {
+        window.cancelAnimationFrame(quoteFocusFrame.current);
+      }
     },
     []
   );
@@ -182,6 +210,7 @@ export default function Catalog() {
       className="space-y-8"
       id="tienda"
       data-od-id="catalogo-productos"
+      onClick={handleProductQuote}
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
