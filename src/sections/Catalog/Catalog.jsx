@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductCard from './ProductCard.jsx';
+import ProductDetail from './ProductDetail.jsx';
 import { catalogCategories, catalogProducts } from './catalogData.js';
 
 const categoryStorageKey = 'sublikat-categoria';
@@ -46,9 +47,18 @@ function getTablistCeiling() {
 
 export default function Catalog() {
   const [activeCategory, setActiveCategory] = useState(getInitialActiveCategory);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const initialActiveCategory = useRef(activeCategory);
   const alignmentFrame = useRef(null);
   const alignmentCleanup = useRef(null);
+  const openerRef = useRef(null);
+
+  const openProduct = (product, trigger) => {
+    openerRef.current = trigger ?? null;
+    setSelectedProduct(product);
+  };
+
+  const closeProduct = () => setSelectedProduct(null);
 
   const cancelPendingAlignment = () => {
     if (alignmentFrame.current !== null) {
@@ -253,11 +263,23 @@ export default function Catalog() {
             {catalogProducts
               .filter((product) => product.category === category.dataCategoria)
               .map((product) => (
-                <ProductCard key={product.dataOdId} product={product} />
+                <ProductCard
+                  key={product.dataOdId}
+                  product={product}
+                  onOpen={openProduct}
+                />
               ))}
           </div>
         </section>
       ))}
+
+      {selectedProduct && (
+        <ProductDetail
+          product={selectedProduct}
+          onClose={closeProduct}
+          returnFocusTo={openerRef}
+        />
+      )}
     </section>
   );
 }

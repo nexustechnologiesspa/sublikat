@@ -10,3 +10,10 @@ export function productQuoteLink(productName) {
     `Hola Sublikat, quiero cotizar ${productName}. ¿Me pueden ayudar?`
   );
 }
+
+/** Mensaje de la ficha ampliada: nombra el producto y pide personalización. */
+export function productDetailLink(productName) {
+  return whatsappLink(
+    `Hola, quisiera consultar por ${productName} de Sublikat. Me gustaría conocer las opciones de personalización y solicitar una cotización.`
+  );
+}

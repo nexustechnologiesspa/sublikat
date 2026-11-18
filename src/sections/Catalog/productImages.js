@@ -79,6 +79,13 @@ const textos = {
 export const productImageSizes =
   '(min-width: 1280px) 370px, (min-width: 768px) 46vw, 92vw';
 
+/**
+ * Ancho de la foto principal dentro de la ficha ampliada: algo más de medio
+ * modal en escritorio y el ancho completo en móvil.
+ */
+export const productGallerySizes =
+  '(min-width: 1280px) 540px, (min-width: 1024px) 42vw, 92vw';
+
 const crear = (dataOdId) => {
   const nombre = dataOdId.replace(/^producto-/, '');
   const fotos = porProducto.get(nombre);
@@ -96,6 +103,19 @@ const crear = (dataOdId) => {
 export const productImages = Object.fromEntries(
   catalogProducts.map((product) => [product.dataOdId, crear(product.dataOdId)])
 );
+
+/**
+ * Galería de una ficha como arreglo ordenado (principal primero).
+ *
+ * Hoy cada producto tiene una sola fotografía real, así que el arreglo trae
+ * un elemento y el componente oculta las miniaturas. La estructura ya acepta
+ * más fotos: basta con añadir las variantes `...-01`, `...-02` al manifiesto
+ * y devolverlas aquí, sin tocar los componentes.
+ */
+export function getProductPhotos(product) {
+  const photo = productImages[product.dataOdId];
+  return photo ? [photo] : [];
+}
 
 const incompletas = catalogProducts.filter(
   (product) => !productImages[product.dataOdId]

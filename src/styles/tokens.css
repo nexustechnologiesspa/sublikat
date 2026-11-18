@@ -221,3 +221,43 @@
                 0 22px 40px -14px rgba(0, 0, 0, 0.65);
         --pc-badge-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
+
+/* ---------- ficha ampliada de producto ----------
+   Misma familia cálida que la tarjeta, con la paleta de la referencia:
+   crema, terracota, café y beige. El velo oscuro es propio del modal. */
+:root,
+[data-theme="light"] {
+        --pd-surface: #faf7f2;
+        --pd-surface-alt: #fffcf7;
+        --pd-media: #e8d6c5;
+        --pd-ink: #492714;
+        --pd-muted: #745c4a;
+        --pd-line: rgba(73, 39, 20, 0.15);
+        --pd-accent: #d96527;
+        --pd-accent-hover: #c2571f;
+        --pd-on-accent: #fffcf7;
+        --pd-chip: #f2e7d9;
+        --pd-ring: #d96527;
+        --pd-overlay: rgba(28, 19, 13, 0.56);
+        --pd-shadow: 0 2px 10px rgba(40, 22, 10, 0.16),
+                0 40px 90px -32px rgba(40, 22, 10, 0.55);
+        --pd-close-hover: #efe2d1;
+}
+
+[data-theme="dark"] {
+        --pd-surface: #2d2119;
+        --pd-surface-alt: #37281f;
+        --pd-media: #3d2d23;
+        --pd-ink: #f8ead7;
+        --pd-muted: #d8c2aa;
+        --pd-line: rgba(248, 234, 215, 0.16);
+        --pd-accent: #d96527;
+        --pd-accent-hover: #e57a3d;
+        --pd-on-accent: #1f140e;
+        --pd-chip: rgba(248, 234, 215, 0.08);
+        --pd-ring: #e4a07b;
+        --pd-overlay: rgba(0, 0, 0, 0.68);
+        --pd-shadow: 0 2px 10px rgba(0, 0, 0, 0.4),
+                0 40px 90px -32px rgba(0, 0, 0, 0.75);
+        --pd-close-hover: #4a382c;
+}

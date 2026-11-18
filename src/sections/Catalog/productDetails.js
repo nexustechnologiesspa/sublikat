@@ -1,12 +1,20 @@
+import { catalogCategories } from './catalogData.js';
+
 /**
- * Contenido de apoyo de las tarjetas del catálogo.
+ * Contenido de apoyo del catálogo (tarjeta y ficha ampliada).
  *
  * Vive fuera de `catalogData.js` a propósito: el modelo del catálogo conserva
- * nombres, categorías y fotos, y este módulo solo aporta la descripción breve
- * y las tres características visuales de cada ficha. Así el componente no
- * repite información de producto y el modelo no cambia.
+ * nombres, categorías, fotos y descripciones de producto; este módulo solo
+ * aporta la redacción de las fichas. Nada aquí inventa materiales, medidas ni
+ * precios: todo sale de lo que ya afirma el sitio (envío de ilustración, foto
+ * o logo, archivos PNG/SVG/boceto, muestra antes de imprimir, pedidos desde
+ * una unidad) o de las características ya aprobadas de cada producto.
  */
 
+/**
+ * Personalización por categoría. Son opciones del servicio, no propiedades
+ * inventadas del producto: describen qué puede aportar el cliente.
+ */
 const detallesPorCategoria = {
   regalos: {
     summary:
@@ -15,6 +23,13 @@ const detallesPorCategoria = {
       { icon: 'quality', label: 'Material de calidad' },
       { icon: 'palette', label: 'Diseño a tu medida' },
       { icon: 'gift', label: 'Ideal para regalar' }
+    ],
+    detailExtra:
+      'Aceptamos pedidos desde una sola unidad y revisamos la muestra contigo antes de imprimir.',
+    personalization: [
+      { icon: 'palette', label: 'Tu diseño, foto o ilustración' },
+      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' },
+      { icon: 'box', label: 'Pedidos desde 1 unidad' }
     ]
   },
   cuadros: {
@@ -24,6 +39,13 @@ const detallesPorCategoria = {
       { icon: 'print', label: 'Impresión de alta calidad' },
       { icon: 'ruler', label: 'Medidas a tu elección' },
       { icon: 'frame', label: 'Listo para colgar' }
+    ],
+    detailExtra:
+      'Envíanos tu archivo y revisamos una muestra digital antes de imprimir.',
+    personalization: [
+      { icon: 'frame', label: 'Tus fotos y diseños impresos' },
+      { icon: 'print', label: 'Archivos en PNG, SVG o boceto' },
+      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
     ]
   },
   textiles: {
@@ -33,6 +55,13 @@ const detallesPorCategoria = {
       { icon: 'shirt', label: 'Tela de algodón' },
       { icon: 'color', label: 'Color duradero' },
       { icon: 'box', label: 'Desde 1 unidad' }
+    ],
+    detailExtra:
+      'Aceptamos PNG, SVG o boceto y trabajamos desde una sola unidad.',
+    personalization: [
+      { icon: 'shirt', label: 'Tu diseño estampado en la tela' },
+      { icon: 'print', label: 'Archivos en PNG, SVG o boceto' },
+      { icon: 'box', label: 'Pedidos desde 1 unidad' }
     ]
   },
   papeleria: {
@@ -42,6 +71,13 @@ const detallesPorCategoria = {
       { icon: 'layers', label: 'Material de calidad' },
       { icon: 'print', label: 'Impresión a color' },
       { icon: 'sparkles', label: 'Acabado profesional' }
+    ],
+    detailExtra:
+      'Envía tu logo y revisamos la muestra digital antes de imprimir.',
+    personalization: [
+      { icon: 'card', label: 'Diseño con la identidad de tu marca' },
+      { icon: 'print', label: 'Tu logo en PNG o SVG' },
+      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
     ]
   },
   identificacion: {
@@ -51,6 +87,13 @@ const detallesPorCategoria = {
       { icon: 'card', label: 'Material resistente' },
       { icon: 'print', label: 'Impresión full color' },
       { icon: 'quality', label: 'Listo para usar' }
+    ],
+    detailExtra:
+      'Revisamos la muestra digital antes de imprimir para que el resultado quede como lo imaginas.',
+    personalization: [
+      { icon: 'card', label: 'Diseño con la identidad de tu marca' },
+      { icon: 'color', label: 'Impresión a todo color' },
+      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
     ]
   }
 };
@@ -141,19 +184,78 @@ const detallesPorProducto = {
   }
 };
 
-export function getCardDetails(product) {
+/** Invitación a la consulta; el precio y los detalles se confirman por WhatsApp. */
+const invitacion = {
+  title: '¿Tienes una idea diferente?',
+  text: 'Cuéntanos qué imaginas y revisamos tu diseño antes de imprimir.'
+};
+
+const categoriasPorSlug = new Map(
+  catalogCategories.map((category) => [category.dataCategoria, category])
+);
+
+function getCategoryContent(product) {
   const categoryDetails = detallesPorCategoria[product.category];
   if (!categoryDetails) {
     throw new Error(
       `Falta el contenido de tarjeta para la categoría "${product.category}".`
     );
   }
+  return categoryDetails;
+}
 
+function getProductContent(product) {
+  const categoryDetails = getCategoryContent(product);
   const productDetails = detallesPorProducto[product.dataOdId] ?? {};
 
   return {
     summary:
       productDetails.summary ?? product.description ?? categoryDetails.summary,
     features: productDetails.features ?? categoryDetails.features
+  };
+}
+
+/** Resumen y tres características de la tarjeta del catálogo. */
+export function getCardDetails(product) {
+  return getProductContent(product);
+}
+
+/**
+ * Contenido de la ficha ampliada.
+ *
+ * La descripción es el resumen propio del producto más una frase de servicio
+ * de su categoría. Las características técnicas son exactamente las tres
+ * características ya aprobadas; si `catalogData` trae una descripción corta
+ * (por ejemplo "Formato A4"), se añade como cuarta línea en lugar de
+ * repetirla aquí. Los bloques sin datos se devuelven vacíos para que el
+ * componente los omita.
+ */
+export function getProductDetail(product) {
+  const category = categoriasPorSlug.get(product.category);
+  if (!category) {
+    throw new Error(
+      `El producto "${product.dataOdId}" no pertenece a ninguna categoría.`
+    );
+  }
+
+  const categoryDetails = getCategoryContent(product);
+  const { summary, features } = getProductContent(product);
+  const shortDescription =
+    product.description && product.description.length <= 40
+      ? product.description
+      : null;
+
+  return {
+    categoryName: category.name,
+    badge: product.badge ?? 'Personalizable',
+    summary,
+    description: `${summary} ${categoryDetails.detailExtra}`,
+    personalization: categoryDetails.personalization,
+    features,
+    specs: [
+      ...features.map((feature) => feature.label),
+      ...(shortDescription ? [shortDescription] : [])
+    ],
+    invitation: invitacion
   };
 }
