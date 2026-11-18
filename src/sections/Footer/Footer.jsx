@@ -74,7 +74,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="https://wa.me/56949409253">
-                  WhatsApp +56 9 4940 9253
+                  WhatsApp +56 9 4940 0253
                 </a>
               </li>
               <li>

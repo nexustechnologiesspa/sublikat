@@ -71,7 +71,7 @@ coinciden en 19 productos, verificado el 2026-11-12).
 **Estado:** aplicado el 2026-11-11 con los datos disponibles · **Pendiente:** razón social y RUT, número de local, sábados, correo que se publica, enlace de Maps y dominio
 
 **Aplicado el 2026-11-11:** dirección «Bocaccio 866, Maipú, Santiago», horario «lunes a viernes de
-10:00 a 17:00», envíos a todo Chile con retiro en taller y Blueexpress, WhatsApp +56 9 4940 9253 en
+10:00 a 17:00», envíos a todo Chile con retiro en taller y Blueexpress, WhatsApp +56 9 4940 0253 en
 los tres enlaces, Instagram @sublikat.cl, correo pedidos@sublikat.cl en el pie, borrado el nombre
 social inventado «Sublikat Taller de Estampados S.L.», iconos de la tarjeta de contacto convertidos
 a SVG de la misma familia y etiquetas Open Graph añadidas. En el pie, la columna «Productos» pasa a
@@ -82,7 +82,7 @@ las 5 categorías reales con enlace directo a cada pestaña del catálogo.
 | 2.1 | Razón social y RUT de la empresa. | ____________________ | Pie de página y facturación (SII) |
 | 2.2 | Dirección completa: ¿Bocaccio 866 tiene número de local o departamento? | ____________________ | Tarjeta «Taller físico y recogidas» |
 | 2.3 | Horario: ¿sábados? ¿domingo cerrado? ¿El tramo 10:00–17:00 es todos los días de lunes a viernes? | ____________________ | Tarjeta de horarios |
-| 2.4 | WhatsApp: ¿confirmamos +56 9 4940 9253 para el widget flotante y los botones? | ____________________ | Enlaces de WhatsApp (hoy apuntan a un número de ejemplo) |
+| 2.4 | WhatsApp: ¿confirmamos +56 9 4940 0253 para el widget flotante y los botones? | ____________________ | Enlaces de WhatsApp (hoy apuntan a un número de ejemplo) |
 | 2.5 | Correo: ¿publicamos `rolakun@gmail.com`, `pedidos@sublikat.cl` o los dos? | ____________________ | Campo y texto de ayuda del formulario |
 | 2.6 | Instagram: ¿`@sublikat.cl` es la cuenta oficial? ¿Hay Facebook o TikTok? | ____________________ | Enlaces sociales y sección «síguenos» |
 | 2.7 | Enlace al perfil de empresa en Google Maps. | ____________________ | Enlace de perfil + reseñas reales |

@@ -21,7 +21,7 @@
 | Fotografía de producto | `assets/stock/camiseta-cats.jpg`, en el héroe, con carga eager y texto alternativo. |
 | Ilustraciones de ventajas | `assets/beneficios/pedidos-unidad.jpg`, `personalizacion.jpg`, `muestra-impresion.jpg` y `atencion-whatsapp.jpg`, con texto alternativo y carga lazy. |
 | Iconografía | Logo e iconos dibujados como SVG en línea (marca, productos, pasos, contacto, controles y WhatsApp); no se detecta una biblioteca de iconos externa. |
-| Acciones externas | Enlaces de WhatsApp (`wa.me`, número +56 9 4940 9253), Instagram `@sublikat.cl` y correo `pedidos@sublikat.cl`; los botones de WhatsApp abren nueva pestaña con `rel="noopener noreferrer"`. |
+| Acciones externas | Enlaces de WhatsApp (`wa.me`, número +56 9 4940 0253), Instagram `@sublikat.cl` y correo `pedidos@sublikat.cl`; los botones de WhatsApp abren nueva pestaña con `rel="noopener noreferrer"`. |
 | Formulario | Validación y confirmación de demostración en cliente. El propio código indica que **no envía datos a servidor**. La confirmación es local y reiniciable. |
 | Otras dependencias | No se observan API, `fetch`, CMS, router ni librería de animación. Las interacciones se implementan en JavaScript propio. |
 

@@ -25,7 +25,7 @@ export default function WhatsAppWidget() {
         target="_blank"
         rel="noopener noreferrer"
         className="od-was__btn"
-        aria-label="Pedir presupuesto por WhatsApp al +56 9 4940 9253"
+        aria-label="Pedir presupuesto por WhatsApp al +56 9 4940 0253"
       >
         <svg
           className="od-was__icon"

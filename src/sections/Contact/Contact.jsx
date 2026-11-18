@@ -652,7 +652,7 @@ export default function Contact() {
                 </span>
                 <div>
                   <span className="detail-title">WhatsApp</span>
-                  <span className="detail-text">+56 9 4940 9253</span>
+                  <span className="detail-text">+56 9 4940 0253</span>
                 </div>
               </div>
 
