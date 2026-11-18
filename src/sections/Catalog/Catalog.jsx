@@ -198,17 +198,11 @@ export default function Catalog() {
             id="heading-catalogo"
             className="font-display text-4xl md:text-5xl tx-ink leading-tight"
           >
-            20 productos en 5 categorías
+            Elija su producto
           </h2>
           <p className="text-base tx-ink font-semibold mt-1 max-w-2xl">
-            Cada ficha muestra el producto con una fotografía de muestra y abre la cotización por WhatsApp con el nombre ya escrito. El precio se confirma en la conversación.
+            Elija un producto y cotícelo por WhatsApp: le confirmamos precio y plazo en la conversación.
           </p>
-        </div>
-        <div className="bg-surface ink-border rounded-sticker px-3 py-2 text-xs font-bold tx-ink flex items-center gap-2 shadow-offset-sm self-start md:self-auto">
-          <span className="bg-accent tx-onfill px-2 py-0.5 rounded text-[10px] uppercase font-black">
-            Ejemplo
-          </span>
-          <span>Fotografías y precios de muestra</span>
         </div>
       </div>
 

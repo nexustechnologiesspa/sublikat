@@ -17,40 +17,32 @@ import { catalogCategories } from './catalogData.js';
  */
 const detallesPorCategoria = {
   regalos: {
-    summary:
-      'Detalles personalizados que se recuerdan. Elige tu diseño y lo preparamos para regalar.',
     features: [
       { icon: 'quality', label: 'Material de calidad' },
-      { icon: 'palette', label: 'Diseño a tu medida' },
+      { icon: 'palette', label: 'Diseño a su medida' },
       { icon: 'gift', label: 'Ideal para regalar' }
     ],
     detailExtra:
-      'Aceptamos pedidos desde una sola unidad y revisamos la muestra contigo antes de imprimir.',
+      'Aceptamos pedidos desde una sola unidad y revisamos la muestra con usted antes de imprimir.',
     personalization: [
-      { icon: 'palette', label: 'Tu diseño, foto o ilustración' },
-      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' },
+      { icon: 'palette', label: 'Su diseño, foto o ilustración' },
       { icon: 'box', label: 'Pedidos desde 1 unidad' }
     ]
   },
   cuadros: {
-    summary:
-      'Tus fotos y diseños impresos con nitidez, listos para dar vida a cualquier pared.',
     features: [
       { icon: 'print', label: 'Impresión de alta calidad' },
-      { icon: 'ruler', label: 'Medidas a tu elección' },
+      { icon: 'palette', label: 'Su foto o diseño' },
       { icon: 'frame', label: 'Listo para colgar' }
     ],
     detailExtra:
-      'Envíanos tu archivo y revisamos una muestra digital antes de imprimir.',
+      'Envíenos su archivo y revisamos una muestra digital antes de imprimir.',
     personalization: [
-      { icon: 'frame', label: 'Tus fotos y diseños impresos' },
-      { icon: 'print', label: 'Archivos en PNG, SVG o boceto' },
-      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
+      { icon: 'frame', label: 'Sus fotos y diseños impresos' },
+      { icon: 'print', label: 'Archivos en PNG, SVG o boceto' }
     ]
   },
   textiles: {
-    summary:
-      'Tu diseño estampado en telas suaves y resistentes, desde una sola unidad.',
     features: [
       { icon: 'shirt', label: 'Tela de algodón' },
       { icon: 'color', label: 'Color duradero' },
@@ -59,41 +51,35 @@ const detallesPorCategoria = {
     detailExtra:
       'Aceptamos PNG, SVG o boceto y trabajamos desde una sola unidad.',
     personalization: [
-      { icon: 'shirt', label: 'Tu diseño estampado en la tela' },
+      { icon: 'shirt', label: 'Su diseño estampado en la tela' },
       { icon: 'print', label: 'Archivos en PNG, SVG o boceto' },
       { icon: 'box', label: 'Pedidos desde 1 unidad' }
     ]
   },
   papeleria: {
-    summary:
-      'Tarjetas con acabado profesional para que tu marca cause una buena primera impresión.',
     features: [
       { icon: 'layers', label: 'Material de calidad' },
       { icon: 'print', label: 'Impresión a color' },
       { icon: 'sparkles', label: 'Acabado profesional' }
     ],
     detailExtra:
-      'Envía tu logo y revisamos la muestra digital antes de imprimir.',
+      'Envíenos su logo y revisamos la muestra digital antes de imprimir.',
     personalization: [
-      { icon: 'card', label: 'Diseño con la identidad de tu marca' },
-      { icon: 'print', label: 'Tu logo en PNG o SVG' },
-      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
+      { icon: 'card', label: 'Diseño con la identidad de su marca' },
+      { icon: 'print', label: 'Su logo en PNG o SVG' }
     ]
   },
   identificacion: {
-    summary:
-      'Credenciales y lanyards resistentes para identificar a tu equipo con tu propio diseño.',
     features: [
       { icon: 'card', label: 'Material resistente' },
-      { icon: 'print', label: 'Impresión full color' },
+      { icon: 'print', label: 'Impresión a todo color' },
       { icon: 'quality', label: 'Listo para usar' }
     ],
     detailExtra:
-      'Revisamos la muestra digital antes de imprimir para que el resultado quede como lo imaginas.',
+      'Revisamos la muestra digital antes de imprimir para que el resultado quede como usted lo imagina.',
     personalization: [
-      { icon: 'card', label: 'Diseño con la identidad de tu marca' },
-      { icon: 'color', label: 'Impresión a todo color' },
-      { icon: 'sparkles', label: 'Revisión de la muestra antes de imprimir' }
+      { icon: 'card', label: 'Diseño con la identidad de su marca' },
+      { icon: 'color', label: 'Impresión a todo color' }
     ]
   }
 };
@@ -102,10 +88,10 @@ const detallesPorCategoria = {
 const detallesPorProducto = {
   'producto-tazas': {
     summary:
-      'Diseños únicos para cada ocasión. Sorprende con una taza con tu estilo.',
+      'Taza de cerámica con su diseño, foto o logo. Un regalo personal o un detalle para su equipo.',
     features: [
       { icon: 'cup', label: 'Cerámica de alta calidad' },
-      { icon: 'palette', label: 'Diseños a tu medida' },
+      { icon: 'palette', label: 'Su diseño, foto o logo' },
       { icon: 'gift', label: 'Ideal para regalar' }
     ]
   },
@@ -120,28 +106,28 @@ const detallesPorProducto = {
   },
   'producto-botellas': {
     summary:
-      'Botellas térmicas personalizadas para llevar tu diseño a todas partes.'
+      'Botellas térmicas personalizadas para llevar su diseño a todas partes.'
   },
   'producto-mousepads': {
     summary:
-      'Superficie cómoda y estable, personalizada con el diseño que elijas.'
+      'Superficie cómoda y estable, personalizada con el diseño que usted elija.'
   },
   'producto-bolsas': {
     summary:
-      'Bolsas de tela reutilizables con tu estampado, ideales para el día a día.'
+      'Bolsas de tela reutilizables con su estampado, ideales para el día a día.'
   },
   'producto-relojes': {
     summary:
       'Relojes con correa y esfera personalizadas para un detalle distinto.'
   },
   'producto-chapas-mascotas': {
-    summary: 'Chapas resistentes con el nombre o la cara de tu mascota.'
+    summary: 'Chapas resistentes con el nombre o la cara de su mascota.'
   },
   'producto-cuadros-piedra': {
-    summary: 'Cuadros de piedra con acabado natural y tu diseño impreso.'
+    summary: 'Cuadros de piedra con acabado natural y su diseño impreso.'
   },
   'producto-cuadros-fotos': {
-    summary: 'Tus fotos favoritas enmarcadas y listas para colgar.'
+    summary: 'Sus fotos favoritas impresas en formatos de A6 a A3.'
   },
   'producto-cuadros-aluminio': {
     summary: 'Impresión sobre aluminio con un acabado moderno y resistente.'
@@ -151,24 +137,24 @@ const detallesPorProducto = {
       'Polerones de algodón estampados a todo color, desde una sola unidad.',
     features: [
       { icon: 'shirt', label: 'Tela de algodón' },
-      { icon: 'palette', label: 'Estampado full color' },
+      { icon: 'palette', label: 'Estampado a todo color' },
       { icon: 'box', label: 'Desde 1 unidad' }
     ]
   },
   'producto-estampado-1-color': {
-    summary: 'Estampado a una tinta, limpio y definido, sobre la tela que elijas.'
+    summary: 'Estampado a una tinta, limpio y definido, sobre la tela que usted elija.'
   },
   'producto-estampado-2-colores': {
-    summary: 'Dos tintas combinadas para dar más vida a tu diseño.'
+    summary: 'Dos tintas combinadas para dar más vida a su diseño.'
   },
   'producto-estampado-3-colores': {
     summary: 'Tres tintas para estampados con más detalle y contraste.'
   },
   'producto-estampado-imagenes': {
-    summary: 'Impresión a todo color para reproducir tus fotos y diseños.'
+    summary: 'Impresión a todo color para reproducir sus fotos y diseños.'
   },
   'producto-tarjetas-presentacion': {
-    summary: 'Tarjetas impresas en papel grueso con el acabado de tu marca.'
+    summary: 'Tarjetas impresas en papel grueso con el acabado de su marca.'
   },
   'producto-tarjetas-pvc': {
     summary: 'Tarjetas de PVC resistentes y brillantes, ideales para el uso diario.'
@@ -177,7 +163,7 @@ const detallesPorProducto = {
     summary: 'Lanyards estampados con mosquetón y portacredencial.'
   },
   'producto-credenciales': {
-    summary: 'Credenciales impresas y protegidas, listas para tu equipo.'
+    summary: 'Credenciales impresas y protegidas, listas para su equipo.'
   },
   'producto-credenciales-pvc': {
     summary: 'Credenciales rígidas de PVC con impresión a todo color.'
@@ -186,8 +172,8 @@ const detallesPorProducto = {
 
 /** Invitación a la consulta; el precio y los detalles se confirman por WhatsApp. */
 const invitacion = {
-  title: '¿Tienes una idea diferente?',
-  text: 'Cuéntanos qué imaginas y revisamos tu diseño antes de imprimir.'
+  title: '¿Tiene una idea distinta?',
+  text: 'Cuéntenos qué necesita y le decimos cómo hacerlo.'
 };
 
 const categoriasPorSlug = new Map(
@@ -210,7 +196,7 @@ function getProductContent(product) {
 
   return {
     summary:
-      productDetails.summary ?? product.description ?? categoryDetails.summary,
+      productDetails.summary ?? product.description ?? '',
     features: productDetails.features ?? categoryDetails.features
   };
 }

@@ -169,8 +169,7 @@ export const catalogProducts = [
     name: 'Polerones',
     dataOdId: 'producto-polerones',
     dataProducto: 'Polerones',
-    description:
-      'Estampado a todo color con su diseño, desde 1 unidad. Modelos, tallas y colores por confirmar.',
+    description: null,
     badge: 'Producto destacado',
     svgKey: 'hoodie',
     hasOdReveal: false

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { generalQuoteLink, WHATSAPP_DISPLAY } from '../../utils/whatsapp.js';
 
 export default function WhatsAppWidget() {
   const [compact, setCompact] = useState(false);
@@ -21,11 +22,11 @@ export default function WhatsAppWidget() {
       data-od-id="widget-whatsapp"
     >
       <a
-        href="https://wa.me/56949409253?text=Hola%20Sublikat,%20quiero%20cotizar%20un%20estampado"
+        href={generalQuoteLink}
         target="_blank"
         rel="noopener noreferrer"
         className="od-was__btn"
-        aria-label="Pedir presupuesto por WhatsApp al +56 9 4940 0253"
+        aria-label={`Cotizar por WhatsApp al ${WHATSAPP_DISPLAY}`}
       >
         <svg
           className="od-was__icon"

@@ -4,7 +4,6 @@ import ReadingProgress from './components/ReadingProgress/ReadingProgress.jsx';
 import WhatsAppWidget from './components/WhatsAppWidget/WhatsAppWidget.jsx';
 import Benefits from './sections/Benefits/Benefits.jsx';
 import Catalog from './sections/Catalog/Catalog.jsx';
-import Commitments from './sections/Commitments/Commitments.jsx';
 import Contact from './sections/Contact/Contact.jsx';
 import Footer from './sections/Footer/Footer.jsx';
 import Hero from './sections/Hero/Hero.jsx';
@@ -24,7 +23,6 @@ export default function App() {
           <WorkshopNotice />
           <Catalog />
           <Process />
-          <Commitments />
           <Contact />
         </div>
       </main>

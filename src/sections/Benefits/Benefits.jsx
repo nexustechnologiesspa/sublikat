@@ -3,27 +3,27 @@ import { useEffect, useRef, useState } from 'react';
 const benefitCards = [
   {
     image: 'pedidos-unidad.jpg',
-    alt: 'Ilustración de ejemplo: una taza de cerámica ilustrada junto a una caja de regalo',
+    alt: 'Una taza de cerámica ilustrada junto a una caja de regalo',
     title: 'Pedidos desde una unidad',
-    description: 'También para empresas: cada encargo se cotiza por separado.'
+    description: 'Un regalo o cien piezas para su empresa: cada encargo se cotiza a su medida.'
   },
   {
     image: 'personalizacion.jpg',
-    alt: 'Ilustración de ejemplo: una camiseta, un bolso de tela y una taza con el mismo diseño impreso',
-    title: 'Personalización de productos',
+    alt: 'Una camiseta, un bolso de tela y una taza con el mismo diseño impreso',
+    title: 'Su diseño en 20 productos',
     description: 'Polerones, tazas, textiles, papelería e identificación.'
   },
   {
     image: 'muestra-impresion.jpg',
-    alt: 'Ilustración de ejemplo: una prueba de diseño en arcilla sobre una taza, marcada con una aprobación',
+    alt: 'Una prueba de diseño en arcilla sobre una taza, marcada con una aprobación',
     title: 'Muestra antes de imprimir',
     description: 'Revisamos su diseño y lo aprobamos con usted.'
   },
   {
     image: 'atencion-whatsapp.jpg',
-    alt: 'Ilustración de ejemplo: un teléfono con mensajes de chat y un reloj, atención por WhatsApp',
-    title: 'Atención de lunes a viernes',
-    description: 'De 10:00 a 17:00, por WhatsApp o por correo.'
+    alt: 'Un teléfono con mensajes de chat, atención por WhatsApp',
+    title: 'Atención directa por WhatsApp',
+    description: 'Le responde una persona del taller, sin intermediarios.'
   }
 ];
 
@@ -58,15 +58,15 @@ export default function Benefits() {
     <section
       id="beneficios"
       data-od-id="beneficios-taller"
-      aria-label="Ventajas del taller"
+      aria-label="Por qué elegir Sublikat"
     >
       <div className="pin-vista">
         <div className="pin-intro">
           <h2 className="font-display text-3xl md:text-4xl tx-ink leading-tight">
-            Ventajas del taller
+            Por qué elegir Sublikat
           </h2>
           <p className="pin-intro__hint" aria-hidden="true">
-            Sigue bajando →
+            Siga bajando →
           </p>
         </div>
         <div className="swipe-marco">

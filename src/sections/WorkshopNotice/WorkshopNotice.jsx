@@ -23,12 +23,9 @@ export default function WorkshopNotice() {
             </svg>
           </span>
           <p className="font-extrabold tx-ink text-base md:text-lg tracking-wide">
-            ¡Piezas listas para envío inmediato y personalizaciones en caliente,
-            sin pedido mínimo!
+            Personalización desde 1 unidad, con despacho a todo Chile o retiro
+            en Maipú.
           </p>
-        </div>
-        <div className="bg-surface tx-ink text-xs font-black uppercase px-3 py-1.5 rounded-sticker ink-border-sm tracking-wider">
-          • Lote de prueba artesanal •
         </div>
       </div>
     </section>

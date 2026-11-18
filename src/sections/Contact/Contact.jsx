@@ -1,4 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
+import {
+  generalQuoteLink,
+  WHATSAPP_DISPLAY,
+  whatsappLink
+} from '../../utils/whatsapp.js';
 
 const fieldValidators = [
   {
@@ -7,7 +12,7 @@ const fieldValidators = [
     validate: (value) =>
       value.trim().length >= 2
         ? ''
-        : 'Escribe tu nombre para poder dirigirnos a ti.'
+        : 'Escriba su nombre.'
   },
   {
     id: 'contacto-email',
@@ -15,13 +20,13 @@ const fieldValidators = [
     validate: (value) =>
       /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim())
         ? ''
-        : 'Introduce una dirección válida con terminación de dominio (por ejemplo: .com o .es).'
+        : 'Ingrese un correo válido, por ejemplo nombre@correo.cl.'
   },
   {
     id: 'contacto-producto',
     label: 'Producto o soporte',
     validate: (value) =>
-      value ? '' : 'Elige el producto o soporte que te interesa.'
+      value ? '' : 'Elija un producto.'
   },
   {
     id: 'contacto-mensaje',
@@ -29,7 +34,7 @@ const fieldValidators = [
     validate: (value) =>
       value.trim().length >= 10
         ? ''
-        : 'Cuéntanos cuántas unidades necesitas y qué quieres estampar (10 caracteres mínimo).'
+        : 'Cuéntenos qué necesita (mínimo 10 caracteres).'
   }
 ];
 
@@ -68,7 +73,7 @@ export default function Contact() {
       errors.push({
         id: 'contacto-privacidad',
         label: 'Aceptación de la política de privacidad',
-        message: 'Marca la casilla para poder gestionar tu consulta.'
+        message: 'Marque la casilla para que podamos responder su consulta.'
       });
     }
 
@@ -108,7 +113,28 @@ export default function Contact() {
       return;
     }
 
-    setSuccessName(nameRef.current?.value.trim() ?? '');
+    /* El formulario no tiene servidor: arma la consulta y la abre en
+       WhatsApp, lista para enviar al taller. */
+    const form = formRef.current;
+    const optionText = (fieldName) => {
+      const field = form?.elements[fieldName];
+      if (!field?.value) return '';
+      return field.selectedOptions?.[0]?.textContent.trim() ?? '';
+    };
+    const name = nameRef.current?.value.trim() ?? '';
+    const quantity = form?.elements.cantidad?.value.trim() ?? '';
+    const contactMedium = optionText('contacto');
+    const summary = [
+      `Hola Sublikat, soy ${name}.`,
+      `Quiero cotizar: ${optionText('producto')}.`,
+      quantity ? `Cantidad: ${quantity} unidades.` : '',
+      `Correo: ${emailRef.current?.value.trim() ?? ''}`,
+      contactMedium ? `Prefiero que me contacten por: ${contactMedium}.` : ''
+    ].filter(Boolean);
+    const text = `${summary.join('\n')}\n\n${messageRef.current?.value.trim() ?? ''}`;
+    window.open(whatsappLink(text), '_blank', 'noopener');
+
+    setSuccessName(name);
     setIsSuccess(true);
   };
 
@@ -144,13 +170,13 @@ export default function Contact() {
       data-od-id="contacto"
     >
       <div style={{ marginBottom: '24px' }}>
-        <span className="sticker-badge">Taller abierto · Hable con nosotros</span>
+        <span className="sticker-badge">Contacto</span>
         <h2 id="contact-heading" className="section-title od-reveal-soft">
-          Pida presupuesto o cuéntanos su idea
+          Pida su cotización o cuéntenos su idea
         </h2>
         <p className="section-subtitle od-reveal-soft">
-          Le respondemos dentro del horario de taller, de lunes a viernes de
-          10:00 a 17:00. Sin bots: le atiende una persona del equipo.
+          Le responde una persona del taller, de lunes a viernes de 10:00 a
+          17:00.
         </p>
       </div>
 
@@ -181,7 +207,7 @@ export default function Contact() {
                 <line x1="12" y1="16" x2="12.01" y2="16" />
               </svg>
               <span id="error-summary-count">
-                Hay 1 error en el formulario que necesita revisión:
+                Revise los siguientes campos:
               </span>
             </div>
             <ul id="error-summary-list" className="error-summary-list">
@@ -243,8 +269,7 @@ export default function Contact() {
                 </div>
               )}
               <span id="nombre-help" className="field-help-text">
-                Indíquenos cómo prefiere que le contactemos al enviarle el
-                boceto.
+                Así sabremos cómo dirigirnos a usted.
               </span>
             </div>
 
@@ -282,15 +307,13 @@ export default function Contact() {
                 </div>
               )}
               <span id="email-help" className="field-help-text">
-                Correo de contacto del taller: rolakun@gmail.com. Le
-                respondemos aquí con el desglose del presupuesto y la prueba
-                digital.
+                Aquí le enviaremos la cotización y la muestra digital.
               </span>
             </div>
 
             <div className="form-group">
               <label htmlFor="contacto-producto" className="field-label">
-                Producto o soporte que le interesa{' '}
+                Producto que le interesa{' '}
                 <span className="required-mark" aria-hidden="true">
                   *
                 </span>
@@ -352,7 +375,7 @@ export default function Contact() {
                   <option value="credenciales">Credenciales</option>
                   <option value="credenciales-pvc">Credenciales PVC</option>
                 </optgroup>
-                <option value="otro">Otro soporte personalizado</option>
+                <option value="otro">Otro producto</option>
               </select>
               {fieldErrors['contacto-producto'] && (
                 <div
@@ -364,8 +387,7 @@ export default function Contact() {
                 </div>
               )}
               <span id="producto-help" className="field-help-text">
-                Elija el producto que le interesa. Si busca otra base, marque
-                «Otro soporte personalizado».
+                Si no está en la lista, elija «Otro producto».
               </span>
             </div>
 
@@ -396,7 +418,7 @@ export default function Contact() {
 
             <div className="form-group">
               <label htmlFor="contacto-contacto" className="field-label">
-                Medio de contacto{' '}
+                ¿Cómo prefiere que le contactemos?{' '}
                 <span className="required-mark" aria-hidden="true">
                   *
                 </span>
@@ -413,7 +435,6 @@ export default function Contact() {
                 <option value="whatsapp">WhatsApp</option>
                 <option value="correo">Correo electrónico</option>
                 <option value="telefono">Teléfono</option>
-                <option value="retiro">Prefiero pasar por el taller</option>
               </select>
               <span id="contacto-help" className="field-help-text">
                 Así le respondemos más rápido dentro del horario de taller.
@@ -438,7 +459,7 @@ export default function Contact() {
                 aria-invalid={
                   fieldErrors['contacto-mensaje'] ? 'true' : undefined
                 }
-                placeholder="Cuéntanos cuántas unidades necesitas, si ya tienes el archivo o si necesitas que adaptemos el boceto..."
+                placeholder="Cuéntenos qué quiere estampar, si ya tiene el archivo o si necesita ayuda con el diseño."
               />
               {fieldErrors['contacto-mensaje'] && (
                 <div
@@ -450,8 +471,8 @@ export default function Contact() {
                 </div>
               )}
               <span id="mensaje-help" className="field-help-text">
-                Puedes adjuntarnos el archivo en alta resolución o pedirnos
-                asesoramiento técnico de color.
+                Podrá enviarnos su archivo por WhatsApp o correo cuando le
+                respondamos.
               </span>
             </div>
 
@@ -463,13 +484,12 @@ export default function Contact() {
                 id="contacto-privacidad"
                 name="privacidad"
                 className="custom-checkbox"
-                defaultChecked
                 required
               />
               <label htmlFor="contacto-privacidad" className="checkbox-label">
                 He leído y acepto el tratamiento de mis datos de contacto para
                 gestionar esta consulta comercial conforme a la política de
-                privacidad. <span className="demo-tag">Texto de ejemplo</span>
+                privacidad.
               </label>
             </div>
 
@@ -492,7 +512,7 @@ export default function Contact() {
                 <line x1="22" y1="2" x2="11" y2="13" />
                 <polygon points="22 2 15 22 11 13 2 9 22 2" />
               </svg>
-              <span>Revisar mi consulta</span>
+              <span>Enviar consulta por WhatsApp</span>
             </button>
           </form>
 
@@ -508,13 +528,16 @@ export default function Contact() {
               ¡Gracias, <span id="exito-nombre">{successName}</span>!
             </h3>
             <p>
-              Su consulta de ejemplo queda registrada solo en este navegador.
-              No se ha enviado ningún dato a ningún servidor: esta demostración
-              enseña la validación, el resumen de errores y la confirmación.
+              Abrimos WhatsApp con su consulta ya escrita: solo falta que la
+              envíe. Si no se abrió, escríbanos al{' '}
+              <a href={generalQuoteLink} target="_blank" rel="noopener noreferrer">
+                {WHATSAPP_DISPLAY}
+              </a>
+              .
             </p>
             <p className="mt-2">
-              En la versión real le responderíamos por WhatsApp el mismo día
-              laborable, con el desglose del presupuesto y la prueba de color.
+              Le responderemos de lunes a viernes, de 10:00 a 17:00, con su
+              cotización.
             </p>
             <button
               type="button"
@@ -538,14 +561,14 @@ export default function Contact() {
             >
               Respuesta rápida
             </span>
-            <h3>¿Prefiere respuesta inmediata?</h3>
+            <h3>¿Prefiere hablar por WhatsApp?</h3>
             <p className="contact-desc">
-              Escríbanos por WhatsApp con su boceto o su consulta y le
-              respondemos desde el taller, de lunes a viernes de 10:00 a 17:00.
+              Escríbanos con su boceto o su consulta y le respondemos desde el
+              taller.
             </p>
 
             <a
-              href="https://wa.me/56949409253?text=Hola%20Sublikat,%20quiero%20cotizar%20un%20estampado"
+              href={generalQuoteLink}
               className="btn-whatsapp"
               target="_blank"
               rel="noopener noreferrer"
@@ -580,7 +603,7 @@ export default function Contact() {
                   </svg>
                 </span>
                 <div>
-                  <span className="detail-title">Taller y recogidas</span>
+                  <span className="detail-title">Taller y retiros</span>
                   <span className="detail-text">
                     Bocaccio 866, Maipú, Santiago
                   </span>
@@ -628,9 +651,9 @@ export default function Contact() {
                   </svg>
                 </span>
                 <div>
-                  <span className="detail-title">Envíos y retiros</span>
+                  <span className="detail-title">Despachos</span>
                   <span className="detail-text">
-                    Retiro en el taller o despacho por Blue Express a todo Chile
+                    Por Blue Express a todo Chile
                   </span>
                 </div>
               </div>
@@ -652,7 +675,7 @@ export default function Contact() {
                 </span>
                 <div>
                   <span className="detail-title">WhatsApp</span>
-                  <span className="detail-text">+56 9 4940 0253</span>
+                  <span className="detail-text">{WHATSAPP_DISPLAY}</span>
                 </div>
               </div>
 
@@ -687,32 +710,17 @@ export default function Contact() {
                 </span>
                 <div>
                   <span className="detail-title">Instagram</span>
-                  <span className="detail-text">@sublikat.cl</span>
+                  <a
+                    className="detail-text"
+                    href="https://www.instagram.com/sublikat.cl/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    @sublikat.cl
+                  </a>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="assurance-badge">
-            <svg
-              className="assurance-icon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              <path d="M9 12l2 2 4-4" />
-            </svg>
-            <p className="assurance-text">
-              <strong>Muestra antes de imprimir:</strong> revisamos su diseño y
-              lo aprobamos con usted antes de enviarlo a producción.
-            </p>
           </div>
         </aside>
       </div>

@@ -25,24 +25,24 @@ const AUTOPLAY_MS = 3600;
 const steps = [
   {
     title: 'Elija su producto y su diseño',
-    text: 'Envíenos su ilustración, foto o logo. Si necesita ayuda, ajustamos la resolución para que no pierda ningún detalle.',
+    text: 'Envíenos su ilustración, foto o logo. Si el archivo no tiene buena calidad, le avisamos antes de seguir.',
     chip: 'Aceptamos PNG, SVG o boceto',
     Art: ArtDesign,
   },
   {
     title: 'Revisamos y aprobamos la muestra',
-    text: 'Le enviamos una previsualización real con prueba de color. No imprimimos nada hasta contar con su visto bueno.',
+    text: 'Le enviamos una imagen de cómo quedará su producto. No imprimimos nada hasta contar con su visto bueno.',
     chip: 'Muestra digital antes de imprimir',
     Art: ArtProof,
   },
   {
-    title: 'Imprimimos y sublimamos',
-    text: 'Pigmentos especiales que gasifican a 200 °C y se funden en la fibra: sin plásticos gomosos ni grietas.',
-    chip: 'Tintas que se fijan en la fibra',
+    title: 'Imprimimos y estampamos',
+    text: 'Usamos la técnica adecuada para cada material, para que el diseño no se agriete ni se borre.',
+    chip: 'Técnica según cada material',
     Art: ArtPrint,
   },
   {
-    title: 'Producción y entrega',
+    title: 'Despacho o retiro',
     text: 'Control de acabado, empaque reforzado y despacho por Blue Express o retiro en el taller. Le entregamos el número de seguimiento.',
     chip: 'Despacho por Blue Express o retiro en taller',
     Art: ArtShip,
@@ -192,8 +192,8 @@ export default function Process() {
             Cómo trabajamos
           </h2>
           <p className="pr-head__lead">
-            Desde que elige el producto hasta que recibe su pedido, con
-            supervisión humana y una muestra que usted aprueba antes de imprimir.
+            Desde que elige el producto hasta que lo recibe, con su aprobación
+            antes de imprimir.
           </p>
         </div>
         <p className="pr-head__hint" aria-hidden="true">

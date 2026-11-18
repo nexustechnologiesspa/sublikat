@@ -2,9 +2,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 const themeStorageKey = 'sublikat-tema';
 const navigationItems = [
-  { href: '#tienda', label: 'Tienda' },
-  { href: '#proceso', label: 'Cómo funciona' },
-  { href: '#resenas', label: 'Compromisos' },
+  { href: '#tienda', label: 'Productos' },
+  { href: '#proceso', label: 'Cómo trabajamos' },
   { href: '#contacto', label: 'Contacto' }
 ];
 

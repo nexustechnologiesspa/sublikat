@@ -5,16 +5,6 @@ export default function Hero() {
         <div className="inline-flex items-center gap-2.5 bg-awning tx-awningink px-4 py-2 sticker-tag text-xs sm:text-sm font-extrabold uppercase tracking-wide od-parallax">
           <span className="w-2.5 h-2.5 rounded-full bg-inkfill inline-block animate-pulse" />
           <span>Taller de sublimación y estampados en Maipú, Santiago</span>
-          <span className="hidden md:inline">
-            • Polerones, tazas, textiles, papelería y merchandising corporativo
-          </span>
-        </div>
-
-        <div className="inline-flex items-center gap-1.5 bg-surface sticker-border sticker-shadow-sm px-3 py-1.5 text-xs font-bold">
-          <span className="tx-success">✓</span>
-          <span className="tx-ink/70">
-            Perfil de empresa verificado en Google Maps
-          </span>
         </div>
       </div>
 
@@ -23,19 +13,14 @@ export default function Hero() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           <div className="lg:col-span-7 space-y-6 od-hero__body">
-            <div className="inline-block bg-soft tx-ink px-3.5 py-1 text-xs font-black uppercase tracking-wider badge-pill od-hero__claim">
-              Sublimación y estampado • Para personas y empresas
-            </div>
-
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[62px] leading-[1.08] tx-ink tracking-tight od-hero__title">
               Polerones y productos personalizados a su medida
             </h1>
 
             <p className="tx-ink text-base sm:text-lg leading-relaxed max-w-xl font-semibold opacity-95 od-hero__lead">
-              Estampamos y sublimamos su diseño en textiles, cerámica, papelería
-              y artículos corporativos. Atendemos por igual a quien busca un
-              regalo y a quien necesita un pedido completo para su empresa, con
-              el mismo cuidado pieza a pieza.
+              Estampamos su diseño en polerones, tazas, cuadros y artículos
+              corporativos. Desde un regalo de una unidad hasta el pedido
+              completo de su empresa.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-4 od-hero__ctas">
@@ -98,19 +83,10 @@ export default function Hero() {
                 <div className="w-full h-full sticker-border overflow-hidden relative bg-soft">
                   <img
                     src="assets/stock/camiseta-cats.jpg"
-                    alt="Imagen de ejemplo de una camiseta estampada con una ilustración de gato"
+                    alt="Camiseta estampada con una ilustración de gato"
                     className="w-full h-full object-cover object-center"
                     loading="eager"
                   />
-
-                  <div className="absolute bottom-3 left-3 bg-surface tx-ink px-3 py-1 text-xs font-black uppercase tracking-wider sticker-border sticker-shadow-sm flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-whatsapp" />
-                    <span>Imagen de ejemplo • Camiseta Cats</span>
-                  </div>
-
-                  <div className="absolute bottom-3 right-3 bg-awning tx-awningink px-2 py-0.5 text-[11px] font-black uppercase sticker-border">
-                    Ejemplo
-                  </div>
                 </div>
               </div>
             </div>

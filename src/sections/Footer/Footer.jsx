@@ -1,3 +1,5 @@
+import { generalQuoteLink, WHATSAPP_DISPLAY } from '../../utils/whatsapp.js';
+
 export default function Footer() {
   return (
     <footer className="site-footer od-reveal-soft" role="contentinfo">
@@ -24,19 +26,10 @@ export default function Footer() {
               <span>Sublikat</span>
             </div>
             <p className="footer-brand-desc">
-              Taller de sublimación y estampados en Maipú, Santiago. Tazas,
-              polerones, mousepads, termos y textiles personalizados.
+              Taller de estampados y sublimación en Maipú, Santiago. Polerones,
+              tazas, botellas térmicas, cuadros y artículos corporativos
+              personalizados.
             </p>
-            <span
-              className="demo-tag"
-              style={{
-                background: '#3f3d4b',
-                color: '#f3f1f8',
-                borderColor: '#6052a0'
-              }}
-            >
-              Prototipo de demostración
-            </span>
           </div>
 
           <div>
@@ -61,20 +54,17 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-col-title">El Taller</h4>
+            <h4 className="footer-col-title">El taller</h4>
             <ul className="footer-nav-list">
               <li>
                 <a href="#proceso">Cómo trabajamos</a>
               </li>
               <li>
-                <a href="#resenas">Compromisos del taller</a>
-              </li>
-              <li>
                 <a href="#contacto">Pedir cotización</a>
               </li>
               <li>
-                <a href="https://wa.me/56949409253">
-                  WhatsApp +56 9 4940 0253
+                <a href={generalQuoteLink} target="_blank" rel="noopener noreferrer">
+                  WhatsApp {WHATSAPP_DISPLAY}
                 </a>
               </li>
               <li>
@@ -91,7 +81,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="footer-col-title">Visítanos</h4>
+            <h4 className="footer-col-title">Visítenos</h4>
             <div className="footer-hours-box">
               <p>
                 <strong>Bocaccio 866, Maipú</strong>
@@ -100,16 +90,15 @@ export default function Footer() {
               <p style={{ marginTop: '8px' }}>
                 <strong>Horario de atención:</strong>
               </p>
-              <p>Lunes a viernes: 10:00 - 17:00</p>
+              <p>Lunes a viernes, de 10:00 a 17:00</p>
             </div>
           </div>
         </div>
 
         <div className="legal-notice-box" id="aviso-legal">
           <p>
-            <strong>[Aviso legal informativo]:</strong> Texto de ejemplo
-            pendiente de validar con abogado. Producto listo: derecho a retracto
-            de 10 días. Producto personalizado: sin derecho a retracto.
+            <strong>Derecho a retracto:</strong> productos listos, 10 días desde
+            la entrega. Productos personalizados, sin derecho a retracto.
           </p>
         </div>
 
@@ -118,8 +107,8 @@ export default function Footer() {
             © 2026 Sublikat · Taller de estampados en Maipú, Santiago, Chile.
           </div>
           <nav className="footer-bottom-links" aria-label="Enlaces legales">
-            <a href="#aviso-legal">Aviso legal (ejemplo)</a>
-            <a href="#contacto">Escríbenos</a>
+            <a href="#aviso-legal">Términos y condiciones</a>
+            <a href="#contacto">Escríbanos</a>
           </nav>
         </div>
       </div>

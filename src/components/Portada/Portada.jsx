@@ -6,7 +6,7 @@ export default function Portada() {
       <div className="od-portada__marca">
         <span className="od-portada__nombre">Sublikat</span>
         <span className="od-portada__lema">
-          Taller de estampados · Sublimación textil y cerámica
+          Taller de estampados y sublimación · Maipú, Santiago
         </span>
       </div>
     </div>
