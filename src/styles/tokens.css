@@ -178,4 +178,46 @@
                 --od-portada-banda: clamp(8px, 1.6vh, 16px);
         }
 }
-  
+
+/* ---------- tarjeta de producto ----------
+   Paleta cálida propia de la ficha del catálogo: panel crema y acción
+   terracota. Vive aquí, junto al resto de tokens, para que el componente
+   no declare hexadecimales y el modo oscuro tenga su propia versión. */
+:root,
+[data-theme="light"] {
+        --pc-surface: #fbf3e4;
+        --pc-media: #f0e2cd;
+        --pc-ink: #3a2317;
+        --pc-muted: #6b5645;
+        --pc-line: rgba(58, 35, 23, 0.14);
+        --pc-accent: #b94e27;
+        --pc-accent-hover: #a3431f;
+        --pc-on-accent: #fff8ee;
+        --pc-badge: #b94e27;
+        --pc-on-badge: #fff8ee;
+        --pc-ring: #b94e27;
+        --pc-shadow: 0 1px 2px rgba(58, 35, 23, 0.05),
+                0 12px 28px -12px rgba(58, 35, 23, 0.22);
+        --pc-shadow-hover: 0 2px 4px rgba(58, 35, 23, 0.06),
+                0 20px 38px -14px rgba(58, 35, 23, 0.28);
+        --pc-badge-shadow: 0 6px 16px rgba(58, 35, 23, 0.18);
+}
+
+[data-theme="dark"] {
+        --pc-surface: #34251c;
+        --pc-media: #2b1d15;
+        --pc-ink: #f8ead7;
+        --pc-muted: #d8c2aa;
+        --pc-line: rgba(248, 234, 215, 0.16);
+        --pc-accent: #d06a3e;
+        --pc-accent-hover: #de7a4c;
+        --pc-on-accent: #2a1810;
+        --pc-badge: #d06a3e;
+        --pc-on-badge: #2a1810;
+        --pc-ring: #e4a07b;
+        --pc-shadow: 0 1px 2px rgba(0, 0, 0, 0.35),
+                0 14px 30px -12px rgba(0, 0, 0, 0.55);
+        --pc-shadow-hover: 0 2px 4px rgba(0, 0, 0, 0.4),
+                0 22px 40px -14px rgba(0, 0, 0, 0.65);
+        --pc-badge-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}

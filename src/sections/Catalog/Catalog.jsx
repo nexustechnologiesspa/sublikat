@@ -49,7 +49,6 @@ export default function Catalog() {
   const initialActiveCategory = useRef(activeCategory);
   const alignmentFrame = useRef(null);
   const alignmentCleanup = useRef(null);
-  const quoteFocusFrame = useRef(null);
 
   const cancelPendingAlignment = () => {
     if (alignmentFrame.current !== null) {
@@ -156,30 +155,6 @@ export default function Catalog() {
     schedulePanelAlignment(category.panelId);
   };
 
-  const handleProductQuote = (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) return;
-
-    const link = target.closest('a[data-producto]');
-    if (!link || !event.currentTarget.contains(link)) return;
-
-    const productName = link.getAttribute('data-producto');
-    const message = document.getElementById('contacto-mensaje');
-    if (productName === null || !message) return;
-
-    if (message.value.trim() === '') {
-      message.value = `Consulta sobre: ${productName}\n`;
-    }
-    message.focus();
-    if (quoteFocusFrame.current !== null) {
-      window.cancelAnimationFrame(quoteFocusFrame.current);
-    }
-    quoteFocusFrame.current = window.requestAnimationFrame(() => {
-      quoteFocusFrame.current = null;
-      if (message.isConnected) message.focus();
-    });
-  };
-
   useEffect(() => {
     const activateFromHash = () => {
       const category = getCategoryFromHash(window.location.hash);
@@ -194,15 +169,7 @@ export default function Catalog() {
     return () => window.removeEventListener('hashchange', activateFromHash);
   }, []);
 
-  useEffect(
-    () => () => {
-      cancelPendingAlignment();
-      if (quoteFocusFrame.current !== null) {
-        window.cancelAnimationFrame(quoteFocusFrame.current);
-      }
-    },
-    []
-  );
+  useEffect(() => () => cancelPendingAlignment(), []);
 
   return (
     <section
@@ -210,7 +177,6 @@ export default function Catalog() {
       className="space-y-8"
       id="tienda"
       data-od-id="catalogo-productos"
-      onClick={handleProductQuote}
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
@@ -225,7 +191,7 @@ export default function Catalog() {
             20 productos en 5 categorías
           </h2>
           <p className="text-base tx-ink font-semibold mt-1 max-w-2xl">
-            Cada ficha muestra el producto con una fotografía de muestra y abre su cotización con el nombre ya escrito. El precio se confirma en la cotización.
+            Cada ficha muestra el producto con una fotografía de muestra y abre la cotización por WhatsApp con el nombre ya escrito. El precio se confirma en la conversación.
           </p>
         </div>
         <div className="bg-surface ink-border rounded-sticker px-3 py-2 text-xs font-bold tx-ink flex items-center gap-2 shadow-offset-sm self-start md:self-auto">
@@ -283,7 +249,7 @@ export default function Catalog() {
               {category.productCount} productos
             </span>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 sm:gap-6">
             {catalogProducts
               .filter((product) => product.category === category.dataCategoria)
               .map((product) => (

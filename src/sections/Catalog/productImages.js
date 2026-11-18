@@ -72,11 +72,12 @@ const textos = {
 };
 
 /**
- * Ancho real que ocupa la foto de la ficha: ~324 px en la rejilla de tres columnas,
- * ~304 px en la de dos con el contenedor ancho y ~129 px en un móvil de 390 px.
+ * Ancho real que ocupa la foto de la ficha: ~368 px en la rejilla de tres
+ * columnas, ~460 px en la de dos del contenedor ancho, ~350 px desde 768 px y
+ * el ancho completo del contenedor en móvil (~358 px en un 390).
  */
 export const productImageSizes =
-  '(min-width: 1024px) 330px, (min-width: 640px) 310px, 33vw';
+  '(min-width: 1280px) 370px, (min-width: 768px) 46vw, 92vw';
 
 const crear = (dataOdId) => {
   const nombre = dataOdId.replace(/^producto-/, '');
