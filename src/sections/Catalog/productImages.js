@@ -96,6 +96,7 @@ const crear = (dataOdId) => {
     alt,
     avif: `${fotos.avif480} 480w, ${fotos.avif960} 960w`,
     webp: `${fotos.webp480} 480w, ${fotos.webp960} 960w`,
+    thumb: fotos.webp480,
     fallback: fotos.webp960
   };
 };
@@ -105,16 +106,59 @@ export const productImages = Object.fromEntries(
 );
 
 /**
+ * Texto alternativo de las fotos adicionales (opcional), con la clave del
+ * archivo sin tamaño: `'tazas-01': 'Taza vista de perfil…'`. Si una foto
+ * adicional no tiene texto propio se usa el de la foto principal con su
+ * número de vista, para que nunca quede una imagen sin `alt`.
+ */
+const textosAdicionales = {};
+
+const FOTO_ADICIONAL = /^(.+)-(\d{2})$/;
+
+const conVariantesCompletas = (fotos) =>
+  Boolean(fotos?.avif480 && fotos.avif960 && fotos.webp480 && fotos.webp960);
+
+/** Fotos adicionales por producto (`tazas-01`, `tazas-02`…), ya ordenadas. */
+const adicionalesPorProducto = new Map();
+
+for (const [nombre, fotos] of porProducto) {
+  const coincidencia = nombre.match(FOTO_ADICIONAL);
+  if (!coincidencia || !conVariantesCompletas(fotos)) continue;
+
+  const [, base, numero] = coincidencia;
+  if (!adicionalesPorProducto.has(base)) adicionalesPorProducto.set(base, []);
+  adicionalesPorProducto.get(base).push({ nombre, orden: Number(numero), fotos });
+}
+
+for (const lista of adicionalesPorProducto.values()) {
+  lista.sort((a, b) => a.orden - b.orden);
+}
+
+/**
  * Galería de una ficha como arreglo ordenado (principal primero).
  *
- * Hoy cada producto tiene una sola fotografía real, así que el arreglo trae
- * un elemento y el componente oculta las miniaturas. La estructura ya acepta
- * más fotos: basta con añadir las variantes `...-01`, `...-02` al manifiesto
- * y devolverlas aquí, sin tocar los componentes.
+ * La foto principal es la de la tarjeta (`tazas.jpg`). Las adicionales siguen
+ * la convención de `assets/productos/README.md`: `tazas-01.jpg`,
+ * `tazas-02.jpg`… Basta con dejarlas en la carpeta de su categoría y ejecutar
+ * `npm run fotos`; la ficha muestra las miniaturas sola. Con una única foto
+ * el arreglo trae un elemento y el componente oculta las miniaturas.
  */
 export function getProductPhotos(product) {
-  const photo = productImages[product.dataOdId];
-  return photo ? [photo] : [];
+  const principal = productImages[product.dataOdId];
+  if (!principal) return [];
+
+  const nombre = product.dataOdId.replace(/^producto-/, '');
+  const adicionales = (adicionalesPorProducto.get(nombre) ?? []).map(
+    ({ nombre: clave, fotos }, index) => ({
+      alt: textosAdicionales[clave] ?? `${principal.alt} (vista ${index + 2})`,
+      avif: `${fotos.avif480} 480w, ${fotos.avif960} 960w`,
+      webp: `${fotos.webp480} 480w, ${fotos.webp960} 960w`,
+      thumb: fotos.webp480,
+      fallback: fotos.webp960
+    })
+  );
+
+  return [principal, ...adicionales];
 }
 
 const incompletas = catalogProducts.filter(

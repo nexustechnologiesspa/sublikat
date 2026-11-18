@@ -1,589 +1,277 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ArtDesign, ArtPrint, ArtProof, ArtShip } from './ProcessArt.jsx';
 
-const stepIndexes = [0, 1, 2, 3];
+/* ==========================================================
+   Sublikat · «Cómo trabajamos» (propuesta B, 18-11-2026)
+   Misma identidad que «Ventajas del taller» y el catálogo:
+   titular a la izquierda, tarjetas blancas con recuadro lavanda,
+   ilustraciones en tonos pastel y el violeta solo como acento
+   (el número del paso activo, como la pestaña activa de la tienda).
+
+   Movimiento, discreto:
+   1. Al entrar en pantalla las tarjetas suben en cascada.
+   2. Las ilustraciones flotan suavemente, como en «Ventajas».
+   3. Una presentación automática recorre los pasos: el número
+      se pinta de violeta, la tarjeta sube 2 px y su ilustración
+      cuenta su pequeña historia. Se pausa con el ratón encima.
+   4. En móvil es el carrusel de siempre; el paso activo es el
+      centrado.
+   Con movimiento reducido todo se ve quieto y completo.
+   Estilos en src/styles/process.css.
+   ========================================================== */
+
+const AUTOPLAY_MS = 3600;
+
+const steps = [
+  {
+    title: 'Elija su producto y su diseño',
+    text: 'Envíenos su ilustración, foto o logo. Si necesita ayuda, ajustamos la resolución para que no pierda ningún detalle.',
+    chip: 'Aceptamos PNG, SVG o boceto',
+    Art: ArtDesign,
+  },
+  {
+    title: 'Revisamos y aprobamos la muestra',
+    text: 'Le enviamos una previsualización real con prueba de color. No imprimimos nada hasta contar con su visto bueno.',
+    chip: 'Muestra digital antes de imprimir',
+    Art: ArtProof,
+  },
+  {
+    title: 'Imprimimos y sublimamos',
+    text: 'Pigmentos especiales que gasifican a 200 °C y se funden en la fibra: sin plásticos gomosos ni grietas.',
+    chip: 'Tintas que se fijan en la fibra',
+    Art: ArtPrint,
+  },
+  {
+    title: 'Producción y entrega',
+    text: 'Control de acabado, empaque reforzado y despacho por Blue Express o retiro en el taller. Le entregamos el número de seguimiento.',
+    chip: 'Despacho por Blue Express o retiro en taller',
+    Art: ArtShip,
+  },
+];
+
+function CheckIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M20 6L9 17l-5-5"
+        stroke="currentColor"
+        strokeWidth="3.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ChevronIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M9 5l7 7-7 7"
+        stroke="currentColor"
+        strokeWidth="2.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 export default function Process() {
+  const sectionRef = useRef(null);
   const trackRef = useRef(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
+  const [motionOk, setMotionOk] = useState(false);
+  const [isWide, setIsWide] = useState(false);
+  const [listVisible, setListVisible] = useState(false);
+  const [paused, setPaused] = useState(false);
 
+  /* Antes del primer pintado: así el estado inicial oculto nunca
+     parpadea y, sin JS o con movimiento reducido, todo se ve. */
+  useLayoutEffect(() => {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: no-preference)');
+    const wideQuery = window.matchMedia('(min-width: 768px)');
+    const update = () => {
+      setMotionOk(motionQuery.matches);
+      setIsWide(wideQuery.matches);
+    };
+
+    update();
+    motionQuery.addEventListener('change', update);
+    wideQuery.addEventListener('change', update);
+
+    return () => {
+      motionQuery.removeEventListener('change', update);
+      wideQuery.removeEventListener('change', update);
+    };
+  }, []);
+
+  /* Entrada (una sola vez) y visibilidad de la lista para la presentación. */
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return undefined;
+
+    const revealables = section.querySelectorAll('.pr-reveal');
+
+    if (!('IntersectionObserver' in window)) {
+      revealables.forEach((element) => {
+        element.dataset.inview = 'true';
+      });
+      setListVisible(true);
+      return undefined;
+    }
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.dataset.inview = 'true';
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -15% 0px' }
+    );
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => setListVisible(entry.isIntersecting),
+      { threshold: 0.35 }
+    );
+
+    revealables.forEach((element) => revealObserver.observe(element));
+    visibilityObserver.observe(track);
+
+    return () => {
+      revealObserver.disconnect();
+      visibilityObserver.disconnect();
+    };
+  }, []);
+
+  /* Móvil: el paso activo es el centrado en el carrusel. */
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return undefined;
 
     const updateActiveStep = () => {
-      const total = track.children.length;
       const max = track.scrollWidth - track.clientWidth;
-      const nextIndex =
-        max > 0
-          ? Math.round((track.scrollLeft / max) * (total - 1))
-          : 0;
-
+      if (max <= 0) return;
+      const nextIndex = Math.round((track.scrollLeft / max) * (steps.length - 1));
       setActiveStepIndex((currentIndex) =>
         currentIndex === nextIndex ? currentIndex : nextIndex
       );
     };
 
     track.addEventListener('scroll', updateActiveStep, { passive: true });
-    updateActiveStep();
-
     return () => track.removeEventListener('scroll', updateActiveStep);
   }, []);
 
+  /* Escritorio y tablet: presentación automática. */
+  const autoplay = motionOk && isWide && listVisible && !paused;
+
+  useEffect(() => {
+    if (!autoplay) return undefined;
+    const timer = window.setTimeout(() => {
+      setActiveStepIndex((index) => (index + 1) % steps.length);
+    }, AUTOPLAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [autoplay, activeStepIndex]);
+
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="heading-proceso"
-      className="bg-surface ink-border-thick rounded-sticker shadow-offset-lg p-6 md:p-10"
+      className="pr"
       id="proceso"
       data-od-id="proceso-taller"
+      data-anim={motionOk ? 'on' : undefined}
     >
-      <div className="text-center max-w-2xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-awning ink-border-sm rounded-full text-xs font-black uppercase tracking-wider tx-ink mb-2 shadow-offset-sm">
-          <span>El método artesanal paso a paso</span>
+      <header className="pr-head pr-reveal">
+        <div>
+          <span className="sticker-badge">Paso a paso</span>
+          <h2 id="heading-proceso" className="section-title">
+            Cómo trabajamos
+          </h2>
+          <p className="pr-head__lead">
+            Desde que elige el producto hasta que recibe su pedido, con
+            supervisión humana y una muestra que usted aprueba antes de imprimir.
+          </p>
         </div>
-        <h2
-          id="heading-proceso"
-          className="font-display text-4xl md:text-5xl tx-ink leading-tight mb-2"
-        >
-          Cómo trabajamos
-        </h2>
-        <p className="text-base tx-ink font-semibold">
-          Desde que elige el producto hasta que recibe su pedido. Con supervisión
-          humana y una muestra que usted aprueba antes de imprimir.
+        <p className="pr-head__hint" aria-hidden="true">
+          4 pasos · de su idea a su puerta
         </p>
-      </div>
+      </header>
 
       <div className="swipe-marco">
-        <div
+        <ol
           ref={trackRef}
-          className="swipe grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative od-steps od-stagger od-stagger-2"
+          className="swipe pr-steps pr-reveal"
+          aria-label="Pasos del proceso"
+          onMouseLeave={() => setPaused(false)}
         >
-          <div className="bg-soft ink-border rounded-sticker shadow-offset-sm p-5 flex flex-col justify-between relative group hover-bg-soft2 transition-colors od-step">
-            <div className="absolute -top-3.5 left-5 bg-accent tx-onfill text-xs font-black px-3 py-1 rounded-full ink-border-sm shadow-offset-sm uppercase tracking-wider">
-              Paso 01
-            </div>
+          {steps.map(({ title, text, chip, Art }, index) => (
+            <li
+              key={title}
+              className={`pr-step${index === activeStepIndex ? ' is-active' : ''}`}
+              style={{ '--i': index }}
+              onMouseEnter={() => {
+                setPaused(true);
+                setActiveStepIndex(index);
+              }}
+            >
+              <article className="feature-card pr-card bg-surface sticker-border sticker-shadow-md">
+                <div className="feature-card__tile pr-tile">
+                  <span className="pr-num font-display" aria-hidden="true">
+                    {index + 1}
+                  </span>
+                  <div className="pr-float">
+                    <Art />
+                  </div>
+                </div>
 
-            <div>
-              <div className="w-full h-36 bg-surface ink-border rounded-sticker mb-4 p-3 flex items-center justify-center shadow-inner">
-                <svg
-                  viewBox="0 0 120 100"
-                  className="w-full h-full max-h-28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Ilustración de archivo y lienzo de diseño"
-                >
-                  <rect
-                    x="18"
-                    y="16"
-                    width="84"
-                    height="68"
-                    rx="8"
-                    fill="#ffffff"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                  />
-                  <rect
-                    x="24"
-                    y="22"
-                    width="72"
-                    height="46"
-                    rx="4"
-                    fill="#f3f1f8"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <path
-                    d="M30 62L46 42L58 56L68 46L88 64H30V62Z"
-                    fill="#b5a94e"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                    strokeLinejoin="round"
-                  />
-                  <circle
-                    cx="76"
-                    cy="34"
-                    r="7"
-                    fill="#f5df2b"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <g transform="rotate(-30 90 20)">
-                    <rect
-                      x="80"
-                      y="8"
-                      width="8"
-                      height="34"
-                      rx="2"
-                      fill="#4f2cf5"
-                      stroke="#413f4b"
-                      strokeWidth="1.8"
-                    />
-                    <polygon
-                      points="80,42 88,42 84,50"
-                      fill="#f5df2b"
-                      stroke="#413f4b"
-                      strokeWidth="1.8"
-                    />
-                    <polygon points="82.5,47 85.5,47 84,50" fill="#413f4b" />
-                  </g>
-                  <circle
-                    cx="24"
-                    cy="22"
-                    r="3"
-                    fill="#4f2cf5"
-                    stroke="#413f4b"
-                    strokeWidth="1.2"
-                  />
-                  <circle
-                    cx="96"
-                    cy="22"
-                    r="3"
-                    fill="#4f2cf5"
-                    stroke="#413f4b"
-                    strokeWidth="1.2"
-                  />
-                  <circle
-                    cx="96"
-                    cy="68"
-                    r="3"
-                    fill="#4f2cf5"
-                    stroke="#413f4b"
-                    strokeWidth="1.2"
-                  />
-                  <circle
-                    cx="24"
-                    cy="68"
-                    r="3"
-                    fill="#4f2cf5"
-                    stroke="#413f4b"
-                    strokeWidth="1.2"
-                  />
-                </svg>
-              </div>
+                <div className="pr-copy">
+                  <p className="pr-label">Paso 0{index + 1}</p>
+                  <h3 className="font-display text-xl tx-ink leading-tight mb-2">
+                    {title}
+                  </h3>
+                  <p className="pr-text">{text}</p>
+                </div>
 
-              <h3 className="font-display text-2xl tx-ink mb-2 leading-snug">
-                Elija su producto y su diseño
-              </h3>
-              <p className="text-sm tx-ink font-semibold leading-relaxed">
-                Envíenos su ilustración, foto o logo. Si necesita ayuda,
-                ajustamos la resolución para que no pierda ningún detalle.
-              </p>
-            </div>
+                <p className="pr-check">
+                  <span className="tx-success">
+                    <CheckIcon />
+                  </span>
+                  <span>{chip}</span>
+                </p>
+              </article>
 
-            <div className="mt-4 pt-3 border-t bd-ink/20 flex items-center gap-1.5 text-xs font-bold tx-ink">
-              <span className="tx-success">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </span>
-              <span>Aceptamos PNG, SVG o boceto</span>
-            </div>
-          </div>
-
-          <div className="bg-soft ink-border rounded-sticker shadow-offset-sm p-5 flex flex-col justify-between relative group hover-bg-soft2 transition-colors od-step">
-            <div className="absolute -top-3.5 left-5 bg-awning tx-awningink text-xs font-black px-3 py-1 rounded-full ink-border-sm shadow-offset-sm uppercase tracking-wider">
-              Paso 02
-            </div>
-
-            <div>
-              <div className="w-full h-36 bg-surface ink-border rounded-sticker mb-4 p-3 flex items-center justify-center shadow-inner">
-                <svg
-                  viewBox="0 0 120 100"
-                  className="w-full h-full max-h-28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Ilustración de simulación y revisión de color"
-                >
-                  <rect
-                    x="22"
-                    y="16"
-                    width="60"
-                    height="70"
-                    rx="6"
-                    fill="#ffffff"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                  />
-                  <line
-                    x1="32"
-                    y1="28"
-                    x2="68"
-                    y2="28"
-                    stroke="#413f4b"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1="32"
-                    y1="38"
-                    x2="72"
-                    y2="38"
-                    stroke="#413f4b"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <line
-                    x1="32"
-                    y1="48"
-                    x2="55"
-                    y2="48"
-                    stroke="#413f4b"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <rect
-                    x="42"
-                    y="58"
-                    width="34"
-                    height="20"
-                    rx="4"
-                    fill="#b5a94e"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <path
-                    d="M52 68L56 72L66 62"
-                    stroke="#ffffff"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle
-                    cx="76"
-                    cy="42"
-                    r="18"
-                    fill="#f3f1f8"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                  />
-                  <circle
-                    cx="76"
-                    cy="42"
-                    r="13"
-                    fill="#f5df2b"
-                    fillOpacity="0.3"
-                    stroke="#413f4b"
-                    strokeWidth="1"
-                  />
-                  <path
-                    d="M70 34C73 31 78 31 82 34"
-                    stroke="#ffffff"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M88 56L102 70"
-                    stroke="#413f4b"
-                    strokeWidth="5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M88 56L100 68"
-                    stroke="#4f2cf5"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-2xl tx-ink mb-2 leading-snug">
-                Revisamos y aprobamos la muestra
-              </h3>
-              <p className="text-sm tx-ink font-semibold leading-relaxed">
-                Le enviamos una previsualización real con prueba de color. No
-                imprimimos nada hasta contar con su visto bueno.
-              </p>
-            </div>
-
-            <div className="mt-4 pt-3 border-t bd-ink/20 flex items-center gap-1.5 text-xs font-bold tx-ink">
-              <span className="tx-success">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </span>
-              <span>Muestra digital antes de imprimir</span>
-            </div>
-          </div>
-
-          <div className="bg-soft ink-border rounded-sticker shadow-offset-sm p-5 flex flex-col justify-between relative group hover-bg-soft2 transition-colors od-step">
-            <div className="absolute -top-3.5 left-5 bg-success tx-onfill text-xs font-black px-3 py-1 rounded-full ink-border-sm shadow-offset-sm uppercase tracking-wider">
-              Paso 03
-            </div>
-
-            <div>
-              <div className="w-full h-36 bg-surface ink-border rounded-sticker mb-4 p-3 flex items-center justify-center shadow-inner">
-                <svg
-                  viewBox="0 0 120 100"
-                  className="w-full h-full max-h-28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Ilustración de plancha térmica de sublimación"
-                >
-                  <rect
-                    x="20"
-                    y="66"
-                    width="80"
-                    height="14"
-                    rx="4"
-                    fill="#413f4b"
-                    stroke="#413f4b"
-                    strokeWidth="2"
-                  />
-                  <rect
-                    x="26"
-                    y="60"
-                    width="68"
-                    height="6"
-                    rx="2"
-                    fill="#ffffff"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <rect
-                    x="24"
-                    y="38"
-                    width="72"
-                    height="14"
-                    rx="3"
-                    fill="#f5df2b"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                  />
-                  <path
-                    d="M60 38V22H78"
-                    stroke="#413f4b"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <rect
-                    x="74"
-                    y="18"
-                    width="16"
-                    height="8"
-                    rx="3"
-                    fill="#4f2cf5"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <rect
-                    x="30"
-                    y="42"
-                    width="22"
-                    height="7"
-                    rx="1.5"
-                    fill="#413f4b"
-                  />
-                  <text
-                    x="33"
-                    y="48"
-                    fontFamily="'Nunito', sans-serif"
-                    fontSize="6"
-                    fontWeight="900"
-                    fill="#ffffff"
-                  >
-                    200°C
-                  </text>
-                  <path
-                    d="M38 32C36 28 40 24 38 20"
-                    stroke="#4f2cf5"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M48 30C46 26 50 22 48 18"
-                    stroke="#4f2cf5"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M58 32C56 28 60 24 58 20"
-                    stroke="#4f2cf5"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M34 60H86"
-                    stroke="#b5a94e"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-2xl tx-ink mb-2 leading-snug">
-                Imprimimos y sublimamos
-              </h3>
-              <p className="text-sm tx-ink font-semibold leading-relaxed">
-                Inyectamos pigmentos especiales que gasifican a 200°C. La tinta
-                se funde en la fibra: sin plásticos gomosos ni grietas.
-              </p>
-            </div>
-
-            <div className="mt-4 pt-3 border-t bd-ink/20 flex items-center gap-1.5 text-xs font-bold tx-ink">
-              <span className="tx-success">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </span>
-              <span>Tintas que se fijan en la fibra</span>
-            </div>
-          </div>
-
-          <div className="bg-soft ink-border rounded-sticker shadow-offset-sm p-5 flex flex-col justify-between relative group hover-bg-soft2 transition-colors od-step">
-            <div className="absolute -top-3.5 left-5 bg-inkfill tx-onfill text-xs font-black px-3 py-1 rounded-full ink-border-sm shadow-offset-sm uppercase tracking-wider">
-              Paso 04
-            </div>
-
-            <div>
-              <div className="w-full h-36 bg-surface ink-border rounded-sticker mb-4 p-3 flex items-center justify-center shadow-inner">
-                <svg
-                  viewBox="0 0 120 100"
-                  className="w-full h-full max-h-28"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-label="Ilustración de caja de envío protegida"
-                >
-                  <polygon
-                    points="60,18 98,34 60,50 22,34"
-                    fill="#f5df2b"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="22,34 60,50 60,86 22,70"
-                    fill="#f3f1f8"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="98,34 60,50 60,86 98,70"
-                    fill="#e4e1ef"
-                    stroke="#413f4b"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <polygon
-                    points="54,20 66,25 66,85 54,80"
-                    fill="#4f2cf5"
-                    fillOpacity="0.9"
-                    stroke="#413f4b"
-                    strokeWidth="1.8"
-                  />
-                  <circle cx="42" cy="62" r="5" fill="#413f4b" />
-                  <circle cx="38" cy="54" r="2" fill="#413f4b" />
-                  <circle cx="43" cy="52" r="2" fill="#413f4b" />
-                  <circle cx="48" cy="55" r="2" fill="#413f4b" />
-                  <rect
-                    x="70"
-                    y="52"
-                    width="18"
-                    height="12"
-                    rx="2"
-                    fill="#ffffff"
-                    stroke="#413f4b"
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="74"
-                    y1="56"
-                    x2="84"
-                    y2="56"
-                    stroke="#413f4b"
-                    strokeWidth="1.5"
-                  />
-                  <line
-                    x1="74"
-                    y1="60"
-                    x2="80"
-                    y2="60"
-                    stroke="#413f4b"
-                    strokeWidth="1.5"
-                  />
-                </svg>
-              </div>
-
-              <h3 className="font-display text-2xl tx-ink mb-2 leading-snug">
-                Producción y entrega
-              </h3>
-              <p className="text-sm tx-ink font-semibold leading-relaxed">
-                Control de acabado, empaque reforzado y despacho por Blue
-                Express o retiro en el taller. Le entregamos el número de
-                seguimiento del envío.
-              </p>
-            </div>
-
-            <div className="mt-4 pt-3 border-t bd-ink/20 flex items-center gap-1.5 text-xs font-bold tx-ink">
-              <span className="tx-success">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M20 6L9 17l-5-5" />
-                </svg>
-              </span>
-              <span>Despacho por Blue Express o retiro en taller</span>
-            </div>
-          </div>
-        </div>
+              {index < steps.length - 1 && (
+                <span className="pr-chevron" aria-hidden="true">
+                  <ChevronIcon />
+                </span>
+              )}
+            </li>
+          ))}
+        </ol>
         <div className="dots" aria-hidden="true">
-          {stepIndexes.map((index) => (
+          {steps.map((step, index) => (
             <span
-              key={index}
+              key={step.title}
               className={index === activeStepIndex ? 'on' : undefined}
             />
           ))}
         </div>
       </div>
 
-      <div className="mt-10 bg-soft ink-border rounded-sticker p-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+      <div className="pr-cta pr-reveal bg-surface sticker-border sticker-shadow-md">
         <div className="flex items-center gap-3">
           <span className="w-10 h-10 rounded-full bg-awning ink-border-sm flex items-center justify-center font-display text-xl tx-ink shrink-0">
             ★
           </span>
           <div>
-            <h4 className="font-display text-xl tx-ink">
+            <h3 className="font-display text-xl tx-ink">
               ¿Tiene un encargo para su equipo, empresa o evento?
-            </h4>
-            <p className="text-xs tx-ink font-semibold">
+            </h3>
+            <p className="text-xs tx-muted font-bold">
               Precios por volumen para empresas, con cotización a medida y sin
               compromiso.
             </p>

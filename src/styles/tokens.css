@@ -261,3 +261,24 @@
                 0 40px 90px -32px rgba(0, 0, 0, 0.75);
         --pd-close-hover: #4a382c;
 }
+
+/* ---------- «Cómo trabajamos» (propuesta B) ----------
+   Paleta pastel de las ilustraciones del proceso: la misma familia
+   lavanda / amarillo suave de las fotos de «Ventajas del taller».
+   Son «papel impreso»: iguales en claro y oscuro. */
+:root {
+        --pr-line: #413f4b;
+        --pr-paper: #ffffff;
+        --pr-sky: #ece9f8;
+        --pr-soft-line: #d9d4f2;
+        --pr-violet: #b3a7f2;
+        --pr-yellow: #f6e27e;
+        --pr-olive: #d3cb93;
+        --pr-olive-dark: #aaa275;
+        --pr-wood: #f6ead0;
+        --pr-machine: #dedaf0;
+        --pr-machine-top: #ebe8f7;
+        --pr-box-top: #f1eefb;
+        --pr-box: #dcd6f3;
+        --pr-box-dark: #c6bdec;
+}

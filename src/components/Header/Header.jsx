@@ -66,16 +66,32 @@ export default function Header() {
     );
   }, [isMobile, menuOpen]);
 
+  /* --hh tiene que seguir al alto REAL de la cabecera. Medirlo solo al
+     montar (y en `load`/`resize`) fallaba: Tailwind se genera en el
+     navegador desde el CDN y, si aún no había pintado sus clases, la
+     cabecera medía más de 1000 px sin estilos. El navegador ya había
+     disparado `load`, así que nadie volvía a medir y la portada se
+     "encogía" hasta ese alto gigante: la foto crecía al bajar y tapaba
+     las secciones. Un ResizeObserver vuelve a medir en cuanto cambia. */
   useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return undefined;
+
     const measureHeader = () => {
-      if (!headerRef.current) return;
       document.documentElement.style.setProperty(
         '--hh',
-        `${headerRef.current.offsetHeight}px`
+        `${header.offsetHeight}px`
       );
     };
 
     measureHeader();
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const observer = new ResizeObserver(measureHeader);
+      observer.observe(header);
+      return () => observer.disconnect();
+    }
+
     window.addEventListener('resize', measureHeader);
     window.addEventListener('load', measureHeader);
     return () => {

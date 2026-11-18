@@ -75,13 +75,24 @@ export default function ProductGallery({ photos, name, svgKey, idPrefix }) {
               onClick={() => setActiveIndex(index)}
               onKeyDown={(event) => handleThumbKeyDown(index, event)}
             >
-              <img src={photo.fallback} alt="" loading="lazy" decoding="async" />
+              <img
+                src={photo.thumb ?? photo.fallback}
+                alt=""
+                width="480"
+                height="480"
+                loading="lazy"
+                decoding="async"
+              />
             </button>
           ))}
         </div>
       )}
 
-      <p className="sr-only" id={`${idPrefix}-galeria-estado`}>
+      <p
+        className="sr-only"
+        id={`${idPrefix}-galeria-estado`}
+        aria-live="polite"
+      >
         {canSwitch
           ? `Foto ${activeIndex + 1} de ${photos.length} de ${name}.`
           : `Fotografía de ${name}.`}

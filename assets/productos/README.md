@@ -49,6 +49,12 @@ Las variantes que publica la web se derivan de ese nombre: `tazas-magicas-480.av
 
 Si un producto necesita más de una foto, se numera: `tazas-magicas-01.jpg`, `tazas-magicas-02.jpg`.
 
+Las fotos numeradas aparecen solas como miniaturas en la ficha ampliada, después de la principal
+(`tazas-magicas.jpg` sigue siendo la de la tarjeta). Basta con dejarlas en la carpeta y ejecutar
+`npm run fotos`. Su texto alternativo se escribe en `textosAdicionales` de
+`src/sections/Catalog/productImages.js` (clave `tazas-magicas-01`); si falta, se usa el de la foto
+principal con su número de vista.
+
 ## Especificación técnica
 
 - **Relación 1:1 y 1200 × 1200 px en el maestro.** La caja de cada ficha es cuadrada

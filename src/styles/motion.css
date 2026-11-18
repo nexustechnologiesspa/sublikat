@@ -351,53 +351,11 @@
   }
 }
 
-/* ---------- 8. Demo 15 · La columna vertebral del proceso (RETIRADA) ---------- */
-/* "The Road to Baseline Newly Available": una línea de recorrido que se
-   dibujaba al avanzar y cuyos hitos se activaban por el camino.
-
-   **Retirada el 15-11-2026 a petición del cliente.** La barra de `--accent`
-   que avanzaba sobre las píldoras «Paso NN» se leía como un subrayado a
-   medias y competía con las píldoras, que ya numeran los pasos. Se quitaron
-   las cinco piezas del efecto:
-
-   · la base gris (`#proceso .od-steps::before`),
-   · el relleno que crecía (`#proceso .od-steps::after`),
-   · el segmento por tarjeta del carrusel móvil (`#proceso .od-step::after`),
-   · los `@keyframes od-spine-grow`,
-   · el `z-index: 1` de las tarjetas, que solo servía para pasar por delante
-     de la línea.
-
-   Eran pseudo-elementos: no queda markup que limpiar, ni hueco en el
-   layout. El espacio entre las píldoras y las tarjetas ya lo pone el `gap`
-   de la rejilla.
-
-   Lo que SÍ se queda de este bloque es el apilado ligero al salir por
-   arriba (`od-step-recede`), que no tiene nada que ver con la línea. */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    @media (min-width: 768px) {
-      /* Apilado ligero. Al salir por arriba, cada paso se reduce al 96 %
-         y pierde un poco de cuerpo, como si quedara debajo del que viene
-         detrás. No hay `position: sticky` ni reordenación: la rejilla de
-         4 columnas se respeta y el orden de lectura no cambia. El
-         escalonado (8 % por tarjeta) es lo que crea la sensación de pila. */
-      #proceso .od-step {
-        animation: od-step-recede linear both;
-        animation-timeline: view();
-        animation-range: exit 0% exit 100%;
-      }
-
-      #proceso .od-step:nth-child(2) { animation-range: exit 8% exit 100%; }
-      #proceso .od-step:nth-child(3) { animation-range: exit 16% exit 100%; }
-      #proceso .od-step:nth-child(4) { animation-range: exit 24% exit 100%; }
-
-      @keyframes od-step-recede {
-        from { scale: 1; opacity: 1; }
-        to   { scale: 0.96; opacity: 0.9; }
-      }
-    }
-  }
-}
+/* ---------- 8. Proceso (MOVIDO) ---------- */
+/* Desde el 18-11-2026 la sección «Cómo trabajamos» tiene su propio
+   movimiento (entrada en cascada + presentación automática) en
+   src/styles/process.css. Aquí se retiró el apilado `od-step-recede`,
+   que apuntaba a `#proceso .od-step` y ya no tiene destino. */
 
 /* ---------- 9. Demo 6 (enriquecida) · El icono de la ficha ---------- */
 /* "Image Reveal Effects": la ficha del catálogo ya subía y aparecía al
@@ -598,7 +556,9 @@
 
     @keyframes od-portada-encoger {
       from { block-size: 100vh; block-size: 100svh; }
-      to   { block-size: calc(var(--hh, 72px) + var(--od-portada-banda, 16px)); }
+      /* `min()` es una red de seguridad: aunque --hh llegara mal medido,
+         la banda final nunca pasa de 160 px + el labio. */
+      to   { block-size: calc(min(var(--hh, 72px), 160px) + var(--od-portada-banda, 16px)); }
     }
 
     @keyframes od-portada-recorte {

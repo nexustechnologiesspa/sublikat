@@ -415,3 +415,25 @@ Por eso:
 - **Quitar una demo concreta:** cada bloque está comentado con su número y sus `@keyframes` propios; se
   borra el bloque entero y no queda ninguna regla huérfana. Así se retiró la línea del proceso el
   2026-11-15 (bloque 8), dejando intacto el apilado de los pasos.
+
+## Proceso v2 · «Cómo trabajamos» con movimiento (18-11-2026)
+
+Rediseño de la sección a partir de la referencia «Paso a paso · Convierte tus ideas en realidad», adaptada a la marca (violeta, amarillo, oliva y violeta suave; Fraunces + Nunito).
+
+- Componente: `src/sections/Process/Process.jsx` + ilustraciones en `ProcessArt.jsx`.
+- Estilos y movimiento: `src/styles/process.css` (tokens `--pr-*` al final de `tokens.css`).
+- Entrada (IntersectionObserver, una sola vez): titular palabra a palabra, subrayado amarillo que se dibuja, tarjetas en cascada, número que salta y píldora que se despliega, flechas que aparecen.
+- Presentación automática (≥768 px): cada 3,6 s se enciende un paso (tarjeta elevada, anillo de color, ilustración animada, flecha que empuja y barra de tiempo). Se pausa con el ratón encima y fuera de pantalla.
+- Móvil: carrusel; el paso activo es el centrado.
+- Movimiento reducido: nada oculto, nada automático.
+- Se retiró `od-step-recede` de `motion.css` (bloque 8).
+
+### Propuesta B (18-11-2026, misma fecha)
+
+El cliente sintió que la v2 se salía de la identidad del resto de la página (demasiado color). La propuesta B la reemplaza:
+
+- Cabecera como «Compromisos del taller»: `sticker-badge` amarillo, `section-title` «Cómo trabajamos» alineado a la izquierda y un rótulo gris a la derecha.
+- Tarjetas idénticas a «Ventajas del taller» (`feature-card` + `feature-card__tile` lavanda), sin colores por paso, sin olas ni tramas.
+- Ilustraciones en la paleta pastel de las fotos de «Ventajas» (tokens `--pr-*`).
+- Violeta solo como acento: el número del paso activo, como la pestaña activa de la tienda.
+- Movimiento discreto: entrada en cascada, flotación suave de las ilustraciones y presentación automática (número violeta, tarjeta sube 2 px, la ilustración del paso activo se anima y el chevron empuja).

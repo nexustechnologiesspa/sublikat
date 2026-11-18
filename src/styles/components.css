@@ -1501,11 +1501,25 @@ html .product-gallery__stage > svg {
   color: var(--pd-ink);
 }
 
+/* Tres miniaturas por fila, como la referencia: con dos no se agrandan y
+   con más de tres pasan a una segunda fila. */
 html .product-gallery__thumbs {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
+}
+
+/* Texto solo para lectores de pantalla (no depende de Tailwind). */
+html .product-gallery .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 html .product-gallery__thumb {
@@ -1590,7 +1604,7 @@ html .product-detail__badge {
 }
 
 html .product-detail__desc {
-  max-width: 48ch;
+  max-width: 62ch;
   margin: 0;
   color: var(--pd-ink);
   font-size: clamp(14.5px, 1.15vw, 16px);
@@ -1734,6 +1748,98 @@ html .product-detail__cta-arrow {
   opacity: 0.85;
 }
 
+/* ---------- escritorio: la ficha cabe entera en la ventana ----------
+   La ficha no debe pedir scroll. La galería manda en el alto: con tres
+   miniaturas debajo mide S + 12 + (S − 24) / 3 ≈ 4S/3 + 4, así que su
+   ancho S se calcula a partir del alto disponible de la ventana. La
+   columna de texto compacta espaciados y tamaños según el alto (vh).
+   El scroll interno queda solo como red de seguridad para ventanas muy
+   bajas. */
+@media (min-width: 980px) {
+  html .product-detail {
+    --pd-margen: clamp(10px, 2.4vh, 32px);
+    padding-block: var(--pd-margen);
+  }
+
+  html .product-detail__dialog {
+    max-height: calc(100vh - 2 * var(--pd-margen));
+    max-height: calc(100dvh - 2 * var(--pd-margen));
+  }
+
+  html .product-detail__body {
+    --pd-relleno: clamp(18px, 3.4vh, 36px);
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    padding: var(--pd-relleno);
+    scrollbar-gutter: auto;
+  }
+
+  html .product-detail__media {
+    --pd-alto: calc(100vh - 2 * var(--pd-margen) - 2 * var(--pd-relleno));
+    width: min(42vw, 560px, var(--pd-alto));
+  }
+
+  @supports (height: 100dvh) {
+    html .product-detail__media {
+      --pd-alto: calc(100dvh - 2 * var(--pd-margen) - 2 * var(--pd-relleno));
+    }
+  }
+
+  html .product-detail__media:has(.product-gallery__thumbs) {
+    width: min(42vw, 560px, calc((var(--pd-alto) - 4px) * 0.75));
+  }
+
+  html .product-gallery {
+    gap: 12px;
+  }
+
+  html .product-detail__content {
+    gap: clamp(8px, 1.7vh, 20px);
+    padding-right: 28px;
+  }
+
+  html .product-detail__title {
+    font-size: clamp(26px, min(3.2vw, 5.6vh), 49px);
+  }
+
+  html .product-detail__badge {
+    margin-top: clamp(2px, 0.8vh, 8px);
+  }
+
+  html .product-detail__desc {
+    font-size: clamp(13.5px, 2.3vh, 16px);
+    line-height: 1.45;
+  }
+
+  html .product-detail__block {
+    padding-top: clamp(8px, 1.7vh, 16px);
+  }
+
+  html .product-detail__heading {
+    margin-bottom: clamp(4px, 1vh, 10px);
+    font-size: clamp(17px, 3.1vh, 23px);
+  }
+
+  html .product-detail__options,
+  html .product-detail__specs {
+    gap: clamp(3px, 0.9vh, 8px);
+  }
+
+  html .product-detail__option,
+  html .product-detail__specs li {
+    font-size: clamp(13px, 2.3vh, 14.5px);
+  }
+
+  html .product-detail__invite {
+    padding: clamp(8px, 1.4vh, 13px) 16px;
+  }
+
+  html .product-detail__cta {
+    min-height: clamp(44px, 7vh, 54px);
+    padding-block: clamp(8px, 1.4vh, 12px);
+  }
+}
+
 /* ---------- móvil y tablet: hoja a pantalla completa ---------- */
 @media (max-width: 979px) {
   html .product-detail {
@@ -1766,6 +1872,11 @@ html .product-detail__cta-arrow {
 
   html .product-gallery__stage {
     border-radius: 0;
+  }
+
+  html .product-gallery__thumbs {
+    gap: 10px;
+    padding-inline: 20px;
   }
 
   html .product-detail__content {
