@@ -4,7 +4,7 @@ export default function WorkshopNotice() {
       id="aviso-taller"
       data-od-id="aviso-taller"
       aria-label="Aviso de taller"
-      className="relative"
+      className="relative od-reveal-soft"
     >
       <div className="bg-awning ink-border-thick rounded-sticker shadow-offset py-3 px-6 flex items-center justify-between flex-wrap gap-4 overflow-hidden">
         <div className="flex items-center gap-3">

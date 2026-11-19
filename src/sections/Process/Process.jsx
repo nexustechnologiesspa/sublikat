@@ -252,7 +252,7 @@ export default function Process() {
             </li>
           ))}
         </ol>
-        <div className="dots" aria-hidden="true">
+        <div className="dots" aria-hidden="true" style={{ '--n': steps.length }}>
           {steps.map((step, index) => (
             <span
               key={step.title}
