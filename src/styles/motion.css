@@ -16,10 +16,12 @@
    (la columna vertebral del proceso). El mapa completo está en
    MOTION.md §6.
 
-   Ampliado el 2026-11-18 con tres piezas más (secciones 12, 13 y
-   14 de este archivo): sombras de scroll en las pestañas del
-   catálogo (demo 14), indicador de paso del proceso en móvil
-   (demo 2) y aparición suave del aviso del taller (demo 6).
+   Ampliado el 2026-11-18 con dos piezas más (secciones 13 y 14
+   de este archivo): indicador de paso del proceso en móvil
+   (demo 2) y aparición suave del aviso del taller (demo 6). La
+   sección 12 (sombras en las pestañas del catálogo) se retiró el
+   mismo día: en móvil cortaba el texto de las pestañas y se veía
+   roto.
 
    CALIBRADO el 2026-11-14 (segunda pasada del mismo día). El
    movimiento era correcto pero no se veía: 10-12 px de recorrido y
@@ -578,67 +580,6 @@
   }
 }
   
-/* ---------- 12. Demo 14 · Sombras de scroll en las pestañas del catálogo ---------- */
-/* En móvil la barra de pestañas se desliza en horizontal y nada lo
-   avisaba. Misma sombra que los carruseles (sección 10), pero aquí no se
-   puede envolver la barra en un `.swipe-marco`: es `position: sticky` y
-   un envoltorio le quitaría el recorrido de pegado.
-
-   Por eso las dos capas viven DENTRO del scroller como elementos flex
-   `position: sticky` (izquierda y derecha) con margen negativo, así no
-   ocupan sitio ni empujan las pestañas. La línea de tiempo es la del
-   propio `nav` (`--od-pestanas`).
-
-   Sin media query: si la barra no desborda (escritorio), la línea de
-   tiempo queda inactiva y las capas valen 0, es decir, no se ven. */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .od-tablist {
-      scroll-timeline: --od-pestanas inline;
-    }
-
-    .od-tablist::before,
-    .od-tablist::after {
-      content: "";
-      position: sticky;
-      z-index: 1;
-      flex: 0 0 24px;
-      align-self: stretch;
-      /* Cubre también el relleno vertical del nav (p-2). */
-      margin-block: calc(-1 * var(--space-2, 0.5rem));
-      pointer-events: none;
-      --od-can-scroll-l: 0;
-      --od-can-scroll-r: 0;
-      animation: od-pestanas-sombra linear both;
-      animation-timeline: --od-pestanas;
-    }
-
-    /* El margen negativo compensa su ancho y el `gap-2` del nav. */
-    .od-tablist::before {
-      left: 0;
-      margin-right: calc(-24px - 0.5rem);
-      background-image: linear-gradient(to right,
-        color-mix(in srgb, var(--shadow-ink) calc(30% * var(--od-can-scroll-l)), transparent),
-        transparent);
-    }
-
-    .od-tablist::after {
-      right: 0;
-      margin-left: calc(-24px - 0.5rem);
-      background-image: linear-gradient(to left,
-        color-mix(in srgb, var(--shadow-ink) calc(30% * var(--od-can-scroll-r)), transparent),
-        transparent);
-    }
-
-    @keyframes od-pestanas-sombra {
-      0%   { --od-can-scroll-l: 0; --od-can-scroll-r: 1; }
-      14%  { --od-can-scroll-l: 1; --od-can-scroll-r: 1; }
-      86%  { --od-can-scroll-l: 1; --od-can-scroll-r: 1; }
-      100% { --od-can-scroll-l: 1; --od-can-scroll-r: 0; }
-    }
-  }
-}
-
 /* ---------- 13. Demo 2 · Indicador de paso del proceso (móvil) ---------- */
 /* Antes el punto activo saltaba de uno a otro cuando React recalculaba
    el paso centrado. Ahora un punto relleno se DESLIZA sobre los puntos
