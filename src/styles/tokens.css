@@ -69,6 +69,12 @@
         --awning: #f5df2b;
         --awning-ink: #413f4b;
         --star: #7b7129;
+        --badge-lavanda-bg: #dad3ff;
+        --badge-lavanda-ink: #413f4b;
+        /* Color · botón sólido secundario */
+        --cta-fill: #413f4b;
+        --cta-fill-hover: #2b2933;
+        --on-cta: #ffffff;
         /* Color · confianza y estados */
         --success: #b5a94e;
         --on-success: #2b2933;
@@ -126,6 +132,12 @@
         --awning: #f5df2b;
         --awning-ink: #413f4b;
         --star: #b5a94e;
+        --badge-lavanda-bg: #b9adff;
+        --badge-lavanda-ink: #2b2933;
+        /* Color · botón sólido secundario (invertido en oscuro) */
+        --cta-fill: #f3f1f8;
+        --cta-fill-hover: #ffffff;
+        --on-cta: #2b2933;
         /* Color · confianza y estados */
         --success: #b5a94e;
         --on-success: #2b2933;

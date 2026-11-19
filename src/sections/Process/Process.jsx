@@ -279,7 +279,7 @@ export default function Process() {
         </div>
         <a
           href="#contacto"
-          className="min-h-[44px] px-6 py-2.5 bg-inkfill tx-onfill font-bold text-sm rounded-sticker ink-border shadow-offset-sm btn-press hover-bg-inkfillhov focus:outline-none focus:ring-4 focus:ring-[var(--focus)] flex items-center justify-center shrink-0"
+          className="min-h-[44px] px-6 py-2.5 bg-cta font-bold text-sm rounded-sticker ink-border shadow-offset-sm btn-press focus:outline-none focus:ring-4 focus:ring-[var(--focus)] flex items-center justify-center shrink-0"
         >
           Solicitar cotización
         </a>

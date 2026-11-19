@@ -139,7 +139,7 @@ p.section-subtitle {
 }
 
 .required-mark {
-        color: var(--accent);
+        color: var(--accent-ink);
         font-size: 16px;
 
 }
@@ -387,6 +387,65 @@ html .bg-inkfill .tx-onfill, html .bg-inkfill .tx-ink {
 
 html .bg-whatsapp .tx-ink, html .bg-whatsapp .tx-onfill {
    color: var(--on-whatsapp); 
+}
+
+/* Fondo de color y utilidad de texto en el MISMO elemento: manda el texto
+   propio de ese fondo. Sin esto `.tx-ink` (que va después) ganaba y en modo
+   oscuro dejaba texto claro sobre el amarillo (la estrella del proceso). */
+html .bg-awning:is(.tx-ink, .tx-muted, .tx-accent, .tx-success) {
+   color: var(--awning-ink); 
+}
+
+html .bg-success:is(.tx-ink, .tx-onfill) {
+   color: var(--on-success); 
+}
+
+html .bg-accent:is(.tx-ink, .tx-onfill) {
+   color: var(--on-accent); 
+}
+
+html .bg-whatsapp:is(.tx-ink, .tx-onfill) {
+   color: var(--on-whatsapp); 
+}
+
+/* Una superficie normal anidada DENTRO de un fondo de color (el chip blanco
+   del aviso, sobre la franja amarilla) vuelve a los colores de superficie.
+   Las reglas de arriba le imponían el texto del fondo exterior, y en modo
+   oscuro eso es pizarra sobre pizarra: el icono y la etiqueta desaparecían. */
+html :is(.bg-awning, .bg-success, .bg-accent, .bg-inkfill, .bg-whatsapp) .bg-surface,
+html :is(.bg-awning, .bg-success, .bg-accent, .bg-inkfill, .bg-whatsapp) .bg-surface .tx-ink {
+   color: var(--ink); 
+}
+
+html :is(.bg-awning, .bg-success, .bg-accent, .bg-inkfill, .bg-whatsapp) .bg-surface .tx-muted {
+   color: var(--muted); 
+}
+
+html :is(.bg-awning, .bg-success, .bg-accent, .bg-inkfill, .bg-whatsapp) .bg-surface .tx-accent {
+   color: var(--accent-ink); 
+}
+
+/* Botón de acción secundaria (pizarra en claro, claro en oscuro). En modo
+   oscuro el relleno pizarra era del mismo tono que la tarjeta (1,03:1) y el
+   botón se perdía; ahora se invierte, como cualquier botón sólido. */
+html .bg-cta {
+   background-color: var(--cta-fill); color: var(--on-cta); 
+}
+
+html .bg-cta:hover {
+   background-color: var(--cta-fill-hover); 
+}
+
+/* Etiqueta lavanda («Respuesta rápida»): antes un hexadecimal en línea. */
+html .sticker-badge.badge-lavanda {
+   background: var(--badge-lavanda-bg); color: var(--badge-lavanda-ink); 
+}
+
+/* Texto de ejemplo de los campos: atenuado en los dos temas, para que no se
+   confunda con lo que escribe el cliente (antes gris fijo de Tailwind). */
+html input::placeholder,
+html textarea::placeholder {
+   color: color-mix(in srgb, var(--muted) 80%, transparent); opacity: 1; 
 }
 
 /* ---------- modo oscuro ---------- */
@@ -2269,7 +2328,7 @@ html .exito-panel .btn-sec {
         min-height: 44px;
         padding: 0 20px;
         border-radius: var(--radius-md);
-        border: 1px solid var(--ink);
+        border: 1px solid var(--on-success);
         background: transparent;
         color: var(--on-success);
         font-family: var(--font-body);

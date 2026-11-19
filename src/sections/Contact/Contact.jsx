@@ -556,8 +556,8 @@ export default function Contact() {
         >
           <div className="contact-card">
             <span
-              className="sticker-badge"
-              style={{ background: '#dad3ff', marginBottom: '12px' }}
+              className="sticker-badge badge-lavanda"
+              style={{ marginBottom: '12px' }}
             >
               Respuesta rápida
             </span>
