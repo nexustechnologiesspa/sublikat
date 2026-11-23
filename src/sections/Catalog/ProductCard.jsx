@@ -2,10 +2,12 @@ import { CardIcon, WhatsAppGlyph } from './CardIcons.jsx';
 import { ProductIcon } from './ProductIcons.jsx';
 import { getCardDetails } from './productDetails.js';
 import { productImages, productImageSizes } from './productImages.js';
+import { getCatImage } from './catImages.js';
 import { productQuoteLink } from '../../utils/whatsapp.js';
 
 export default function ProductCard({ product, onOpen }) {
   const photo = productImages[product.dataOdId];
+  const cat = getCatImage(product);
   const { summary, features } = getCardDetails(product);
   const badge = product.badge ?? 'Personalizable';
   const titleId = `${product.dataOdId}-titulo`;
@@ -26,7 +28,7 @@ export default function ProductCard({ product, onOpen }) {
         onClick={(event) => onOpen?.(product, event.currentTarget)}
       />
 
-      <div className="product-card__media">
+      <div className={cat ? 'product-card__media product-card__media--cat' : 'product-card__media'}>
         {photo ? (
           <picture>
             <source type="image/avif" srcSet={photo.avif} sizes={productImageSizes} />
@@ -42,6 +44,19 @@ export default function ProductCard({ product, onOpen }) {
           </picture>
         ) : (
           <ProductIcon svgKey={product.svgKey} />
+        )}
+        {cat && (
+          <img
+            className="product-card__cat"
+            src={cat.fallback}
+            srcSet={cat.webp}
+            sizes={productImageSizes}
+            alt={cat.alt}
+            width="960"
+            height="960"
+            loading="lazy"
+            decoding="async"
+          />
         )}
         <span className="product-card__badge">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">

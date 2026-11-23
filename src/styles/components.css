@@ -2635,3 +2635,36 @@ html .od-was.compact .od-was__label {
 html .od-was.compact .od-was__btn {
   padding:0 14px
 }
+
+
+/* ==========================================================
+   Mockup: el gato presenta cada producto en su tarjeta.
+   La imagen del gato cubre la foto real; al pasar el mouse o al
+   enfocar la tarjeta se desvanece y aparece la foto del producto.
+   ========================================================== */
+html .product-card__media img.product-card__cat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 1;
+  transition: opacity 0.35s var(--motion-ease-out), scale 0.6s var(--motion-ease-out);
+}
+
+html .product-card__media--cat .product-card__badge {
+  z-index: 2;
+}
+
+@media (hover: hover) {
+  html .product-card:hover .product-card__media img.product-card__cat,
+  html .product-card:focus-within .product-card__media img.product-card__cat {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .product-card__media img.product-card__cat {
+    transition: none;
+  }
+}
