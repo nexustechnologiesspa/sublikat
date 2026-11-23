@@ -22,7 +22,7 @@ export default function WorkshopNotice() {
               <path d="M13 2 4.5 13.5H11l-1 8.5 8.5-11.5H12l1-8.5Z" />
             </svg>
           </span>
-          <p className="font-extrabold tx-ink text-base md:text-lg tracking-wide">
+          <p className="font-semibold tx-ink text-base md:text-lg">
             Personalización desde 1 unidad, con despacho a todo Chile o retiro
             en Maipú.
           </p>

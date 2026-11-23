@@ -285,7 +285,7 @@ export default function Header() {
             <span className="font-display text-3xl leading-none tx-ink block">
               Sublikat
             </span>
-            <span className="text-[11px] font-extrabold uppercase tracking-widest tx-muted block -mt-0.5">
+            <span className="text-[11px] font-semibold tx-muted block -mt-0.5">
               Taller de estampados
             </span>
           </div>

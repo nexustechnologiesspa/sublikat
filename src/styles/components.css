@@ -79,13 +79,12 @@
         gap: 6px;
         background: var(--awning);
         color: var(--awning-ink);
-        font-weight: 800;
+        font-weight: 600;
         font-size: 13px;
         padding: 5px 14px;
         border-radius: 999px;
         border: 1px solid var(--line);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
+        letter-spacing: normal;
 
 }
 
@@ -94,7 +93,7 @@
         background: var(--soft-2);
         color: var(--ink);
         font-size: 12px;
-        font-weight: 700;
+        font-weight: 600;
         padding: 2px 8px;
         border-radius: 6px;
         border: 1px solid var(--line);
@@ -129,7 +128,7 @@ p.section-subtitle {
 
 .field-label {
         font-size: 15px;
-        font-weight: 800;
+        font-weight: 600;
         color: var(--ink);
         margin-bottom: 6px;
         display: flex;
@@ -180,7 +179,7 @@ p.section-subtitle {
 .field-error-msg {
         color: var(--error-text);
         font-size: 13px;
-        font-weight: 800;
+        font-weight: 600;
         margin-top: 5px;
         display: flex;
         align-items: center;
@@ -233,7 +232,7 @@ p.section-subtitle {
         box-shadow: var(--e-sh-2);
         font-family: var(--font-body);
         font-size: 16px;
-        font-weight: 800;
+        font-weight: 600;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -264,7 +263,7 @@ p.section-subtitle {
         background: var(--whatsapp);
         color: var(--on-whatsapp);
         text-decoration: none;
-        font-weight: 800;
+        font-weight: 600;
         font-size: 16px;
         border: 1px solid transparent;
         border-radius: var(--radius);
@@ -552,7 +551,7 @@ html .menu-movil[hidden] {
 }
 
 html .menu-movil a {
-  display:flex;align-items:center;min-height:48px;padding:0 14px;border: 1px solid var(--line);border-radius: var(--radius-sm);background:var(--soft);font-weight:800;color:var(--ink)
+  display:flex;align-items:center;min-height:48px;padding:0 14px;border: 1px solid var(--line);border-radius: var(--radius-sm);background:var(--soft);font-weight: 600;color:var(--ink)
 }
 
 html .menu-movil a[aria-current="true"] {
@@ -586,7 +585,7 @@ html .od-tema-etiqueta {
 }
 
 html #menu-movil .od-tema-etiqueta {
-  display:inline;font-weight:800;font-size:0.9375rem;letter-spacing:0.01em
+  display:inline;font-weight: 600;font-size:0.9375rem;letter-spacing:0.01em
 }
 
 @media (min-width:768px)  {
@@ -765,9 +764,8 @@ html .od-portada__nombre {
 html .od-portada__lema {
         font-family: var(--font-body);
         font-size: clamp(11px, 1.3vw, 16px);
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
+        font-weight: 600;
+        letter-spacing: normal;
         opacity: 0.94;
 
 }
@@ -959,14 +957,18 @@ html .feature-card:hover .card-illustration {
 
       html #beneficios .pin-intro__hint {
         font-size: 12px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.12em;
+        font-weight: 600;
+        letter-spacing: normal;
         color: var(--muted);
         white-space: nowrap;
       }
 
+      /* La primera tarjeta se queda entera durante el primer tramo del
+         recorrido clavado; recién después la pista empieza a moverse. */
       @keyframes od-pin-mover {
+        0%, 14% {
+          transform: none;
+        }
         to {
           /* Borde derecho de la pista contra el borde de la ventana */
           transform: translateX(calc(-100% + 100vw));
@@ -1002,7 +1004,7 @@ html .feature-card:hover .card-illustration {
         background-color: var(--surface);
         color: var(--ink);
         font-family: var(--font-body);
-        font-weight: 800;
+        font-weight: 600;
         font-size: 14px;
         line-height: 1.2;
         white-space: nowrap;
@@ -1144,7 +1146,7 @@ html .product-card__badge {
   background-color: var(--pc-badge);
   color: var(--pc-on-badge);
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1;
   box-shadow: var(--pc-badge-shadow);
 }
@@ -1225,7 +1227,7 @@ html .product-card__feature svg {
 html .product-card__feature span {
   color: var(--pc-muted);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.25;
 }
 
@@ -1242,7 +1244,7 @@ html .product-card__cta {
   background-color: var(--pc-accent);
   color: var(--pc-on-accent);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.1;
   text-decoration: none;
   transition: background-color 0.2s ease, translate 0.2s ease;
@@ -1616,14 +1618,30 @@ html .product-gallery__thumb:focus-visible {
   outline-offset: 2px;
 }
 
+/* En escritorio la foto conserva su formato cuadrado, pero nunca crece más
+   que el alto disponible: así la fila de miniaturas queda siempre a la vista
+   aunque la ventana sea baja. */
+@media (min-width: 980px) {
+  html .product-gallery {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    height: 100%;
+    min-height: 0;
+  }
+
+  html .product-gallery__stage {
+    min-height: 0;
+    max-height: 100%;
+  }
+}
+
 /* ---------- información comercial ---------- */
 html .product-detail__category {
   margin: 0;
   color: var(--pd-muted);
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: normal;
 }
 
 html .product-detail__titles {
@@ -1653,12 +1671,11 @@ html .product-detail__badge {
   margin-left: auto;
   padding: 6px 14px;
   border-radius: 999px;
-  background-color: var(--pd-accent);
+  background-color: var(--pd-accent-fill);
   color: var(--pd-on-accent);
-  font-size: 10.5px;
-  font-weight: 900;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
   white-space: nowrap;
 }
 
@@ -1745,7 +1762,7 @@ html .product-detail__invite-title {
   margin: 0;
   color: var(--pd-ink);
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1.3;
 }
 
@@ -1769,16 +1786,16 @@ html .product-detail__cta {
   min-height: 54px;
   padding: 12px 22px;
   border-radius: 999px;
-  background-color: var(--pd-accent);
+  background-color: var(--pd-accent-fill);
   color: var(--pd-on-accent);
   font-size: 16px;
-  font-weight: 800;
+  font-weight: 600;
   text-decoration: none;
   transition: background-color 0.2s ease, translate 0.2s ease;
 }
 
 html .product-detail__cta:hover {
-  background-color: var(--pd-accent-hover);
+  background-color: var(--pd-accent-fill-hover);
 }
 
 html .product-detail__cta:active {
@@ -1969,6 +1986,16 @@ html .product-detail__cta-arrow {
   }
 }
 
+/* En pantallas bajas la foto cede altura para que el texto asome bajo ella
+   en lugar de quedar siempre detrás del botón fijo. */
+@media (max-width: 979px) and (max-height: 720px) {
+  html .product-gallery__stage {
+    aspect-ratio: auto;
+    height: 44vh;
+    min-height: 210px;
+  }
+}
+
 @media (max-width: 379px) {
   html .product-detail__content {
     padding-inline: 16px;
@@ -2124,7 +2151,7 @@ html .product-detail__cta-arrow {
 }
 
 .author-name {
-        font-weight: 800;
+        font-weight: 600;
         font-size: 15px;
         color: var(--ink);
 
@@ -2185,7 +2212,7 @@ html .product-detail__cta-arrow {
 
 .error-summary-title {
         font-size: 16px;
-        font-weight: 800;
+        font-weight: 600;
         color: var(--error-text);
         display: flex;
         align-items: center;
@@ -2199,14 +2226,14 @@ html .product-detail__cta-arrow {
         padding-left: 24px;
         color: var(--error-text);
         font-size: 14px;
-        font-weight: 700;
+        font-weight: 600;
 
 }
 
 .error-summary-list a {
         color: var(--error-text);
         text-decoration: underline;
-        font-weight: 800;
+        font-weight: 600;
 
 }
 
@@ -2271,7 +2298,7 @@ html .product-detail__cta-arrow {
 }
 
 .detail-title {
-        font-weight: 800;
+        font-weight: 600;
         color: var(--ink);
         display: block;
 
@@ -2300,7 +2327,7 @@ html .product-detail__cta-arrow {
 
 .assurance-text {
         font-size: 13px;
-        font-weight: 700;
+        font-weight: 600;
         color: var(--assurance-ink);
 
 }
@@ -2332,7 +2359,7 @@ html .exito-panel .btn-sec {
         background: transparent;
         color: var(--on-success);
         font-family: var(--font-body);
-        font-weight: 800;
+        font-weight: 600;
         font-size: 15px;
         cursor: pointer;
 
@@ -2554,7 +2581,7 @@ html .od-was__btn {
         border-radius: var(--radius);
         box-shadow: var(--e-sh-2);
         font-family: var(--font-body);
-        font-weight: 800;
+        font-weight: 600;
         font-size: 15px;
         line-height: 1.2;
         text-decoration: none;
@@ -2607,4 +2634,37 @@ html .od-was.compact .od-was__label {
 
 html .od-was.compact .od-was__btn {
   padding:0 14px
+}
+
+
+/* ==========================================================
+   Mockup: el gato presenta cada producto en su tarjeta.
+   La imagen del gato cubre la foto real; al pasar el mouse o al
+   enfocar la tarjeta se desvanece y aparece la foto del producto.
+   ========================================================== */
+html .product-card__media img.product-card__cat {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  object-fit: cover;
+  object-position: 50% 30%;
+  opacity: 1;
+  transition: opacity 0.35s var(--motion-ease-out), scale 0.6s var(--motion-ease-out);
+}
+
+html .product-card__media--cat .product-card__badge {
+  z-index: 2;
+}
+
+@media (hover: hover) {
+  html .product-card:hover .product-card__media img.product-card__cat,
+  html .product-card:focus-within .product-card__media img.product-card__cat {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .product-card__media img.product-card__cat {
+    transition: none;
+  }
 }

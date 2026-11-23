@@ -190,7 +190,7 @@ export default function Catalog() {
     >
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface ink-border-sm rounded-full text-xs font-bold uppercase tracking-wider tx-ink mb-2 shadow-offset-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-surface ink-border-sm rounded-full text-xs font-semibold tx-ink mb-2 shadow-offset-sm">
             <span className="w-2 h-2 rounded-full bg-accent inline-block"></span>
             Catálogo del taller
           </div>
@@ -231,7 +231,7 @@ export default function Catalog() {
               }
             >
               {category.name}{' '}
-              <span className="text-[11px] font-black">{category.productCount}</span>
+              <span className="text-[11px] font-semibold">{category.productCount}</span>
             </button>
           );
         })}
@@ -249,7 +249,7 @@ export default function Catalog() {
         >
           <div className="flex flex-wrap items-baseline gap-3">
             <h3 className="font-display text-3xl tx-ink">{category.name}</h3>
-            <span className="text-xs font-bold tx-muted uppercase tracking-wider">
+            <span className="text-xs font-semibold tx-muted">
               {category.productCount} productos
             </span>
           </div>
