@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex items-center gap-2.5 bg-awning tx-awningink px-4 py-2 sticker-tag text-xs sm:text-sm font-extrabold uppercase tracking-wide od-parallax">
+        <div className="inline-flex items-center gap-2.5 bg-awning tx-awningink px-4 py-2 sticker-tag text-xs sm:text-sm font-semibold od-parallax">
           <span className="w-2.5 h-2.5 rounded-full bg-inkfill inline-block animate-pulse" />
           <span>Taller de sublimación y estampados en Maipú, Santiago</span>
         </div>
@@ -27,7 +27,7 @@ export default function Hero() {
               <a
                 href="#tienda"
                 data-od-id="cta-ver-productos"
-                className="h-[48px] min-w-[170px] px-7 bg-accent tx-onfill border border-transparent sticker-shadow-md font-extrabold text-base flex items-center justify-center gap-2.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus)]"
+                className="h-[48px] min-w-[170px] px-7 bg-accent tx-onfill border border-transparent sticker-shadow-md font-semibold text-base flex items-center justify-center gap-2.5 transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus)]"
                 role="button"
               >
                 <span>Explorar productos</span>
@@ -46,7 +46,7 @@ export default function Hero() {
 
               <a
                 href="#contacto"
-                className="h-[48px] min-w-[170px] px-6 bg-surface tx-ink sticker-border sticker-shadow-md font-extrabold text-base flex items-center justify-center gap-2 hover-bg-soft transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus)]"
+                className="h-[48px] min-w-[170px] px-6 bg-surface tx-ink sticker-border sticker-shadow-md font-semibold text-base flex items-center justify-center gap-2 hover-bg-soft transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--focus)]"
                 role="button"
               >
                 <svg
@@ -64,7 +64,7 @@ export default function Hero() {
             </div>
 
             <div className="pt-2 flex items-center gap-2 text-xs tx-muted od-hero__note">
-              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-awning tx-awningink font-black text-[11px] border bd-ink">
+              <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-awning tx-awningink font-semibold text-[11px] border bd-ink">
                 ✓
               </span>
               <span>
@@ -75,8 +75,8 @@ export default function Hero() {
 
           <div className="lg:col-span-5 flex justify-center od-hero__media-col">
             <div className="relative w-full max-w-[420px] aspect-square">
-              <div className="absolute -top-4 -right-3 sm:-right-4 z-20 bg-awning tx-awningink px-4 py-1.5 font-body text-[.72rem] font-extrabold uppercase tracking-[0.14em] border bd-ink rounded-full select-none flex items-center gap-1.5 od-hero__tape">
-                <span>¡Todo con su diseño!</span>
+              <div className="absolute -top-4 -right-3 sm:-right-4 z-20 bg-awning tx-awningink px-4 py-1.5 font-body text-[.72rem] font-semibold border bd-ink rounded-full select-none flex items-center gap-1.5 od-hero__tape">
+                <span>Con su diseño</span>
               </div>
 
               <div className="w-full h-full bg-surface sticker-border sticker-shadow-lg p-2.5 sm:p-3 flex flex-col od-hero__media">

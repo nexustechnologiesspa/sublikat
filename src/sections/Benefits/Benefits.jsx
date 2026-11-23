@@ -66,7 +66,7 @@ export default function Benefits() {
             Por qué elegir Sublikat
           </h2>
           <p className="pin-intro__hint" aria-hidden="true">
-            Siga bajando →
+            Deslice para ver más
           </p>
         </div>
         <div className="swipe-marco">

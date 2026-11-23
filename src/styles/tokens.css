@@ -246,7 +246,10 @@
         --pd-muted: #745c4a;
         --pd-line: rgba(73, 39, 20, 0.15);
         --pd-accent: #d96527;
-        --pd-accent-hover: #c2571f;
+        /* Relleno de botón y etiqueta: el terracota puro no alcanza 4.5:1 con
+           texto crema, así que la superficie con texto usa este tono. */
+        --pd-accent-fill: #bd4f18;
+        --pd-accent-fill-hover: #a84312;
         --pd-on-accent: #fffcf7;
         --pd-chip: #f2e7d9;
         --pd-ring: #d96527;
@@ -264,7 +267,8 @@
         --pd-muted: #d8c2aa;
         --pd-line: rgba(248, 234, 215, 0.16);
         --pd-accent: #d96527;
-        --pd-accent-hover: #e57a3d;
+        --pd-accent-fill: #d96527;
+        --pd-accent-fill-hover: #e57a3d;
         --pd-on-accent: #1f140e;
         --pd-chip: rgba(248, 234, 215, 0.08);
         --pd-ring: #e4a07b;

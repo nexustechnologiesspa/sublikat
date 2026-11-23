@@ -35,9 +35,8 @@
 .pr-head__hint {
   margin: 0;
   font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: normal;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -95,7 +94,7 @@ html .pr-tile {
   background: var(--surface);
   color: var(--ink);
   font-size: 1.05rem;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   transition: background-color 0.35s, color 0.35s, border-color 0.35s;
 }
@@ -117,10 +116,9 @@ html .pr-tile {
 
 .pr-label {
   margin: 0 0 4px;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: normal;
   color: var(--muted);
   transition: color 0.35s;
 }
@@ -143,7 +141,7 @@ html .pr-tile {
   padding-top: 12px;
   border-top: 1px solid var(--line);
   font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--ink);
 }
 
