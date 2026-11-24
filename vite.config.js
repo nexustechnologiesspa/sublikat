@@ -48,8 +48,27 @@ function copyHtmlImageAssets() {
   };
 }
 
+// Las etiquetas og:image / og:url necesitan una URL absoluta. En Vercel se toma la del
+// propio despliegue (producción o prueba), para que la vista previa funcione también
+// mientras el dominio definitivo no esté activo. Fuera de Vercel se usa sublikat.cl.
+function siteUrlEnHtml() {
+  const host =
+    process.env.VERCEL_ENV === 'production'
+      ? process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+      : process.env.VERCEL_URL;
+  const siteUrl = host ? `https://${host}` : 'https://sublikat.cl';
+
+  return {
+    name: 'site-url-en-html',
+    transformIndexHtml: {
+      order: 'pre',
+      handler: (html) => html.replaceAll('%SITE_URL%', siteUrl)
+    }
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), copyHtmlImageAssets()],
+  plugins: [react(), copyHtmlImageAssets(), siteUrlEnHtml()],
   publicDir: 'public',
   build: {
     // Ninguna imagen se incrusta como data URI: las variantes AVIF/WebP de 480 px pesan ~4 KB
