@@ -6,8 +6,10 @@ import Benefits from './sections/Benefits/Benefits.jsx';
 import Catalog from './sections/Catalog/Catalog.jsx';
 import Contact from './sections/Contact/Contact.jsx';
 import Footer from './sections/Footer/Footer.jsx';
+import Gallery from './sections/Gallery/Gallery.jsx';
 import Hero from './sections/Hero/Hero.jsx';
 import Process from './sections/Process/Process.jsx';
+import Reviews from './sections/Reviews/Reviews.jsx';
 import WorkshopNotice from './sections/WorkshopNotice/WorkshopNotice.jsx';
 
 export default function App() {
@@ -22,7 +24,9 @@ export default function App() {
           <Benefits />
           <WorkshopNotice />
           <Catalog />
+          <Gallery />
           <Process />
+          <Reviews />
           <Contact />
         </div>
       </main>

@@ -6,6 +6,7 @@ import './styles/tokens.css';
 import './styles/components.css';
 import './styles/motion.css';
 import './styles/process.css';
+import './styles/galeria-resenas.css';
 
 const rootElement = document.getElementById('root');
 

@@ -2668,3 +2668,24 @@ html .product-card__media--cat .product-card__badge {
     transition: none;
   }
 }
+
+
+/* Logo del cliente sobre la foto de portada: tarjeta clara para que la
+   parte oscura del logotipo se lea sobre el velo de la foto. */
+html .od-portada__logo {
+        justify-self: start;
+        display: block;
+        inline-size: clamp(200px, 32vw, 460px);
+        padding: clamp(10px, 1.4vw, 18px) clamp(14px, 2vw, 26px);
+        border-radius: var(--radius);
+        background: color-mix(in srgb, var(--white) 88%, transparent);
+        -webkit-backdrop-filter: blur(6px);
+        backdrop-filter: blur(6px);
+        box-shadow: var(--e-sh-2);
+}
+
+html .od-portada__logo img {
+        display: block;
+        inline-size: 100%;
+        block-size: auto;
+}

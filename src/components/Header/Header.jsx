@@ -1,9 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import logoGato from '../../../assets/marca/logo-gato.png';
 
 const themeStorageKey = 'sublikat-tema';
 const navigationItems = [
   { href: '#tienda', label: 'Productos' },
+  { href: '#trabajos', label: 'Trabajos' },
   { href: '#proceso', label: 'Cómo trabajamos' },
+  { href: '#resenas', label: 'Opiniones' },
   { href: '#contacto', label: 'Contacto' }
 ];
 
@@ -252,34 +255,7 @@ export default function Header() {
           className="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-[var(--line)] rounded-lg"
         >
           <div className="w-11 h-11 bg-awning sticker-border flex items-center justify-center sticker-shadow-sm flex-shrink-0">
-            <svg
-              className="w-7 h-7 tx-ink"
-              viewBox="0 0 32 32"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polygon points="6,12 9,4 14,8" fill="#f3f1f8" />
-              <polygon points="26,12 23,4 18,8" fill="#f3f1f8" />
-              <path
-                d="M6 13C6 21 10 24 16 24C22 24 26 21 26 13C26 11 25 9 24 8C20 9.5 12 9.5 8 8C7 9 6 11 6 13Z"
-                fill="#ffffff"
-              />
-              <path d="M10 14Q12 11 14 14" strokeWidth="2.5" />
-              <path d="M18 14Q20 11 22 14" strokeWidth="2.5" />
-              <polygon
-                points="15,17 17,17 16,18.5"
-                fill="#413f4b"
-                stroke="none"
-              />
-              <path d="M14 19Q16 21 18 19" />
-              <line x1="7" y1="16" x2="4" y2="15" />
-              <line x1="7" y1="18" x2="4" y2="19" />
-              <line x1="25" y1="16" x2="28" y2="15" />
-              <line x1="25" y1="18" x2="28" y2="19" />
-            </svg>
+            <img src={logoGato} alt="" width="32" height="32" className="w-8 h-8" decoding="async" />
           </div>
           <div>
             <span className="font-display text-3xl leading-none tx-ink block">
