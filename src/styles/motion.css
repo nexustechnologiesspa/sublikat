@@ -300,8 +300,7 @@
    Los hijos de la pista NO llevan entrada propia: ya entran moviéndose en
    horizontal, y un `view()` sobre ellos mediría contra el carrusel de
    móvil (rango de cero) y los dejaría invisibles. */
-@media (min-width: 768px) {
-  @supports (animation-timeline: view()) {
+@supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       #beneficios .pin-intro {
         animation: od-pin-intro linear both;
@@ -314,7 +313,6 @@
         to   { opacity: 1; translate: 0 0; }
       }
     }
-  }
 }
 
 /* ---------- 7. Demos 5 y 6 · La foto del héroe ---------- */
@@ -628,3 +626,84 @@
 /* ---------- 14. Demo 6 · Aviso del taller ---------- */
 /* La franja del aviso usa `.od-reveal-soft` (sección 5): solo opacidad,
    igual que contacto. No necesita reglas propias. */
+
+/* ---------- 15. Galería · "Hecho en el taller" se arma al bajar ---------- */
+/* El mosaico conserva exactamente su forma (4 columnas en escritorio, 2 en
+   móvil, dos fotos altas y dos anchas). Lo que cambia es cómo llega: cada
+   foto parte desplazada, girada y algo más pequeña, y se acomoda en su
+   hueco a medida que entra en pantalla, como piezas que se encajan.
+
+   · Cada `<li>` mide su propia entrada con `view()`: las filas de abajo se
+     arman cuando llegan, no todas de golpe al abrir la sección.
+   · Los rangos terminan dentro de `entry` (como la regla de la sección 5):
+     una foto completamente visible está en su sitio y a opacidad 1.
+   · Se escalonan por posición (4n+1 … 4n) para que no encajen a la vez.
+   · Solo `opacity`, `translate`, `rotate` y `scale`: el hover de la foto usa
+     `scale` en la `<img>` (otro elemento) y no compite.
+   · El desplazamiento horizontal es corto en móvil para no empujar la
+     página hacia los lados. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    html .gal-grid {
+      --gal-x: 150px;
+      --gal-y: 100px;
+    }
+
+    @media (max-width: 767px) {
+      html .gal-grid {
+        --gal-x: 28px;
+        --gal-y: 70px;
+      }
+    }
+
+    html .gal-item {
+      --dx: 0;
+      --dy: 1;
+      --rot: 0deg;
+      animation: od-gal-armar linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    html .gal-item:nth-child(4n + 2) { animation-range: entry 8% entry 78%; }
+    html .gal-item:nth-child(4n + 3) { animation-range: entry 16% entry 86%; }
+    html .gal-item:nth-child(4n)     { animation-range: entry 24% entry 94%; }
+
+    /* De dónde llega cada pieza. */
+    html .gal-item:nth-child(1) { --dx: -1; --dy: 0.6; --rot: -8deg; }
+    html .gal-item:nth-child(2) { --dx: 0;  --dy: 1;   --rot: 5deg; }
+    html .gal-item:nth-child(3) { --dx: 1;  --dy: 0.6; --rot: 7deg; }
+    html .gal-item:nth-child(4) { --dx: 1;  --dy: 1;   --rot: -6deg; }
+    html .gal-item:nth-child(5) { --dx: -1; --dy: 1;   --rot: 6deg; }
+    html .gal-item:nth-child(6) { --dx: 0;  --dy: 1;   --rot: -5deg; }
+    html .gal-item:nth-child(7) { --dx: -1; --dy: 0.6; --rot: -7deg; }
+    html .gal-item:nth-child(8) { --dx: 1;  --dy: 0.6; --rot: 8deg; }
+
+    /* El rótulo aparece al final del encaje, cuando la foto ya está puesta. */
+    html .gal-item figcaption {
+      animation: od-gal-rotulo linear both;
+      animation-timeline: view();
+      animation-range: entry 55% entry 100%;
+    }
+
+    @keyframes od-gal-armar {
+      from {
+        opacity: 0;
+        translate: calc(var(--dx) * var(--gal-x)) calc(var(--dy) * var(--gal-y));
+        rotate: var(--rot);
+        scale: 0.86;
+      }
+      to {
+        opacity: 1;
+        translate: 0 0;
+        rotate: 0deg;
+        scale: 1;
+      }
+    }
+
+    @keyframes od-gal-rotulo {
+      from { opacity: 0; translate: 0 8px; }
+      to   { opacity: 1; translate: 0 0; }
+    }
+  }
+}

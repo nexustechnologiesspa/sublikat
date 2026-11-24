@@ -896,8 +896,7 @@ html .feature-card:hover .card-illustration {
    queda pegada y es la pista la que se desplaza, atada a la linea de
    tiempo de la seccion con `contain 0% → contain 100%` (exactamente el
    tramo en el que esta clavada). */
-@media (min-width: 768px) {
-  @supports (animation-timeline: view()) {
+@supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       html #beneficios {
         --pin-top: calc(var(--hh, 72px) + var(--od-portada-banda, 16px));
@@ -963,6 +962,46 @@ html .feature-card:hover .card-illustration {
         white-space: nowrap;
       }
 
+      /* ---------- móvil: misma pista clavada ---------- */
+      /* En móvil la fila era un carrusel con deslizamiento táctil. Con la
+         línea de tiempo disponible pasa a ser la misma pista que en
+         escritorio: la sección se clava y las tarjetas avanzan al bajar.
+         Hay que anular lo que `.swipe` pone en móvil (desborde con snap,
+         márgenes negativos, tarjetas al 82 %). Sin soporte o con
+         movimiento reducido nada de esto aplica y sigue el carrusel. */
+      @media (max-width: 767px) {
+        html #beneficios {
+          --pin-lado: 20px;
+          height: 230vh;
+        }
+
+        html #beneficios .pin-pista {
+          overflow: visible;
+          scroll-snap-type: none;
+          overscroll-behavior: auto;
+          margin-inline: 0;
+          padding-block: 12px;
+          gap: 16px;
+        }
+
+        html #beneficios .pin-pista > .feature-card {
+          flex: 0 0 min(78vw, 320px);
+        }
+
+        html #beneficios .pin-intro {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+
+        /* La pista ya no se desliza con el dedo: ni puntos ni sombras de borde. */
+        html #beneficios .dots,
+        html #beneficios .swipe-marco::before,
+        html #beneficios .swipe-marco::after {
+          display: none;
+        }
+      }
+
       /* La primera tarjeta se queda entera durante el primer tramo del
          recorrido clavado; recién después la pista empieza a moverse. */
       @keyframes od-pin-mover {
@@ -976,7 +1015,6 @@ html .feature-card:hover .card-illustration {
       }
     }
   }
-}
 
 /* ==========================================================
    Sublikat · Aviso de taller.
