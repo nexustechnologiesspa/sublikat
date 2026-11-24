@@ -1,0 +1,283 @@
+/* ==========================================================
+   Mockup: galería de trabajos terminados y reseñas.
+   Usa solo los tokens existentes para no salir de la identidad.
+   ========================================================== */
+
+html .gal,
+html .rev {
+  margin-top: var(--espacio-seccion);
+  scroll-margin-top: 96px;
+}
+
+/* Aviso visible de contenido de ejemplo (quitar antes de producción) */
+html .mockup-aviso {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--soft-2);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ---------- Galería ---------- */
+html .gal-head__lead,
+html .rev-head p:not(.mockup-aviso) {
+  color: var(--ink);
+  font-size: 17px;
+  font-weight: 600;
+  max-width: 560px;
+}
+
+html .gal-grid {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  html .gal-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 200px;
+    gap: 16px;
+  }
+  /* 8 fotos en 4 columnas x 3 filas: dos altas y dos anchas, sin huecos */
+  html .gal-item--alto {
+    grid-row: span 2;
+  }
+  html .gal-item--ancho {
+    grid-column: span 2;
+  }
+}
+
+html .gal-item figure {
+  position: relative;
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: var(--border-ink);
+  background: var(--soft-2);
+  box-shadow: var(--e-sh-1);
+}
+
+html .gal-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 0.6s var(--motion-ease-out);
+}
+
+html .gal-item figcaption {
+  position: absolute;
+  inset: auto 8px 8px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 12px;
+  box-shadow: var(--e-sh-1);
+}
+
+html .gal-item figcaption strong {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+html .gal-item figcaption span {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  html .gal-item figcaption {
+    inset: auto 6px 6px 6px;
+    padding: 6px 8px;
+  }
+  html .gal-item figcaption strong {
+    font-size: 12px;
+  }
+  html .gal-item figcaption span {
+    display: none;
+  }
+}
+
+@media (hover: hover) {
+  html .gal-item:hover img {
+    scale: 1.04;
+  }
+}
+
+/* ---------- Reseñas ---------- */
+html .rev-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+html .rev-score {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 14px 22px;
+  border-radius: var(--radius);
+  border: var(--border-ink);
+  background: var(--surface);
+  box-shadow: var(--e-sh-1);
+}
+
+html .rev-score__num {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--ink);
+}
+
+html .rev-score__count {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+html .rev-stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+html .rev-stars svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--line);
+}
+
+html .rev-stars svg.is-on {
+  fill: var(--star);
+}
+
+html .rev-grid {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  html .rev-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  html .rev-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+html .rev-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border-radius: var(--radius);
+  border: var(--border-ink);
+  background: var(--surface);
+  box-shadow: var(--e-sh-1);
+}
+
+html .rev-card blockquote {
+  margin: 0;
+  flex: 1;
+}
+
+html .rev-card blockquote p {
+  margin: 0;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+html .rev-card__autor {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line-soft);
+}
+
+html .rev-card__autor > span:last-child {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+html .rev-card__autor strong {
+  color: var(--ink);
+  font-size: 15px;
+}
+
+html .rev-card__avatar {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--awning);
+  color: var(--awning-ink);
+  border: 1px solid var(--line);
+  font-weight: 800;
+}
+
+html .rev-cta {
+  margin-top: 20px;
+  text-align: center;
+}
+
+html .rev-cta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border-radius: var(--radius);
+  border: var(--border-ink);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: var(--e-sh-1);
+}
+
+html .rev-cta a:hover {
+  background: var(--soft-2);
+}
+
+html .rev-cta a:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html .gal-item img {
+    transition: none;
+  }
+  html .gal-item:hover img {
+    scale: 1;
+  }
+}
